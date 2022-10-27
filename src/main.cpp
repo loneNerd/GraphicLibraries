@@ -1,6 +1,7 @@
 #include <exception>
 
 #include "engines/directx_11.h"
+#include "engines/directx_12.h"
 
 #include "ui/window_sdl2.h"
 
@@ -11,12 +12,13 @@ int main(int argc, char* argv[])
 {
     try
     {
-        WindowSDL2 window;
-        DirectX11 m_directx11(&window);
+        DirectX12 m_directx12;
+        //DirectX11 m_directx11;
 
         std::cout << "Start rendering" << std::endl;
-        while (window.render())
-            m_directx11.render();
+        while (WindowSDL2::getInstance().render())
+            m_directx12.render();
+            //m_directx11.render();
         std::cout << "Finish rendering" << std::endl;
     }
     catch (std::exception e)

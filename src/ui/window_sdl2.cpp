@@ -5,7 +5,7 @@ using namespace GraphicLibraries::UI;
 WindowSDL2::WindowSDL2()
     : m_event { SDL_FIRSTEVENT }
 {
-    std::cout << "Initializing SDL2 Window... ";
+    std::cout << "Initializing SDL2 Window" << std::endl;
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER))
         throw std::exception(SDL_GetError());
@@ -25,7 +25,7 @@ WindowSDL2::WindowSDL2()
 
 WindowSDL2::~WindowSDL2()
 {
-    std::cout << "Releasing SDL2 Window...";
+    std::cout << "Releasing SDL2 Window" << std::endl;
 
     if (m_renderer)
         SDL_DestroyRenderer(m_renderer);
@@ -35,7 +35,13 @@ WindowSDL2::~WindowSDL2()
 
     SDL_Quit();
 
-    std::cout << " Done";
+    std::cout << "Done" << std::endl;
+}
+
+WindowSDL2& WindowSDL2::getInstance()
+{
+    static WindowSDL2 instance;
+    return instance;
 }
 
 bool WindowSDL2::render()

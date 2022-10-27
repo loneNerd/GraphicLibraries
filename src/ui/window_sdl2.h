@@ -18,13 +18,14 @@ namespace UI
     class WindowSDL2
     {
     public:
-        WindowSDL2();
         ~WindowSDL2();
 
         WindowSDL2(const WindowSDL2& other)            = delete;
         WindowSDL2(WindowSDL2&& other)                 = delete;
         WindowSDL2& operator=(const WindowSDL2& other) = delete;
         WindowSDL2& operator=(WindowSDL2&& other)      = delete;
+
+        static WindowSDL2& getInstance();
 
         HWND getHWND() const;
         int getWidth() const;
@@ -35,6 +36,8 @@ namespace UI
         void setTitle(const char* title);
 
     private:
+        WindowSDL2();
+
         const int INITIAL_WIDTH  = 1280;
         const int INITIAL_HEIGHT = 720;
 

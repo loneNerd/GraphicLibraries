@@ -5,13 +5,9 @@
 // include the Direct3D Library file
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "D3DCompiler.lib")
-//#pragma comment (lib, "d3dx11.lib")
-//#pragma comment (lib, "d3dx10.lib")
 
 #include <d3d11.h>
 #include <D3Dcompiler.h>
-//#include <d3dx11.h>
-//#include <d3dx10.h>
 
 #include <array>
 #include <exception>
@@ -19,24 +15,21 @@
 #include <memory>
 #include <vector>
 
+#include <wrl.h>
+
+#include "utils.h"
 #include "ui/window_sdl2.h"
 
 namespace GraphicLibraries
 {
 namespace Engines
 {
-    struct Vertex
-    {
-        float x;
-        float y;
-        float z;
-        float color[4];
-    };
+    using namespace Microsoft::WRL;
 
     class DirectX11
     {
     public:
-        explicit DirectX11(UI::WindowSDL2* window);
+        DirectX11();
         ~DirectX11();
 
         DirectX11(const DirectX11& other)            = delete;
@@ -47,19 +40,25 @@ namespace Engines
         void render();
 
     private:
-        void initGraphics();
-        void initPipeline();
+        inline void throwIfFailed(HRESULT hr, const char* message)
+        {
+            if (FAILED(hr))
+                throw std::exception(std::string("DIRECTX 11: ").append(message).c_str());
+        }
 
-        UI::WindowSDL2* m_window               = nullptr;
+        HRESULT createSwapChain(ComPtr<ID3D11Device>& device);
+        HRESULT createBackBuffer(ComPtr<ID3D11Device>& device);
+        HRESULT createVertexBuffer(ComPtr<ID3D11Device>& device);
+        HRESULT mapSubresources();
 
-        IDXGISwapChain*         m_swapChain    = nullptr;
-        ID3D11Device*           m_device       = nullptr;
-        ID3D11DeviceContext*    m_context      = nullptr;
-        ID3D11RenderTargetView* m_targetView   = nullptr;
-        ID3D11InputLayout*      m_layout       = nullptr;
-        ID3D11VertexShader*     m_vertexShader = nullptr;
-        ID3D11PixelShader*      m_pixelShader  = nullptr;
-        ID3D11Buffer*           m_vertexBuffer = nullptr;
+        void initPipeline(ComPtr<ID3D11Device>& device);
+
+        const std::array<float, 4> m_backColor { 0.0f, 0.2f, 0.4f, 1.0f };
+
+        ComPtr<IDXGISwapChain>         m_swapChain    = nullptr;
+        ComPtr<ID3D11DeviceContext>    m_context      = nullptr;
+        ComPtr<ID3D11RenderTargetView> m_targetView   = nullptr;
+        ComPtr<ID3D11Buffer>           m_vertexBuffer = nullptr;
     };
 }
 }
