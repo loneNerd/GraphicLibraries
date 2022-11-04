@@ -28,6 +28,7 @@ namespace UI
         static WindowSDL2& getInstance();
 
         HWND getHWND() const;
+        HINSTANCE getHWNDInstance() const;
         int getWidth() const;
         int getHeight() const;
 

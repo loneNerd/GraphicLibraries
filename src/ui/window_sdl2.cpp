@@ -5,8 +5,6 @@ using namespace GraphicLibraries::UI;
 WindowSDL2::WindowSDL2()
     : m_event { SDL_FIRSTEVENT }
 {
-    std::cout << "Initializing SDL2 Window" << std::endl;
-
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER))
         throw std::exception(SDL_GetError());
 
@@ -19,14 +17,10 @@ WindowSDL2::WindowSDL2()
 
     m_renderer = SDL_CreateRenderer(m_window, -1,
                                     SDL_RENDERER_ACCELERATED);
-
-    std::cout << "Done" << std::endl;
 }
 
 WindowSDL2::~WindowSDL2()
 {
-    std::cout << "Releasing SDL2 Window" << std::endl;
-
     if (m_renderer)
         SDL_DestroyRenderer(m_renderer);
 
@@ -34,8 +28,6 @@ WindowSDL2::~WindowSDL2()
         SDL_DestroyWindow(m_window);
 
     SDL_Quit();
-
-    std::cout << "Done" << std::endl;
 }
 
 WindowSDL2& WindowSDL2::getInstance()
@@ -47,8 +39,23 @@ WindowSDL2& WindowSDL2::getInstance()
 bool WindowSDL2::render()
 {
     SDL_PollEvent(&m_event);
+
     switch (m_event.type)
     {
+        case SDL_KEYDOWN:
+        {
+            if (m_event.key.keysym.sym == SDLK_ESCAPE)
+                return false;
+
+            return true;
+        }
+        case SDL_WINDOWEVENT:
+        {
+            if (m_event.window.event == SDL_WINDOWEVENT_CLOSE)
+                return false;
+
+            return true;
+        }
         case SDL_QUIT:
         {
             return false;
@@ -58,9 +65,9 @@ bool WindowSDL2::render()
             return true;
         }
     }
+
     return true;
 }
-
 
 HWND WindowSDL2::getHWND() const
 {
@@ -68,6 +75,14 @@ HWND WindowSDL2::getHWND() const
     SDL_VERSION(&sysWMInfo.version);
     SDL_GetWindowWMInfo(m_window, &sysWMInfo);
     return sysWMInfo.info.win.window;
+}
+
+HINSTANCE WindowSDL2::getHWNDInstance() const
+{
+    SDL_SysWMinfo sysWMInfo;
+    SDL_VERSION(&sysWMInfo.version);
+    SDL_GetWindowWMInfo(m_window, &sysWMInfo);
+    return sysWMInfo.info.win.hinstance;
 }
 
 int WindowSDL2::getWidth() const

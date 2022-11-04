@@ -265,9 +265,9 @@ HRESULT DirectX12::createVertexBuffer(ComPtr<ID3D12Device>& device, ComPtr<ID3D1
     HRESULT result = S_OK;
     Vertex triangle[] =
     {
-        {  0.0f,  0.5f, 0.0f, { 1.0f, 0.0f, 0.0f, 1.0f } },
-        {  0.5f, -0.5f, 0.0f, { 0.0f, 1.0f, 0.0f, 1.0f } },
-        { -0.5f, -0.5f, 0.0f, { 0.0f, 0.0f, 1.0f, 1.0f } },
+        { {  0.0f,  0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
+        { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
+        { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } },
     };
 
     D3D12_HEAP_PROPERTIES properties;

@@ -11,6 +11,9 @@
     <ClCompile Include="..\src\engines\directx_12.cpp">
       <Filter>engines</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\engines\vulkan.cpp">
+      <Filter>engines</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ui\window_sdl2.h">
@@ -23,6 +26,9 @@
       <Filter>engines</Filter>
     </ClInclude>
     <ClInclude Include="..\src\utils.h" />
+    <ClInclude Include="..\src\engines\vulkan.h">
+      <Filter>engines</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="ui">
@@ -40,6 +46,9 @@
     <Filter Include="engines\shaders\directx_12">
       <UniqueIdentifier>{0f2f0729-8605-482a-8a90-dda0a460f668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engines\shaders\vulkan">
+      <UniqueIdentifier>{9ddc447e-8069-4d25-844b-3bd92157c3bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\src\engines\shaders\directx_11\pixel.hlsl">
@@ -54,5 +63,18 @@
     <FxCompile Include="..\src\engines\shaders\directx_12\vertex.hlsl">
       <Filter>engines\shaders\directx_12</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\src\engines\shaders\vulkan\fragment.frag">
+      <Filter>engines\shaders\vulkan</Filter>
+    </Text>
+    <Text Include="..\src\engines\shaders\vulkan\vertex.vert">
+      <Filter>engines\shaders\vulkan</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\engines\shaders\vulkan\compile.bat">
+      <Filter>engines\shaders\vulkan</Filter>
+    </None>
   </ItemGroup>
 </Project>
