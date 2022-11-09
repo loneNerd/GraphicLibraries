@@ -13,7 +13,7 @@ WindowSDL2::WindowSDL2()
                                 SDL_WINDOWPOS_CENTERED,
                                 INITIAL_WIDTH,
                                 INITIAL_HEIGHT,
-                                0);
+                                SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
     m_renderer = SDL_CreateRenderer(m_window, -1,
                                     SDL_RENDERER_ACCELERATED);

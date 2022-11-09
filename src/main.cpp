@@ -3,6 +3,7 @@
 #include "engines/directx_11.h"
 #include "engines/directx_12.h"
 #include "engines/vulkan.h"
+#include "engines/opengl.h"
 
 #include "ui/window_sdl2.h"
 
@@ -13,11 +14,11 @@ int main(int argc, char* argv[])
 {
     try
     {
-        Vulkan vulkan;
+        OpenGL openGL;
 
         std::cout << "Start rendering" << std::endl;
         while (WindowSDL2::getInstance().render())
-            vulkan.render();
+            openGL.render();
 
         std::cout << "Finish rendering" << std::endl;
     }

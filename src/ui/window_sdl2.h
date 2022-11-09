@@ -27,6 +27,7 @@ namespace UI
 
         static WindowSDL2& getInstance();
 
+        SDL_Window* getWindow() const { return m_window; }
         HWND getHWND() const;
         HINSTANCE getHWNDInstance() const;
         int getWidth() const;
