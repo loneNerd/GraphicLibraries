@@ -1,26 +1,33 @@
 #include <exception>
+#include <iostream>
+#include <memory>
 
-#include "engines/directx_11.h"
-#include "engines/directx_12.h"
-#include "engines/vulkan.h"
-#include "engines/opengl.h"
+#include "engines/render_interface.h"
+#include "windows/windows_interface.h"
+#include "render_factory.h"
 
-#include "ui/window_sdl2.h"
-
-using namespace GraphicLibraries::UI;
 using namespace GraphicLibraries::Engines;
+using namespace GraphicLibraries::Windows;
 
 int main(int argc, char* argv[])
 {
     try
     {
-        OpenGL openGL;
+        std::unique_ptr<IRender> render = std::unique_ptr<IRender>(getNewEngine());
+        render->init();
+
+        IWindow* window = render->getWindow();
 
         std::cout << "Start rendering" << std::endl;
-        while (WindowSDL2::getInstance().render())
-            openGL.render();
+        for(; !window->isClosed(); window->handleEvent())
+        {
+            render->newFrame();
+        }
 
         std::cout << "Finish rendering" << std::endl;
+        
+        render->release();
+        render = nullptr;
     }
     catch (std::exception e)
     {

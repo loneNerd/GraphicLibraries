@@ -9,6 +9,14 @@
 
 namespace GraphicLibraries
 {
+    enum class EEngines
+    {
+        DirectX11,
+        DirectX12,
+        OpenGL,
+        Vulkan
+    };
+
     struct Vertex
     {
         float position[3];
@@ -25,11 +33,11 @@ namespace GraphicLibraries
         wchar_t path[_MAX_PATH] = { 0 };
 
         if (_wsplitpath_s(moduleName, drive, _MAX_DRIVE, path, _MAX_PATH, nullptr, 0, nullptr, 0))
-            throw std::exception("DIRECTX 11: Can't split path");
+            throw std::exception("Can't split path");
 
         wchar_t filename[_MAX_PATH];
         if (_wmakepath_s(filename, _MAX_PATH, drive, path, name, nullptr))
-            throw std::exception("DIRECTX 11: Can't find vertex shader filename");
+            throw std::exception("Can't find filename");
 
         return filename;
     }
