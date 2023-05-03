@@ -44,8 +44,8 @@
     <ClInclude Include="..\src\vulkan.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\fragment.frag" />
-    <None Include="..\src\shaders\vertex.vert" />
+    <None Include="..\src\shaders\fragment.glsl" />
+    <None Include="..\src\shaders\vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

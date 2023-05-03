@@ -61,10 +61,10 @@
     <ClInclude Include="..\..\src\engines\render_interface.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\fragment.frag">
+    <None Include="..\src\shaders\fragment.glsl">
       <Filter>shaders</Filter>
     </None>
-    <None Include="..\src\shaders\vertex.vert">
+    <None Include="..\src\shaders\vertex.glsl">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

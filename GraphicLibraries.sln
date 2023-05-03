@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX12", "directx_12\bui
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vulkan", "vulkan\build\Vulkan.vcxproj", "{01D9796E-1387-413D-B8E2-96D3E7E90E9A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX11", "directx_11\builld\DirectX11.vcxproj", "{61FBC07A-9294-4560-9202-92AD6EF52C23}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX11", "directx_11\build\DirectX11.vcxproj", "{61FBC07A-9294-4560-9202-92AD6EF52C23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

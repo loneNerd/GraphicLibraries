@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\fragment.frag" />
-    <None Include="..\src\shaders\vertex.vert" />
+    <None Include="..\src\shaders\fragment.glsl" />
+    <None Include="..\src\shaders\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp" />

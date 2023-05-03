@@ -60,7 +60,7 @@ void OpenGL::init()
     if (glewStatus != 0)
         throw std::exception(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))).c_str());
 
-    compileShaders();
+    loadShaders();
 
     // create a triangle using the Vertex struct
     Vertex triangle[] =
@@ -159,8 +159,15 @@ void OpenGL::newFrame()
     SDL_GL_SwapWindow(m_window->getWindow());
 }
 
-void OpenGL::compileShaders()
+void OpenGL::loadShaders()
 {
+    m_shaderProgram = glCreateProgram();
+
+    compileShader(getFileFullPath(L"shaders\\vertex.glsl").c_str(), GL_VERTEX_SHADER);
+    compileShader(getFileFullPath(L"shaders\\fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
+
+    glLinkProgram(m_shaderProgram);
+    /*
     const char* tmp;
 
     // Retrive vertex source code
@@ -168,7 +175,7 @@ void OpenGL::compileShaders()
     std::ifstream vertexFile;
 
     vertexFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    vertexFile.open(getFileFullPath(L"shaders\\vertex.vert"));
+    vertexFile.open(getFileFullPath(L"shaders\\vertex.glsl"));
     std::stringstream vertexStream;
     vertexStream << vertexFile.rdbuf();
     vertexFile.close();
@@ -192,7 +199,7 @@ void OpenGL::compileShaders()
     std::ifstream fragmentFile;
 
     fragmentFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    fragmentFile.open(getFileFullPath(L"shaders\\fragment.frag"));
+    fragmentFile.open(getFileFullPath(L"shaders\\fragment.glsl"));
     std::stringstream fragmentStream;
     fragmentStream << fragmentFile.rdbuf();
     fragmentFile.close();
@@ -209,6 +216,32 @@ void OpenGL::compileShaders()
     glLinkProgram(m_shaderProgram);
 
     glDeleteShader(fragment);
+
+    checkError(m_shaderProgram, "Can't execute shader program");
+    */
+}
+
+void OpenGL::compileShader(const wchar_t* path, GLenum type)
+{
+    // Retrive vertex source code
+    std::ifstream file;
+    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    file.open(path);
+
+    std::stringstream stream;
+    stream << file.rdbuf();
+    file.close();
+    std::string code = stream.str();
+
+    // Compile vertex shader
+    unsigned id = glCreateShader(type);
+    const char* tmp = code.c_str();
+    glShaderSource(id, 1, &tmp, nullptr);
+    glCompileShader(id);
+    checkError(id, "Can't compile vertex shader");
+
+    glAttachShader(m_shaderProgram, id);
+    glDeleteShader(id);
 
     checkError(m_shaderProgram, "Can't execute shader program");
 }

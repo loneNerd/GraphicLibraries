@@ -54,7 +54,8 @@ namespace Engines
             }
         }
 
-        void compileShaders();
+        void loadShaders();
+        void compileShader(const wchar_t* path, GLenum type);
 
         Windows::SDL2Window* m_window;
         Widgets::FpsCounter* m_fpsCounter;
