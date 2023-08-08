@@ -19,34 +19,45 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\fragment.glsl" />
-    <None Include="..\src\shaders\vertex.glsl" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\widgets\fps_counter.cpp" />
     <ClCompile Include="..\..\src\windows\sdl2.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\src\2d_objects\triangle.cpp" />
     <ClCompile Include="..\src\opengl.cpp" />
+    <ClCompile Include="..\src\shader.cpp" />
+    <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\engines\render_interface.h" />
-    <ClInclude Include="..\..\src\utils.h" />
-    <ClInclude Include="..\..\src\widgets\fps_counter.h" />
-    <ClInclude Include="..\..\src\windows\sdl2.h" />
-    <ClInclude Include="..\..\src\windows\windows_interface.h" />
+    <ClInclude Include="..\..\src\engines\render_interface.hpp" />
+    <ClInclude Include="..\..\src\utils.hpp" />
+    <ClInclude Include="..\..\src\widgets\fps_counter.hpp" />
+    <ClInclude Include="..\..\src\windows\sdl2.hpp" />
+    <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_opengl3.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h" />
-    <ClInclude Include="..\src\opengl.h" />
-    <ClInclude Include="..\src\render_factory.h" />
+    <ClInclude Include="..\..\thirdparty\include\stb_image.h" />
+    <ClInclude Include="..\src\2d_objects\triangle.hpp" />
+    <ClInclude Include="..\src\mesh.hpp" />
+    <ClInclude Include="..\src\opengl.hpp" />
+    <ClInclude Include="..\src\render_factory.hpp" />
+    <ClInclude Include="..\src\shader.hpp" />
+    <ClInclude Include="..\src\texture.hpp" />
+    <ClInclude Include="..\src\vertex.hpp" />
+    <ClInclude Include="..\src\vertex_object.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\shaders\2d_simple_texture_fragment.glsl" />
+    <None Include="..\src\shaders\2d_single_color_fragment.glsl" />
+    <None Include="..\src\shaders\2d_vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -178,8 +189,9 @@ xcopy /Y $(SolutionDir)thirdparty\bins\x86\*.dll $(SolutionDir)bin\open_gl\$(Pla
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /S $(SolutionDir)open_gl\src\shaders\ $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\shaders\
-xcopy /Y /S $(SolutionDir)open_gl\src\shaders\ $(SolutionDir)open_gl\build\shaders\
-xcopy /Y $(SolutionDir)thirdparty\bins\x64\*.dll $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\</Command>
+xcopy /Y $(SolutionDir)thirdparty\bins\x64\*.dll $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\
+
+xcopy /Y /S $(SolutionDir)thirdparty\resources\ $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -200,8 +212,9 @@ xcopy /Y $(SolutionDir)thirdparty\bins\x64\*.dll $(SolutionDir)bin\open_gl\$(Pla
     </Link>
     <PostBuildEvent>
       <Command>xcopy /Y /S $(SolutionDir)open_gl\src\shaders\ $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\shaders\
-xcopy /Y /S $(SolutionDir)open_gl\src\shaders\ $(SolutionDir)open_gl\build\shaders\
-xcopy /Y $(SolutionDir)thirdparty\bins\x64\*.dll $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\</Command>
+xcopy /Y $(SolutionDir)thirdparty\bins\x64\*.dll $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\
+
+xcopy /Y /S $(SolutionDir)thirdparty\resources\ $(SolutionDir)bin\open_gl\$(Platform)\$(Configuration)\resources\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,7 +10,7 @@
 
 #include <vulkan/vulkan.h>
 
-#include "engines/render_interface.h"
+#include "engines/render_interface.hpp"
 
 namespace GraphicLibraries
 {
@@ -33,11 +33,17 @@ namespace Engines
 
         virtual void init()     override;
         virtual void release()  override;
-        virtual void newFrame() override;
+        virtual void newFrame(float dt) override;
 
         virtual Windows::IWindow* getWindow() const override { return reinterpret_cast<Windows::IWindow*>(m_window); }
 
     private:
+        struct Vertex
+        {
+            float position[3];
+            float color[4];
+        };
+
         inline void throwIfFailed(VkResult rs, const char* message)
         {
             if (rs != VK_SUCCESS)

@@ -2,8 +2,8 @@
 #ifndef GRAPHICLIBRARIES_OPEN_GL_RENDER_FACTORY_H_
 #define GRAPHICLIBRARIES_OPEN_GL_RENDER_FACTORY_H_
 
-#include "opengl.h"
-#include "windows/sdl2.h"
+#include "opengl.hpp"
+#include "windows/sdl2.hpp"
 
 namespace GraphicLibraries
 {

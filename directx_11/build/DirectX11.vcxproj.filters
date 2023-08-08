@@ -24,15 +24,15 @@
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_dx11.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\widgets\fps_counter.h">
+    <ClInclude Include="..\..\src\widgets\fps_counter.hpp">
       <Filter>widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\directx_11.h" />
-    <ClInclude Include="..\src\render_factory.h" />
-    <ClInclude Include="..\..\src\windows\win32.h" />
-    <ClInclude Include="..\..\src\windows\windows_interface.h" />
-    <ClInclude Include="..\..\src\utils.h" />
-    <ClInclude Include="..\..\src\engines\render_interface.h" />
+    <ClInclude Include="..\src\directx_11.hpp" />
+    <ClInclude Include="..\src\render_factory.hpp" />
+    <ClInclude Include="..\..\src\windows\win32.hpp" />
+    <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
+    <ClInclude Include="..\..\src\utils.hpp" />
+    <ClInclude Include="..\..\src\engines\render_interface.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_tables.cpp">

@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_vulkan.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -36,6 +33,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\windows\sdl2.cpp" />
+    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h">
@@ -44,21 +44,21 @@
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_vulkan.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\render_factory.h" />
-    <ClInclude Include="..\src\vulkan.h" />
-    <ClInclude Include="..\..\src\widgets\fps_counter.h">
+    <ClInclude Include="..\src\render_factory.hpp" />
+    <ClInclude Include="..\src\vulkan.hpp" />
+    <ClInclude Include="..\..\src\widgets\fps_counter.hpp">
       <Filter>widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\utils.h" />
-    <ClInclude Include="..\..\src\windows\sdl2.h" />
-    <ClInclude Include="..\..\src\windows\windows_interface.h" />
-    <ClInclude Include="..\..\src\engines\render_interface.h" />
+    <ClInclude Include="..\..\src\utils.hpp" />
+    <ClInclude Include="..\..\src\windows\sdl2.hpp" />
+    <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
+    <ClInclude Include="..\..\src\engines\render_interface.hpp" />
+    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\fragment.glsl">

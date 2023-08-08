@@ -18,9 +18,9 @@ namespace Engines
         IRender& operator=(const IRender& other) = delete;
         IRender& operator=(IRender&& other)      = delete;
 
-        virtual void init()     = 0;
-        virtual void release()  = 0;
-        virtual void newFrame() = 0;
+        virtual void init()             = 0;
+        virtual void release()          = 0;
+        virtual void newFrame(float dt) = 0;
 
         virtual Windows::IWindow* getWindow() const = 0;
 

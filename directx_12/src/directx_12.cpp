@@ -1,4 +1,4 @@
-#include "directx_12.h"
+#include "directx_12.hpp"
 
 #include <iostream>
 
@@ -6,10 +6,10 @@
 #include <imgui/imgui_impl_win32.h>
 #include <imgui/imgui_impl_dx12.h>
 
-#include "widgets/fps_counter.h"
-#include "windows/win32.h"
+#include "widgets/fps_counter.hpp"
+#include "windows/win32.hpp"
 
-#include "utils.h"
+#include "utils.hpp"
 
 using namespace GraphicLibraries::Engines;
 using namespace GraphicLibraries::Widgets;
@@ -174,7 +174,7 @@ void DirectX12::release()
     m_isInit = false;
 }
 
-void DirectX12::newFrame()
+void DirectX12::newFrame(float dt)
 {
     // Start the Dear ImGui frame
     ImGui_ImplDX12_NewFrame();

@@ -1,16 +1,16 @@
-#include "vulkan.h"
+#include "vulkan.hpp"
 
 #include <array>
 #include <iostream>
 
-#include <imgui/imgui_impl_sdl.h>
+#include <imgui/imgui_impl_sdl2.h>
 #include <imgui/imgui_impl_vulkan.h>
 
 #include <sdl2/SDL_vulkan.h>
 
-#include "utils.h"
-#include "widgets/fps_counter.h"
-#include "windows/sdl2.h"
+#include "utils.hpp"
+#include "widgets/fps_counter.hpp"
+#include "windows/sdl2.hpp"
 
 using namespace GraphicLibraries::Engines;
 using namespace GraphicLibraries::Widgets;
@@ -183,7 +183,7 @@ void Vulkan::release()
     m_isInit = false;
 }
 
-void Vulkan::newFrame()
+void Vulkan::newFrame(float dt)
 {
     //imgui new frame
     ImGui_ImplVulkan_NewFrame();

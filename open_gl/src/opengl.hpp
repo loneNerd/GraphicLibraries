@@ -1,18 +1,19 @@
 #pragma once
-#ifndef GRAPHICLIBRARIES_OPEN_GL_OPENGL_H_
-#define GRAPHICLIBRARIES_OPEN_GL_OPENGL_H_
+#ifndef GRAPHICLIBRARIES_OPEN_GL_OPENGL_HPP_
+#define GRAPHICLIBRARIES_OPEN_GL_OPENGL_HPP_
 
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "opengl32.lib")
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 #include <sdl2/SDL.h>
 
 #include <gl/glew.h>
 
-#include "engines/render_interface.h"
+#include "engines/render_interface.hpp"
+#include "2d_objects/triangle.hpp"
 
 namespace GraphicLibraries
 {
@@ -35,37 +36,21 @@ namespace Engines
 
         virtual void init() override;
         virtual void release() override;
-        virtual void newFrame() override;
+        virtual void newFrame(float dt) override;
 
         virtual Windows::IWindow* getWindow() const override { return reinterpret_cast<Windows::IWindow*>(m_window); }
 
     private:
         const char* m_glslVersion = "#version 460";
 
-        void checkError(int id, const char* message)
-        {
-            int success;
-            char infoLog[512];
-            glGetShaderiv(id, GL_COMPILE_STATUS, &success);
-            if (!success)
-            {
-                glGetShaderInfoLog(id, 512, nullptr, infoLog);
-                throw std::exception(std::string("OPENGL: ").append(message).c_str());
-            }
-        }
-
-        void loadShaders();
-        void compileShader(const wchar_t* path, GLenum type);
-
         Windows::SDL2Window* m_window;
         Widgets::FpsCounter* m_fpsCounter;
 
+        Objects2D::Triangle m_triangle;
+
         SDL_GLContext m_context;
-        unsigned m_shaderProgram;
-        unsigned m_vao;
-        unsigned m_vbo;
     };
 }
 }
 
-#endif // GRAPHICLIBRARIES_OPEN_GL_OPENGL_H_
+#endif // GRAPHICLIBRARIES_OPEN_GL_OPENGL_HPP_

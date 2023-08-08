@@ -24,24 +24,24 @@
     <ClCompile Include="..\..\src\windows\sdl2.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_vulkan.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\vulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\engines\render_interface.h" />
-    <ClInclude Include="..\..\src\utils.h" />
-    <ClInclude Include="..\..\src\widgets\fps_counter.h" />
-    <ClInclude Include="..\..\src\windows\sdl2.h" />
-    <ClInclude Include="..\..\src\windows\windows_interface.h" />
+    <ClInclude Include="..\..\src\engines\render_interface.hpp" />
+    <ClInclude Include="..\..\src\utils.hpp" />
+    <ClInclude Include="..\..\src\widgets\fps_counter.hpp" />
+    <ClInclude Include="..\..\src\windows\sdl2.hpp" />
+    <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h" />
-    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_vulkan.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h" />
-    <ClInclude Include="..\src\render_factory.h" />
-    <ClInclude Include="..\src\vulkan.h" />
+    <ClInclude Include="..\src\render_factory.hpp" />
+    <ClInclude Include="..\src\vulkan.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\fragment.glsl" />

@@ -1,4 +1,4 @@
-#include "fps_counter.h"
+#include "fps_counter.hpp"
 
 #include <iostream>
 

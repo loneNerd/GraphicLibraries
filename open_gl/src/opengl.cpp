@@ -1,14 +1,15 @@
-#include "opengl.h"
+#include "opengl.hpp"
 
 #include <iostream>
 #include <sstream>
 
-#include <imgui/imgui_impl_sdl.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_sdl2.h>
 #include <imgui/imgui_impl_opengl3.h>
 
-#include "utils.h"
-#include "widgets/fps_counter.h"
-#include "windows/sdl2.h"
+#include "utils.hpp"
+#include "widgets/fps_counter.hpp"
+#include "windows/sdl2.hpp"
 
 using namespace GraphicLibraries::Engines;
 using namespace GraphicLibraries::Widgets;
@@ -17,10 +18,7 @@ using namespace GraphicLibraries::Windows;
 OpenGL::OpenGL()
     : m_window { nullptr },
       m_fpsCounter { nullptr },
-      m_context { NULL },
-      m_shaderProgram { 0u },
-      m_vao { 0u },
-      m_vbo { 0u }
+      m_context { NULL }
 {
     m_isInit = false;
 }
@@ -40,7 +38,7 @@ void OpenGL::init()
     m_window = new SDL2Window;
 
     if (!m_window)
-        throw std::exception("OPENGL: Can't create sdl2 window");
+        throw std::runtime_error("OPENGL: Can't create sdl2 window");
 
     m_window->initForOpenGL();
     m_window->setTitle("OpenGL");
@@ -48,7 +46,7 @@ void OpenGL::init()
     m_context = SDL_GL_CreateContext(m_window->getWindow());
 
     if (m_context == NULL)
-        throw std::exception("OPENGL: Can't create SDL context");
+        throw std::runtime_error("OPENGL: Can't create SDL context");
 
     SDL_GL_MakeCurrent(m_window->getWindow(), m_context);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
@@ -58,34 +56,9 @@ void OpenGL::init()
     GLenum glewStatus = glewInit();
 
     if (glewStatus != 0)
-        throw std::exception(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))).c_str());
+        throw std::runtime_error(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))));
 
-    loadShaders();
-
-    // create a triangle using the Vertex struct
-    Vertex triangle[] =
-    {
-        { {  0.0f,  0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-        { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
-        { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } },
-    };
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-
-    glBindVertexArray(m_vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
-
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // Color attribute
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Vertex::position)));
-    glEnableVertexAttribArray(1);
+    m_triangle.init();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -102,7 +75,7 @@ void OpenGL::init()
     m_fpsCounter = new FpsCounter;
 
     if (!m_fpsCounter)
-        throw std::exception("OPENGL: Can't initialize FPS Counter widget");
+        throw std::runtime_error("OPENGL: Can't initialize FPS Counter widget");
 
     m_isInit = true;
 }
@@ -121,9 +94,7 @@ void OpenGL::release()
         m_fpsCounter = nullptr;
     }
 
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
-    glDeleteProgram(m_shaderProgram);
+    m_triangle.release();
 
     SDL_GL_DeleteContext(m_context);
 
@@ -137,14 +108,10 @@ void OpenGL::release()
     m_isInit = false;
 }
 
-void OpenGL::newFrame()
+void OpenGL::newFrame(float dt)
 {
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    glUseProgram(m_shaderProgram);
-    glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
 
     ImGui_ImplSDL2_ProcessEvent(&m_window->getEvent());
 
@@ -152,96 +119,19 @@ void OpenGL::newFrame()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
+    if (ImGui::Begin("Elements", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::SeparatorText("Triangle");
+        m_triangle.update(dt);
+    }
+
+    ImGui::End();
+
+    m_triangle.draw();
+
     m_fpsCounter->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     SDL_GL_SwapWindow(m_window->getWindow());
-}
-
-void OpenGL::loadShaders()
-{
-    m_shaderProgram = glCreateProgram();
-
-    compileShader(getFileFullPath(L"shaders\\vertex.glsl").c_str(), GL_VERTEX_SHADER);
-    compileShader(getFileFullPath(L"shaders\\fragment.glsl").c_str(), GL_FRAGMENT_SHADER);
-
-    glLinkProgram(m_shaderProgram);
-    /*
-    const char* tmp;
-
-    // Retrive vertex source code
-    std::string vertexCode;
-    std::ifstream vertexFile;
-
-    vertexFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    vertexFile.open(getFileFullPath(L"shaders\\vertex.glsl"));
-    std::stringstream vertexStream;
-    vertexStream << vertexFile.rdbuf();
-    vertexFile.close();
-    vertexCode = vertexStream.str();
-
-    // Compile vertex shader
-    unsigned vertex = glCreateShader(GL_VERTEX_SHADER);
-    tmp = vertexCode.c_str();
-    glShaderSource(vertex, 1, &tmp, nullptr);
-    glCompileShader(vertex);
-    checkError(vertex, "Can't compile vertex shader");
-
-    m_shaderProgram = glCreateProgram();
-    glAttachShader(m_shaderProgram, vertex);
-
-    glDeleteShader(vertex);
-    checkError(m_shaderProgram, "Can't execute shader program");
-
-    // Retrive fragment source code
-    std::string fragmentCode;
-    std::ifstream fragmentFile;
-
-    fragmentFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    fragmentFile.open(getFileFullPath(L"shaders\\fragment.glsl"));
-    std::stringstream fragmentStream;
-    fragmentStream << fragmentFile.rdbuf();
-    fragmentFile.close();
-    fragmentCode = fragmentStream.str();
-
-    // Compile fragment shader
-    unsigned fragment = glCreateShader(GL_FRAGMENT_SHADER);
-    tmp = fragmentCode.c_str();
-    glShaderSource(fragment, 1, &tmp, nullptr);
-    glCompileShader(fragment);
-    checkError(fragment, "Can't compile fragment shader");
-
-    glAttachShader(m_shaderProgram, fragment);
-    glLinkProgram(m_shaderProgram);
-
-    glDeleteShader(fragment);
-
-    checkError(m_shaderProgram, "Can't execute shader program");
-    */
-}
-
-void OpenGL::compileShader(const wchar_t* path, GLenum type)
-{
-    // Retrive vertex source code
-    std::ifstream file;
-    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-    file.open(path);
-
-    std::stringstream stream;
-    stream << file.rdbuf();
-    file.close();
-    std::string code = stream.str();
-
-    // Compile vertex shader
-    unsigned id = glCreateShader(type);
-    const char* tmp = code.c_str();
-    glShaderSource(id, 1, &tmp, nullptr);
-    glCompileShader(id);
-    checkError(id, "Can't compile vertex shader");
-
-    glAttachShader(m_shaderProgram, id);
-    glDeleteShader(id);
-
-    checkError(m_shaderProgram, "Can't execute shader program");
 }

@@ -7,7 +7,7 @@
 
 #include <sdl2/SDL.h>
 
-#include "windows_interface.h"
+#include "windows_interface.hpp"
 
 namespace GraphicLibraries
 {

@@ -2,8 +2,8 @@
 #ifndef GRAPHICLIBRARIES_VULKAN_RENDER_FACTORY_H_
 #define GRAPHICLIBRARIES_VULKAN_RENDER_FACTORY_H_
 
-#include "vulkan.h"
-#include "windows/sdl2.h"
+#include "vulkan.hpp"
+#include "windows/sdl2.hpp"
 
 namespace GraphicLibraries
 {

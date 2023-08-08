@@ -2,8 +2,8 @@
 #ifndef GRAPHICLIBRARIES_DIRECTX_12_RENDER_FACTORY_H_
 #define GRAPHICLIBRARIES_DIRECTX_12_RENDER_FACTORY_H_
 
-#include "directx_12.h"
-#include "windows/win32.h"
+#include "directx_12.hpp"
+#include "windows/win32.hpp"
 
 namespace GraphicLibraries
 {

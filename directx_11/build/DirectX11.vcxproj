@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\engines\render_interface.h" />
-    <ClInclude Include="..\..\src\utils.h" />
-    <ClInclude Include="..\..\src\widgets\fps_counter.h" />
-    <ClInclude Include="..\..\src\windows\win32.h" />
-    <ClInclude Include="..\..\src\windows\windows_interface.h" />
+    <ClInclude Include="..\..\src\engines\render_interface.hpp" />
+    <ClInclude Include="..\..\src\utils.hpp" />
+    <ClInclude Include="..\..\src\widgets\fps_counter.hpp" />
+    <ClInclude Include="..\..\src\windows\win32.hpp" />
+    <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_dx11.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_win32.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h" />
-    <ClInclude Include="..\src\directx_11.h" />
-    <ClInclude Include="..\src\render_factory.h" />
+    <ClInclude Include="..\src\directx_11.hpp" />
+    <ClInclude Include="..\src\render_factory.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp" />

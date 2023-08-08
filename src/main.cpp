@@ -1,13 +1,16 @@
+#include <chrono>
 #include <exception>
 #include <iostream>
 #include <memory>
 
-#include "engines/render_interface.h"
-#include "windows/windows_interface.h"
-#include "render_factory.h"
+#include "engines/render_interface.hpp"
+#include "windows/windows_interface.hpp"
+#include "render_factory.hpp"
 
 using namespace GraphicLibraries::Engines;
 using namespace GraphicLibraries::Windows;
+
+typedef std::chrono::high_resolution_clock Clock;
 
 int main(int argc, char* argv[])
 {
@@ -18,10 +21,18 @@ int main(int argc, char* argv[])
 
         IWindow* window = render->getWindow();
 
+        float deltaTime = 0.0;
+        Clock::time_point currentFrame = Clock::now();
+        Clock::time_point lastFrame = currentFrame;
+
         std::cout << "Start rendering" << std::endl;
         for(; !window->isClosed(); window->handleEvent())
         {
-            render->newFrame();
+            currentFrame = Clock::now();
+            deltaTime = std::chrono::duration_cast<std::chrono::duration<float, std::milli>>(currentFrame - lastFrame).count();
+            lastFrame = currentFrame;
+
+            render->newFrame(deltaTime);
         }
 
         std::cout << "Finish rendering" << std::endl;
