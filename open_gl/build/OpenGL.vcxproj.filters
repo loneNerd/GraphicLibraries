@@ -13,6 +13,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{baee5720-fe28-42d9-ba1e-a922b35b2bcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3d_objects">
+      <UniqueIdentifier>{f2e89582-b613-4bc8-9e6e-465324c26193}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\opengl.cpp" />
@@ -44,6 +47,7 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\src\texture.cpp" />
+    <ClCompile Include="..\src\resource_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\opengl.hpp" />
@@ -79,6 +83,8 @@
     </ClInclude>
     <ClInclude Include="..\src\texture.hpp" />
     <ClInclude Include="..\..\thirdparty\include\stb_image.h" />
+    <ClInclude Include="..\src\resource_manager.hpp" />
+    <ClInclude Include="..\src\resource.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\2d_single_color_fragment.glsl">

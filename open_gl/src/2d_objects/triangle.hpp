@@ -18,7 +18,7 @@ namespace Engines
 {
 namespace Objects2D
 {
-    class Triangle : VertexObject
+    class Triangle : public VertexObject
     {
     public:
         Triangle() { }
@@ -41,7 +41,6 @@ namespace Objects2D
         EColorType m_currentColorType = EColorType::ESingleColor;
 
         std::string m_texturePath = getFileFullPath("resources\\textures\\wood.png");
-        Texture m_texture;
 
         glm::vec4 m_color    = glm::vec4(0.0f, 0.75f, 0.0f, 1.0f);
         glm::vec2 m_position = glm::vec2(0.0f);

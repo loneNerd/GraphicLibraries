@@ -40,7 +40,6 @@ namespace Engines
         void checkCompileErrors(unsigned id, const char* message);
         void compile(const wchar_t* path, GLenum type);
 
-    private:
         bool m_isInit = false;
         unsigned m_id = 0;
     };

@@ -2,6 +2,7 @@
 #ifndef GRAPHICLIBRARIES_OPEN_GL_OPENGL_HPP_
 #define GRAPHICLIBRARIES_OPEN_GL_OPENGL_HPP_
 
+#pragma comment(lib, "assimp.lib")
 #pragma comment(lib, "glew32.lib")
 #pragma comment(lib, "opengl32.lib")
 

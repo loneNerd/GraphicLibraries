@@ -1,7 +1,5 @@
 #include "shader.hpp"
 
-using namespace GraphicLibraries::Engines;
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,6 +8,8 @@ using namespace GraphicLibraries::Engines;
 #include <glm/gtc/type_ptr.hpp>
 
 #include "utils.hpp"
+
+using namespace GraphicLibraries::Engines;
 
 void Shader::load(const wchar_t* vertexPath, const wchar_t* fragmentPath, const wchar_t* geometryPath)
 {

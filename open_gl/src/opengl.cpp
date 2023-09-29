@@ -8,6 +8,7 @@
 #include <imgui/imgui_impl_opengl3.h>
 
 #include "utils.hpp"
+#include "resource_manager.hpp"
 #include "widgets/fps_counter.hpp"
 #include "windows/sdl2.hpp"
 
@@ -105,6 +106,8 @@ void OpenGL::release()
         m_window = nullptr;
     }
 
+    ResourceManager::clear();
+
     m_isInit = false;
 }
 
@@ -128,10 +131,10 @@ void OpenGL::newFrame(float dt)
     ImGui::End();
 
     m_triangle.draw();
-
     m_fpsCounter->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
     SDL_GL_SwapWindow(m_window->getWindow());
+
+    ResourceManager::collectGarbage();
 }

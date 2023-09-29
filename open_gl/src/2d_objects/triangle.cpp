@@ -4,6 +4,7 @@
 
 #include <imgui/imgui.h>
 
+#include "resource_manager.hpp"
 #include "vertex.hpp"
 
 using namespace GraphicLibraries::Engines;
@@ -19,9 +20,9 @@ void Triangle::init()
     m_shaders[EColorType::ESimpleTexture].load(L"shaders\\2d_vertex.glsl",
                                                L"shaders\\2d_simple_texture_fragment.glsl");
 
-    m_texture.load(m_texturePath.c_str());
-
     Mesh newMesh { };
+
+    newMesh.Textures.emplace_back(ResourceManager::loadResource(m_texturePath.c_str()));
 
     newMesh.Vertices =
     {
@@ -30,13 +31,19 @@ void Triangle::init()
         { { -0.5f, -0.5f, 0.0f }, { 0.0f, 0.0f } }
     };
 
+    newMesh.Triangles = { 0, 1, 2 };
+
     glGenVertexArrays(1, &newMesh.VAO);
     glGenBuffers(1, &newMesh.VBO);
+    glGenBuffers(1, &newMesh.EBO);
 
     glBindVertexArray(newMesh.VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, newMesh.VBO);
     glBufferData(GL_ARRAY_BUFFER, newMesh.Vertices.size() * sizeof(Vertex), newMesh.Vertices.data(), GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, newMesh.EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, newMesh.Triangles.size() * sizeof(unsigned), newMesh.Triangles.data(), GL_STATIC_DRAW);
 
     // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -62,9 +69,16 @@ void Triangle::release()
     {
         glDeleteVertexArrays(1, &mesh.VAO);
         glDeleteBuffers(1, &mesh.VBO);
-    }
+        glDeleteBuffers(1, &mesh.EBO);
 
-    m_texture.release();
+        for (std::shared_ptr<Texture> texture : mesh.Textures)
+        {
+            texture->release();
+            texture = nullptr;
+        }
+
+        mesh.Textures.clear();
+    }
 
     m_isInit = false;
 }
@@ -84,21 +98,38 @@ void Triangle::update(float dt)
     }
     else if (m_currentColorType == EColorType::ESimpleTexture)
     {
-        if (ImGui::Button("Open New Texture"))
+        for (Mesh& mesh : m_meshes)
         {
-            std::string newFile = openFile();
-
-            if (newFile != m_texturePath)
+            for (std::shared_ptr<Texture>& texture : mesh.Textures)
             {
-                m_texturePath = newFile;
-                m_texture.release();
-                m_texture.load(m_texturePath.c_str());
+                if (ImGui::Button("Open New Texture"))
+                {
+                    std::string newFile = openFile();
+
+                    if (newFile != m_texturePath)
+                    {
+                        m_texturePath = newFile;
+                        texture->release();
+                        texture = nullptr;
+                        texture = ResourceManager::loadResource(m_texturePath.c_str());
+                    }
+                }
+
+                ImGui::Image((void*)(intptr_t)texture->getId(), ImVec2(192.0f, 128.0f));
             }
         }
-
-        ImGui::Image((void*)(intptr_t)m_texture.getId(), ImVec2(192.0f, 128.0f));
     }
 
+
+    float position[4] = { m_position.x, m_position.y, 0.0f, 0.0f };
+    if (ImGui::InputFloat3("Position", position))
+        m_position = glm::vec2(position[0], position[1]);
+
+    float size[4] = { m_size.x, m_size.y, 0.0f, 0.0f };
+    if (ImGui::InputFloat3("Size", size))
+        m_size = glm::vec2(size[0], size[1]);
+
+    ImGui::InputFloat("Rotation", &m_rotation, 1.0f, m_rotation, "%.2f");
 }
 
 void Triangle::draw()
@@ -106,32 +137,33 @@ void Triangle::draw()
     Shader& shader = m_shaders[m_currentColorType];
     shader.use();
 
-    if (m_currentColorType == EColorType::ESingleColor)
-        shader.setVector4f("color", m_color);
-    else if (m_currentColorType == EColorType::ESimpleTexture)
-    {
-        glActiveTexture(GL_TEXTURE0 + 1);
-        shader.setInteger("diff", 1);
-        m_texture.bind();
-    }
-
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(m_position, 0.0f));
-
-    model = glm::scale(model, glm::vec3(m_size, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * m_size, 0.0f));
     model = glm::rotate(model, glm::radians(m_rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * m_size, 0.0f));
+    model = glm::scale(model, glm::vec3(m_size, 1.0f));
 
     shader.setMatrix4("model", model);
 
     for (const Mesh& mesh : m_meshes)
-        glBindVertexArray(mesh.VAO);
+    {
+        if (m_currentColorType == EColorType::ESingleColor)
+            shader.setVector4f("color", m_color);
+        else if (m_currentColorType == EColorType::ESimpleTexture)
+        {
+            int i = 0;
+            for (const std::shared_ptr<Texture>& texture : mesh.Textures)
+            {
+                glActiveTexture(GL_TEXTURE0 + i);
+                shader.setInteger("diff", i);
+                texture->bind();
+                ++i;
+            }
+        }
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindVertexArray(mesh.VAO);
+        glDrawElements(GL_TRIANGLES, static_cast<unsigned>(mesh.Triangles.size()), GL_UNSIGNED_INT, 0);
+    }
 
     glBindVertexArray(0);
-
     glActiveTexture(GL_TEXTURE0);
 }

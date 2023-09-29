@@ -4,29 +4,47 @@
 
 #include <gl/glew.h>
 
+#include "resource.hpp"
+
 namespace GraphicLibraries
 {
 namespace Engines
 {
-    class Texture
+    enum class ETextureType
+    {
+        EDiffuse
+        //ENormals
+    };
+
+    class Texture : public IResource
     {
     public:
         Texture();
         ~Texture();
 
-        virtual void load( const char* path );
-        virtual void release() { }
+        Texture(const Texture& other) = delete;
+        Texture(Texture&& other) = delete;
+        Texture& operator=(const Texture& other) = delete;
+        Texture& operator=(Texture&& other) = delete;
+
+        virtual void load(const char* path) override;
+        virtual void release() override { }
         void bind() const;
 
         void flipTexture( bool flip ) { m_isFliped = flip; }
 
         unsigned getId() const { return m_id; }
 
+        bool isFliped() const { return m_isFliped; }
+        ETextureType getTextureType() const { return m_textureType; }
+
         unsigned getWrapS() const { return m_wrapS; }
         unsigned getWrapT() const { return m_wrapT; }
 
         unsigned getFilterMin() const { return m_filterMin; }
         unsigned getFilterMax() const { return m_filterMax; }
+
+        void setTextureType(ETextureType type) { m_textureType = type; }
 
         void setWrapS( unsigned wrapS ) { m_wrapS = wrapS; }
         void setWrapT( unsigned wrapT ) { m_wrapT = wrapT; }
@@ -37,6 +55,8 @@ namespace Engines
     private:
         // holds the ID of the texture object, used for all texture operations to reference to this particular texture
         unsigned m_id = 0;
+
+        ETextureType m_textureType = ETextureType::EDiffuse;
 
         // texture image dimensions
         // width and height of loaded image in pixels

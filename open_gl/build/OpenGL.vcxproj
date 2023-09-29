@@ -30,6 +30,7 @@
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\2d_objects\triangle.cpp" />
     <ClCompile Include="..\src\opengl.cpp" />
+    <ClCompile Include="..\src\resource_manager.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\texture.cpp" />
   </ItemGroup>
@@ -49,6 +50,8 @@
     <ClInclude Include="..\src\mesh.hpp" />
     <ClInclude Include="..\src\opengl.hpp" />
     <ClInclude Include="..\src\render_factory.hpp" />
+    <ClInclude Include="..\src\resource.hpp" />
+    <ClInclude Include="..\src\resource_manager.hpp" />
     <ClInclude Include="..\src\shader.hpp" />
     <ClInclude Include="..\src\texture.hpp" />
     <ClInclude Include="..\src\vertex.hpp" />
