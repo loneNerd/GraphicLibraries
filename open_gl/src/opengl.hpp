@@ -9,8 +9,6 @@
 #include <stdexcept>
 #include <string>
 
-#include <sdl2/SDL.h>
-
 #include <gl/glew.h>
 
 #include "engines/render_interface.hpp"
@@ -19,7 +17,7 @@
 namespace GraphicLibraries
 {
 
-namespace Windows { class SDL2Window; class IWindow; }
+namespace Windows { class GLFWWindow; class IWindow; }
 namespace Widgets { class FpsCounter; }
 
 namespace Engines
@@ -44,12 +42,10 @@ namespace Engines
     private:
         const char* m_glslVersion = "#version 460";
 
-        Windows::SDL2Window* m_window;
+        Windows::GLFWWindow* m_window;
         Widgets::FpsCounter* m_fpsCounter;
 
         Objects2D::Triangle m_triangle;
-
-        SDL_GLContext m_context;
     };
 }
 }

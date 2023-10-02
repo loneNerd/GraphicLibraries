@@ -20,7 +20,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\opengl.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\windows\sdl2.cpp" />
     <ClCompile Include="..\..\src\widgets\fps_counter.cpp">
       <Filter>widgets</Filter>
     </ClCompile>
@@ -43,16 +42,16 @@
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\texture.cpp" />
     <ClCompile Include="..\src\resource_manager.cpp" />
+    <ClCompile Include="..\..\src\windows\glfw.cpp" />
+    <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\opengl.hpp" />
     <ClInclude Include="..\..\src\engines\render_interface.hpp" />
-    <ClInclude Include="..\..\src\windows\sdl2.hpp" />
     <ClInclude Include="..\src\render_factory.hpp" />
     <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
     <ClInclude Include="..\..\src\widgets\fps_counter.hpp">
@@ -75,9 +74,6 @@
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_sdl2.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -85,6 +81,10 @@
     <ClInclude Include="..\..\thirdparty\include\stb_image.h" />
     <ClInclude Include="..\src\resource_manager.hpp" />
     <ClInclude Include="..\src\resource.hpp" />
+    <ClInclude Include="..\..\src\windows\glfw.hpp" />
+    <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_glfw.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\2d_single_color_fragment.glsl">

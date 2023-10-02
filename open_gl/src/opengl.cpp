@@ -4,13 +4,13 @@
 #include <sstream>
 
 #include <imgui/imgui.h>
-#include <imgui/imgui_impl_sdl2.h>
+#include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_opengl3.h>
 
 #include "utils.hpp"
 #include "resource_manager.hpp"
 #include "widgets/fps_counter.hpp"
-#include "windows/sdl2.hpp"
+#include "windows/glfw.hpp"
 
 using namespace GraphicLibraries::Engines;
 using namespace GraphicLibraries::Widgets;
@@ -18,40 +18,26 @@ using namespace GraphicLibraries::Windows;
 
 OpenGL::OpenGL()
     : m_window { nullptr },
-      m_fpsCounter { nullptr },
-      m_context { NULL }
+      m_fpsCounter { nullptr }
 {
     m_isInit = false;
 }
 
 OpenGL::~OpenGL()
 {
-    std::cout << "OpenGL Destructor" << std::endl;
-
     if (m_isInit)
         release();
 }
 
 void OpenGL::init()
 {
-    std::cout << "Initializing OpenGL" << std::endl;
-
-    m_window = new SDL2Window;
+    m_window = new GLFWWindow;
 
     if (!m_window)
         throw std::runtime_error("OPENGL: Can't create sdl2 window");
 
     m_window->initForOpenGL();
     m_window->setTitle("OpenGL");
-
-    m_context = SDL_GL_CreateContext(m_window->getWindow());
-
-    if (m_context == NULL)
-        throw std::runtime_error("OPENGL: Can't create SDL context");
-
-    SDL_GL_MakeCurrent(m_window->getWindow(), m_context);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
     glewExperimental = GL_TRUE;
     GLenum glewStatus = glewInit();
@@ -70,7 +56,7 @@ void OpenGL::init()
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
-    ImGui_ImplSDL2_InitForOpenGL(m_window->getWindow(), m_context);
+    ImGui_ImplGlfw_InitForOpenGL(m_window->getWindow(), true);
     ImGui_ImplOpenGL3_Init(m_glslVersion);
 
     m_fpsCounter = new FpsCounter;
@@ -83,10 +69,8 @@ void OpenGL::init()
 
 void OpenGL::release()
 {
-    std::cout << "Releasing OpenGL" << std::endl;
-
     ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
     if (m_fpsCounter)
@@ -96,8 +80,6 @@ void OpenGL::release()
     }
 
     m_triangle.release();
-
-    SDL_GL_DeleteContext(m_context);
 
     if (m_window)
     {
@@ -116,10 +98,8 @@ void OpenGL::newFrame(float dt)
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    ImGui_ImplSDL2_ProcessEvent(&m_window->getEvent());
-
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
     if (ImGui::Begin("Elements", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
@@ -134,7 +114,8 @@ void OpenGL::newFrame(float dt)
     m_fpsCounter->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    SDL_GL_SwapWindow(m_window->getWindow());
+    glfwSwapBuffers(m_window->getWindow());
+    glfwPollEvents();
 
     ResourceManager::collectGarbage();
 }

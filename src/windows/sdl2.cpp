@@ -1,6 +1,7 @@
 #include "sdl2.hpp"
 
 #include <iostream>
+#include <stdexcept>
 
 using namespace GraphicLibraries::Windows;
 
@@ -37,7 +38,7 @@ void SDL2Window::init()
     std::cout << "Initializing SDL2 Window" << std::endl;
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER))
-        throw std::exception(SDL_GetError());
+        throw std::runtime_error(SDL_GetError());
 
     m_window = SDL_CreateWindow("",
                                 SDL_WINDOWPOS_CENTERED,
@@ -47,7 +48,7 @@ void SDL2Window::init()
                                 SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI | m_flags);
 
     if (!m_window)
-        throw std::exception(SDL_GetError());
+        throw std::runtime_error(SDL_GetError());
 
     m_isInit = true;
     m_isClosed = false;

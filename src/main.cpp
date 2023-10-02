@@ -25,7 +25,6 @@ int main(int argc, char* argv[])
         Clock::time_point currentFrame = Clock::now();
         Clock::time_point lastFrame = currentFrame;
 
-        std::cout << "Start rendering" << std::endl;
         for(; !window->isClosed(); window->handleEvent())
         {
             currentFrame = Clock::now();
@@ -35,8 +34,6 @@ int main(int argc, char* argv[])
             render->newFrame(deltaTime);
         }
 
-        std::cout << "Finish rendering" << std::endl;
-        
         render->release();
         render = nullptr;
     }

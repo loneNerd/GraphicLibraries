@@ -3,7 +3,7 @@
 #define GRAPHICLIBRARIES_OPEN_GL_RENDER_FACTORY_H_
 
 #include "opengl.hpp"
-#include "windows/sdl2.hpp"
+#include "windows/glfw.hpp"
 
 namespace GraphicLibraries
 {
@@ -14,7 +14,7 @@ namespace Engines
 
 namespace Windows
 {
-    static IWindow* getNewWindow() { return new SDL2Window; }
+    static IWindow* getNewWindow() { return new GLFWWindow; }
 }
 }
 

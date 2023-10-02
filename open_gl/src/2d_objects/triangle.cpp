@@ -73,8 +73,11 @@ void Triangle::release()
 
         for (std::shared_ptr<Texture> texture : mesh.Textures)
         {
-            texture->release();
-            texture = nullptr;
+            if (texture)
+            {
+                texture->release();
+                texture = nullptr;
+            }
         }
 
         mesh.Textures.clear();
@@ -106,7 +109,7 @@ void Triangle::update(float dt)
                 {
                     std::string newFile = openFile();
 
-                    if (newFile != m_texturePath)
+                    if (newFile != m_texturePath && newFile != "")
                     {
                         m_texturePath = newFile;
                         texture->release();
