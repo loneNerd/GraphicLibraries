@@ -21,6 +21,8 @@
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\2d_objects\triangle.cpp" />
+    <ClCompile Include="..\src\3d_objects\cube.cpp" />
+    <ClCompile Include="..\src\camera.cpp" />
     <ClCompile Include="..\src\opengl.cpp" />
     <ClCompile Include="..\src\resource_manager.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
@@ -32,6 +34,7 @@
     <ClInclude Include="..\..\src\widgets\fps_counter.hpp" />
     <ClInclude Include="..\..\src\windows\glfw.hpp" />
     <ClInclude Include="..\..\src\windows\windows_interface.hpp" />
+    <ClInclude Include="..\..\src\windows\window_observers.hpp" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_glfw.h" />
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_opengl3.h" />
@@ -39,6 +42,8 @@
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_internal.h" />
     <ClInclude Include="..\..\thirdparty\include\stb_image.h" />
     <ClInclude Include="..\src\2d_objects\triangle.hpp" />
+    <ClInclude Include="..\src\3d_objects\cube.hpp" />
+    <ClInclude Include="..\src\camera.hpp" />
     <ClInclude Include="..\src\mesh.hpp" />
     <ClInclude Include="..\src\opengl.hpp" />
     <ClInclude Include="..\src\render_factory.hpp" />
@@ -53,6 +58,8 @@
     <None Include="..\src\shaders\2d_simple_texture_fragment.glsl" />
     <None Include="..\src\shaders\2d_single_color_fragment.glsl" />
     <None Include="..\src\shaders\2d_vertex.glsl" />
+    <None Include="..\src\shaders\3d_simple_texture_fragment.glsl" />
+    <None Include="..\src\shaders\3d_vertex.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

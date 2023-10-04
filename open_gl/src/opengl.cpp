@@ -18,7 +18,8 @@ using namespace GraphicLibraries::Windows;
 
 OpenGL::OpenGL()
     : m_window { nullptr },
-      m_fpsCounter { nullptr }
+      m_fpsCounter { nullptr },
+      m_camera { nullptr }
 {
     m_isInit = false;
 }
@@ -45,7 +46,12 @@ void OpenGL::init()
     if (glewStatus != 0)
         throw std::runtime_error(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))));
 
-    m_triangle.init();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_DEPTH_TEST);
+
+    //m_triangle.init();
+    m_cube.init();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -58,6 +64,19 @@ void OpenGL::init()
 
     ImGui_ImplGlfw_InitForOpenGL(m_window->getWindow(), true);
     ImGui_ImplOpenGL3_Init(m_glslVersion);
+
+    m_camera = new Camera(m_window);
+
+    if (!m_camera)
+        throw std::runtime_error("OPENGL: Can't initialize camera");
+
+    m_camera->setYaw(-90.0f);
+    m_camera->setPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+    m_camera->setWorldUp(glm::vec3(0.0f, 1.0f, 0.0f));
+    m_camera->setPerspectiveProjection(45.0f,
+                                       static_cast<float>(m_window->getWidth()) / static_cast<float>(m_window->getHeight()),
+                                       0.1f, 100.0f);
+    m_camera->updateVectors();
 
     m_fpsCounter = new FpsCounter;
 
@@ -73,13 +92,20 @@ void OpenGL::release()
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
+    if (m_camera)
+    {
+        delete m_camera;
+        m_camera = nullptr;
+    }
+
     if (m_fpsCounter)
     {
         delete m_fpsCounter;
         m_fpsCounter = nullptr;
     }
 
-    m_triangle.release();
+    //m_triangle.release();
+    m_cube.release();
 
     if (m_window)
     {
@@ -96,7 +122,7 @@ void OpenGL::release()
 void OpenGL::newFrame(float dt)
 {
     glClearColor(0.0f, 0.2f, 0.4f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -105,12 +131,15 @@ void OpenGL::newFrame(float dt)
     if (ImGui::Begin("Elements", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
     {
         ImGui::SeparatorText("Triangle");
-        m_triangle.update(dt);
+        //m_triangle.update(dt);
+        m_camera->update(dt);
+        m_cube.update(dt);
     }
 
     ImGui::End();
 
-    m_triangle.draw();
+    //m_triangle.draw(m_camera);
+    m_cube.draw(m_camera);
     m_fpsCounter->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

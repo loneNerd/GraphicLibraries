@@ -16,6 +16,8 @@ namespace GraphicLibraries
 {
 namespace Engines
 {
+    class Camera;
+
 namespace Objects2D
 {
     class Triangle : public VertexObject
@@ -27,7 +29,7 @@ namespace Objects2D
         virtual void init() override;
         virtual void release() override;
         virtual void update(float dt) override;
-        virtual void draw() override;
+        virtual void draw(Camera* camera) override;
 
     private:
         enum class EColorType

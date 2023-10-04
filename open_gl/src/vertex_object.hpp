@@ -10,16 +10,18 @@ namespace GraphicLibraries
 {
 namespace Engines
 {
+    class Camera;
+
     class VertexObject
     {
     public:
         VertexObject() { }
         virtual ~VertexObject() { }
 
-        virtual void init()           = 0;
-        virtual void release()        = 0;
-        virtual void update(float dt) = 0;
-        virtual void draw()           = 0;
+        virtual void init()               = 0;
+        virtual void release()            = 0;
+        virtual void update(float dt)     = 0;
+        virtual void draw(Camera* camera) = 0;
 
     protected:
         std::list<Mesh> m_meshes;

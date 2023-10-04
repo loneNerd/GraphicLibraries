@@ -28,7 +28,17 @@ namespace Windows
 
         virtual void handleEvent() override;
 
-        GLFWwindow* getWindow()     const { return m_window; }
+        bool getKeyStatus(int key) override;
+
+        virtual bool isLeftMouseBtn() override { return glfwGetMouseButton(m_window, GLFW_MOUSE_BUTTON_LEFT); }
+        virtual bool isRightMouseBtn() override { return glfwGetMouseButton(m_window, GLFW_MOUSE_BUTTON_RIGHT); }
+        virtual bool isMiddleMouseBtn() override { return glfwGetMouseButton(m_window, GLFW_MOUSE_BUTTON_MIDDLE); }
+
+        virtual void showCursor() override;
+        virtual void hideCursor() override;
+        virtual void toggleCursor() override;
+
+        GLFWwindow* getWindow() const { return m_window; }
 
         void setTitle(const char* title);
 

@@ -11,8 +11,10 @@
 
 #include <gl/glew.h>
 
+#include "camera.hpp"
 #include "engines/render_interface.hpp"
-#include "2d_objects/triangle.hpp"
+//#include "2d_objects/triangle.hpp"
+#include "3d_objects/cube.hpp"
 
 namespace GraphicLibraries
 {
@@ -45,7 +47,9 @@ namespace Engines
         Windows::GLFWWindow* m_window;
         Widgets::FpsCounter* m_fpsCounter;
 
-        Objects2D::Triangle m_triangle;
+        Camera* m_camera;
+        //Objects2D::Triangle m_triangle;
+        Objects3D::Cube m_cube;
     };
 }
 }

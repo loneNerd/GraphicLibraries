@@ -48,6 +48,10 @@
     <ClCompile Include="..\..\thirdparty\include\imgui\imgui_impl_glfw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\camera.cpp" />
+    <ClCompile Include="..\src\3d_objects\cube.cpp">
+      <Filter>3d_objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\opengl.hpp" />
@@ -85,6 +89,11 @@
     <ClInclude Include="..\..\thirdparty\include\imgui\imgui_impl_glfw.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\windows\window_observers.hpp" />
+    <ClInclude Include="..\src\camera.hpp" />
+    <ClInclude Include="..\src\3d_objects\cube.hpp">
+      <Filter>3d_objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\2d_single_color_fragment.glsl">
@@ -94,6 +103,12 @@
       <Filter>shaders</Filter>
     </None>
     <None Include="..\src\shaders\2d_simple_texture_fragment.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\3d_simple_texture_fragment.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\3d_vertex.glsl">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>

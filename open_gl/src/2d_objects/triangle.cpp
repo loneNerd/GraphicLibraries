@@ -135,7 +135,7 @@ void Triangle::update(float dt)
     ImGui::InputFloat("Rotation", &m_rotation, 1.0f, m_rotation, "%.2f");
 }
 
-void Triangle::draw()
+void Triangle::draw(Camera* camera)
 {
     Shader& shader = m_shaders[m_currentColorType];
     shader.use();
