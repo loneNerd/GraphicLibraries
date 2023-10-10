@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL", "open_gl\build\OpenGL.vcxproj", "{87BB318B-157B-4075-BCB1-FCB0DDAC9FD3}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX12", "directx_12\build\DirectX12.vcxproj", "{44F00C84-9CA4-45E0-AA8D-FE436FF7EDD4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX11", "directx_11\build\DirectX11.vcxproj", "{61FBC07A-9294-4560-9202-92AD6EF52C23}"
@@ -17,10 +15,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{87BB318B-157B-4075-BCB1-FCB0DDAC9FD3}.Debug|x64.ActiveCfg = Debug|x64
-		{87BB318B-157B-4075-BCB1-FCB0DDAC9FD3}.Debug|x64.Build.0 = Debug|x64
-		{87BB318B-157B-4075-BCB1-FCB0DDAC9FD3}.Release|x64.ActiveCfg = Release|x64
-		{87BB318B-157B-4075-BCB1-FCB0DDAC9FD3}.Release|x64.Build.0 = Release|x64
 		{44F00C84-9CA4-45E0-AA8D-FE436FF7EDD4}.Debug|x64.ActiveCfg = Debug|x64
 		{44F00C84-9CA4-45E0-AA8D-FE436FF7EDD4}.Debug|x64.Build.0 = Debug|x64
 		{44F00C84-9CA4-45E0-AA8D-FE436FF7EDD4}.Release|x64.ActiveCfg = Release|x64
