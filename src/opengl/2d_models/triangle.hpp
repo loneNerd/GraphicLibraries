@@ -33,7 +33,7 @@ namespace Models2D
         virtual void init() override;
         virtual void release() override;
         virtual void update(float dt) override;
-        virtual void draw(const std::shared_ptr<Objects::Camera> camera) override;
+        virtual void draw(const std::shared_ptr<Interfaces::ICamera> camera) override;
 
     private:
         enum class EColorType

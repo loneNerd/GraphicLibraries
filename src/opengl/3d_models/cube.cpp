@@ -5,10 +5,11 @@
 
 #include <imgui/imgui.h>
 
-#include "objects/camera.hpp"
+#include "interfaces/camera.hpp"
 #include "resource_manager.hpp"
 #include "types/vertex.hpp"
 
+using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;
 using namespace GraphicLibraries::OpenGL::Types;
 using namespace GraphicLibraries::OpenGL::Models3D;
@@ -155,7 +156,7 @@ void Cube::update(float dt)
         m_rotation = glm::vec3(glm::radians(rotation[0]), glm::radians(rotation[1]), glm::radians(rotation[2]));
 }
 
-void Cube::draw(const std::shared_ptr<Objects::Camera> camera)
+void Cube::draw(const std::shared_ptr<ICamera> camera)
 {
     m_shader.use();
 

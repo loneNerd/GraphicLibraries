@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
         std::unique_ptr<OpenGL> openGL = std::make_unique<OpenGL>();
         openGL->init();
 
-        GLFWWindow* window = openGL->getWindow();
+        std::shared_ptr<GLFWWindow> window = openGL->getWindow();
 
         float deltaTime = 0.0;
         Clock::time_point currentFrame = Clock::now();

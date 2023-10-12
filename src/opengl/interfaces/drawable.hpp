@@ -12,7 +12,7 @@ namespace GraphicLibraries
 namespace OpenGL
 {
 
-namespace Objects { class Camera; }
+namespace Interfaces { class ICamera; }
 
 namespace Interfaces
 {
@@ -31,7 +31,7 @@ namespace Interfaces
         virtual void release()            = 0;
         virtual void update(float dt)     = 0;
         //virtual void draw(Camera* camera) = 0;
-        virtual void draw(const std::shared_ptr<Objects::Camera> camera) = 0;
+        virtual void draw(const std::shared_ptr<Interfaces::ICamera> camera) = 0;
 
         const std::list<Types::Mesh>& getMeshes() const { return m_meshes; }
 

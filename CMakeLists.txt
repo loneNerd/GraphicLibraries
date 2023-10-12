@@ -181,7 +181,7 @@ foreach(CODE_FILE IN ITEMS ${CODE_LIST})
     string(REPLACE "\\" "/" GROUP_PATH "${CODE_FILE_RELATIVE_PATH}")
     # string(REPLACE "../thirdparty/include" "" GROUP_PATH "${GROUP_PATH}")
     file(RELATIVE_PATH EXTERNAL_INCLUDE_RELATIVE_PATH "${CMAKE_SOURCE_DIR}/src/opengl" "${EXTERNAL_INCLUDE_DIR}/")
-    string(REPLACE "../../build/external/include/" "" GROUP_PATH "${GROUP_PATH}")
+    string(REPLACE ${EXTERNAL_INCLUDE_RELATIVE_PATH} "" GROUP_PATH "${GROUP_PATH}")
     source_group("${GROUP_PATH}" FILES "${CODE_FILE}")
 endforeach()
 

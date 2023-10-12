@@ -7,6 +7,7 @@
 #include "types/vertex.hpp"
 #include "resource_manager.hpp"
 
+using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;
 using namespace GraphicLibraries::OpenGL::Types;
 using namespace GraphicLibraries::OpenGL::Models2D;
@@ -136,7 +137,7 @@ void Triangle::update(float dt)
     ImGui::InputFloat("Rotation", &m_rotation, 1.0f, m_rotation, "%.2f");
 }
 
-void Triangle::draw(const std::shared_ptr<Objects::Camera> camera)
+void Triangle::draw(const std::shared_ptr<ICamera> camera)
 {
     Shader& shader = m_shaders[m_currentColorType];
     shader.use();

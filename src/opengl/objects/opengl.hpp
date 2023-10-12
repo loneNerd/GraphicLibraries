@@ -8,7 +8,7 @@
 
 #include <GL/glew.h>
 
-#include "objects/camera.hpp"
+#include "objects/moveble_camera.hpp"
 //#include "2d_objects/triangle.hpp"
 #include "3d_models/cube.hpp"
 
@@ -37,15 +37,15 @@ namespace Objects
         void release();
         void newFrame(float dt);
 
-        Windows::GLFWWindow* getWindow() const { return m_window; }
+        std::shared_ptr<Windows::GLFWWindow> getWindow() const { return m_window; }
 
     private:
         const char* m_glslVersion = "#version 460";
 
-        Windows::GLFWWindow* m_window;
+        std::shared_ptr<Windows::GLFWWindow> m_window;
         Widgets::FpsCounter* m_fpsCounter;
 
-        std::shared_ptr<Camera> m_camera;
+        std::shared_ptr<MovebleCamera> m_camera;
         //Objects2D::Triangle m_triangle;
         Models3D::Cube m_cube;
 

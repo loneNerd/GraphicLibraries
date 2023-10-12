@@ -32,10 +32,10 @@ OpenGL::~OpenGL()
 
 void OpenGL::init()
 {
-    m_window = new GLFWWindow;
+    m_window = std::make_shared<GLFWWindow>();
 
     if (!m_window)
-        throw std::runtime_error("OPENGL: Can't create sdl2 window");
+        throw std::runtime_error("OPENGL: Can't create GLFW window");
 
     m_window->initForOpenGL();
     m_window->setTitle("OpenGL");
@@ -65,8 +65,7 @@ void OpenGL::init()
     ImGui_ImplGlfw_InitForOpenGL(m_window->getWindow(), true);
     ImGui_ImplOpenGL3_Init(m_glslVersion);
 
-    //m_camera = new Camera(m_window);
-    m_camera = std::make_shared<Camera>(m_window);
+    m_camera = std::make_shared<MovebleCamera>(m_window);
 
     if (!m_camera)
         throw std::runtime_error("OPENGL: Can't initialize camera");
@@ -95,7 +94,6 @@ void OpenGL::release()
 
     if (m_camera)
     {
-        //delete m_camera;
         m_camera = nullptr;
     }
 
@@ -111,7 +109,6 @@ void OpenGL::release()
     if (m_window)
     {
         m_window->release();
-        delete m_window;
         m_window = nullptr;
     }
 
