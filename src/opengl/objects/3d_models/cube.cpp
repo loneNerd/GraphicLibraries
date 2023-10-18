@@ -11,8 +11,8 @@
 
 using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;
+using namespace GraphicLibraries::OpenGL::Objects::Models3D;
 using namespace GraphicLibraries::OpenGL::Types;
-using namespace GraphicLibraries::OpenGL::Models3D;
 
 void Cube::init()
 {

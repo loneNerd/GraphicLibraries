@@ -12,7 +12,7 @@
 
 using namespace GraphicLibraries::OpenGL::Objects;
 
-MovebleCamera::MovebleCamera(std::shared_ptr<Windows::GLFWWindow> window)
+MovebleCamera::MovebleCamera(Windows::GLFWWindow* window)
 {
     if (!window)
         throw std::runtime_error("MOVEBLE CAMERA: window pointer is null");

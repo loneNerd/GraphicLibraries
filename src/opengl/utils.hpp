@@ -10,6 +10,7 @@
 
 #include <shobjidl.h>
 #include <windows.h>
+#include <GL/glew.h>
 
 namespace GraphicLibraries
 {

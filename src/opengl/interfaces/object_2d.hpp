@@ -55,6 +55,7 @@ namespace Interfaces
             model = glm::translate(model, glm::vec3(m_position, 0.0f));
             model = glm::rotate(model, glm::radians(m_rotation), glm::vec3(0.0f, 0.0f, 1.0f));
             model = glm::scale(model, glm::vec3(m_scale, 1.0f));
+            return model;
         }
 
     protected:

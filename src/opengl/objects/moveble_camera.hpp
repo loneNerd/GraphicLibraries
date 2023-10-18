@@ -20,7 +20,7 @@ namespace Objects
     class MovebleCamera : public Interfaces::ICamera, public Windows::IInputObserver
     {
     public:
-        MovebleCamera(std::shared_ptr<Windows::GLFWWindow> window);
+        MovebleCamera(Windows::GLFWWindow* window);
         virtual ~MovebleCamera();
 
         MovebleCamera(const MovebleCamera& other)            = delete;
@@ -43,7 +43,7 @@ namespace Objects
         virtual void mouseButtonPressedCallback(int button) override;
         virtual void mouseButtonReleaseCallback(int button) override;
 
-        std::shared_ptr<Windows::GLFWWindow> m_window = nullptr;
+        Windows::GLFWWindow* m_window = nullptr;
 
         float m_speed       = 0.01f;
         float m_sensitivity = 10.0f;

@@ -17,6 +17,8 @@ namespace GraphicLibraries
 {
 namespace OpenGL
 {
+namespace Objects
+{
 namespace Models3D
 {
     class Cube : public Interfaces::IDrawable, public Interfaces::IObject3D
@@ -42,6 +44,7 @@ namespace Models3D
 
         bool m_isInit = false;
     };
+}
 }
 }
 }

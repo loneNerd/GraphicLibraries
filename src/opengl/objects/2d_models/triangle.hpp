@@ -17,6 +17,8 @@ namespace GraphicLibraries
 {
 namespace OpenGL
 {
+namespace Objects
+{
 namespace Models2D
 {
     class Triangle : public Interfaces::IDrawable, public Interfaces::IObject2D
@@ -52,6 +54,7 @@ namespace Models2D
 
         bool m_isInit = false;
     };
+}
 }
 }
 }

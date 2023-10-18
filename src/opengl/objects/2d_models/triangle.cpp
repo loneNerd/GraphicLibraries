@@ -9,8 +9,8 @@
 
 using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;
+using namespace GraphicLibraries::OpenGL::Objects::Models2D;
 using namespace GraphicLibraries::OpenGL::Types;
-using namespace GraphicLibraries::OpenGL::Models2D;
 
 void Triangle::init()
 {
@@ -120,7 +120,7 @@ void Triangle::update(float dt)
                     }
                 }
 
-                ImGui::Image((void*)(intptr_t)texture->getId(), ImVec2(192.0f, 128.0f));
+                ImGui::Image((void*)(intptr_t)texture->getId(), ImVec2(128.0f, 128.0f));
             }
         }
     }

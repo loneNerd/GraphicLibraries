@@ -3,10 +3,8 @@
 #include <iostream>
 #include <memory>
 
-#include "objects/opengl.hpp"
 #include "windows/glfw.hpp"
 
-using namespace GraphicLibraries::OpenGL::Objects;
 using namespace GraphicLibraries::OpenGL::Windows;
 
 typedef std::chrono::high_resolution_clock Clock;
@@ -15,10 +13,8 @@ int main(int argc, char* argv[])
 {
     try
     {
-        std::unique_ptr<OpenGL> openGL = std::make_unique<OpenGL>();
-        openGL->init();
-
-        std::shared_ptr<GLFWWindow> window = openGL->getWindow();
+        std::unique_ptr<GLFWWindow> window = std::make_unique<GLFWWindow>();
+        window->init();
 
         float deltaTime = 0.0;
         Clock::time_point currentFrame = Clock::now();
@@ -30,11 +26,11 @@ int main(int argc, char* argv[])
             deltaTime = std::chrono::duration_cast<std::chrono::duration<float, std::milli>>(currentFrame - lastFrame).count();
             lastFrame = currentFrame;
 
-            openGL->newFrame(deltaTime);
+            window->newFrame(deltaTime);
         }
 
-        openGL->release();
-        openGL = nullptr;
+        window->release();
+        window = nullptr;
     }
     catch (std::exception e)
     {
