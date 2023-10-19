@@ -1,7 +1,5 @@
 #include "fps_counter.hpp"
 
-#include <iostream>
-
 #include <imgui/imgui.h>
 
 using namespace GraphicLibraries::OpenGL::Widgets;
@@ -20,5 +18,4 @@ void FpsCounter::draw()
     ImGui::Begin("FPS Counter", nullptr, windowFlags);
     ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
     ImGui::End();
-    ImGui::Render();
 }

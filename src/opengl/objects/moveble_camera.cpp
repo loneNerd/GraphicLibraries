@@ -3,8 +3,6 @@
 #include <iostream>
 #include <stdexcept>
 
-#include <glfw/glfw3.h>
-
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "windows/glfw.hpp"

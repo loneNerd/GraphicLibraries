@@ -1,5 +1,6 @@
 #include "glfw.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <stdexcept>
 
@@ -9,9 +10,9 @@
 
 #include "interfaces/level.hpp"
 #include "objects/levels/simple_2d.hpp"
-//#include "objects/renderer.hpp"
 #include "resource_manager.hpp"
 #include "widgets/fps_counter.hpp"
+#include "widgets/settings.hpp"
 #include "window_observers.hpp"
 
 using namespace GraphicLibraries::OpenGL::Interfaces;
@@ -52,22 +53,29 @@ void GLFWWindow::init()
     glfwSetKeyCallback(m_window,         setKeyCallback);
     glfwSetMouseButtonCallback(m_window, setMouseButtonCallback);
 
-    //m_renderer = std::make_unique<Renderer>();
-
-    //if (!m_renderer)
-    //    throw std::runtime_error("GLFW: Can't create opengl renderer");
-
-    //m_renderer->init(this);
-
     glewExperimental = GL_TRUE;
     GLenum glewStatus = glewInit();
 
     if (glewStatus != 0)
         throw std::runtime_error(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))));
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_DEPTH_TEST);
+    m_blendFunctions["GL_ZERO"]                     = GL_ZERO;
+    m_blendFunctions["GL_ONE"]                      = GL_ONE;
+    m_blendFunctions["GL_SRC_COLOR"]                = GL_SRC_COLOR;
+    m_blendFunctions["GL_ONE_MINUS_SRC_COLOR"]      = GL_ONE_MINUS_SRC_COLOR;
+    m_blendFunctions["GL_DST_COLOR"]                = GL_DST_COLOR;
+    m_blendFunctions["GL_ONE_MINUS_DST_COLOR"]      = GL_ONE_MINUS_DST_COLOR;
+    m_blendFunctions["GL_SRC_ALPHA"]                = GL_SRC_ALPHA;
+    m_blendFunctions["GL_ONE_MINUS_SRC_ALPHA"]      = GL_ONE_MINUS_SRC_ALPHA;
+    m_blendFunctions["GL_DST_ALPHA"]                = GL_DST_ALPHA;
+    m_blendFunctions["GL_ONE_MINUS_DST_ALPHA"]      = GL_ONE_MINUS_DST_ALPHA;
+    m_blendFunctions["GL_CONSTANT_COLOR"]           = GL_CONSTANT_COLOR;
+    m_blendFunctions["GL_ONE_MINUS_CONSTANT_COLOR"] = GL_ONE_MINUS_CONSTANT_COLOR;
+    m_blendFunctions["GL_CONSTANT_ALPHA"]           = GL_CONSTANT_ALPHA;
+    m_blendFunctions["GL_ONE_MINUS_CONSTANT_ALPHA"] = GL_ONE_MINUS_CONSTANT_ALPHA;
+
+    updateBlendStatus();
+    updateDepthTestStatus();
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -86,6 +94,11 @@ void GLFWWindow::init()
     if (!m_fpsCounter)
         throw std::runtime_error("OPENGL: Can't initialize FPS Counter widget");
 
+    m_settings = std::make_unique<Settings>();
+
+    if (!m_settings)
+        throw std::runtime_error("OPENGL: Can't initialize Settings widget");
+
     std::shared_ptr<ILevel> simple2D = std::make_shared<Simple2D>();
 
     if (!simple2D)
@@ -94,7 +107,7 @@ void GLFWWindow::init()
     simple2D->init(this);
     m_currentLevel = simple2D;
 
-    m_levels["simple_2d"] = simple2D;
+    m_levels["Simple 2D"] = simple2D;
 
     m_isInit = true;
     m_isClosed = false;
@@ -118,6 +131,9 @@ void GLFWWindow::release()
     }
 
     m_levels.clear();
+
+    if (m_settings)
+        m_settings = nullptr;
 
     if (m_fpsCounter)
         m_fpsCounter = nullptr;
@@ -146,16 +162,122 @@ void GLFWWindow::newFrame(float dt)
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    if (ImGui::Begin("Elements", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    m_fpsCounter->draw();
+    m_settings->draw();
+
+    int width, height;
+    glfwGetWindowSize(m_window, &width, &height);
+    ImVec2 size(350.0f, height);
+    ImVec2 pos(width - size.x, 0.0f);
+    ImGui::SetWindowSize(size);
+    ImGui::SetWindowPos(pos);
+
+    if (ImGui::CollapsingHeader("Window", ImGuiTreeNodeFlags_DefaultOpen))
     {
-        ImGui::SeparatorText("Triangle");
-        m_currentLevel->update(dt);
+        ImGui::NewLine();
+        ImGui::Text("Window Size: %d x %d", width, height);
+
+        ImGui::NewLine();
+
+        if (ImGui::Checkbox("Blend", &m_isBlend))
+            updateBlendStatus();
+
+        if (m_isBlend)
+        {
+            int counter = 0;
+
+            static size_t sfactorIdx = 0;
+            static size_t dfactorIdx = 0;
+            std::vector<const char*> factorValues;
+            std::transform(m_blendFunctions.begin(), m_blendFunctions.end(), std::back_inserter(factorValues),
+                [&](const std::map<std::string, GLenum>::value_type& val)
+                {
+                    if (val.second == m_sfactor)
+                        sfactorIdx = counter;
+
+                    if (val.second == m_dfactor)
+                        dfactorIdx = counter;
+
+                    ++counter;
+                    return val.first.c_str();
+                });
+
+            if (ImGui::BeginCombo("SFactor", factorValues[sfactorIdx], ImGuiComboFlags_PopupAlignLeft))
+            {
+                for (int n = 0; n < factorValues.size(); ++n)
+                {
+                    if (ImGui::Selectable(factorValues[n], sfactorIdx == n))
+                    {
+                        sfactorIdx = n;
+                        m_sfactor = m_blendFunctions.at(factorValues[sfactorIdx]);
+                        updateBlendStatus();
+                    }
+
+                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                    if (sfactorIdx == n)
+                        ImGui::SetItemDefaultFocus();
+                }
+
+                ImGui::EndCombo();
+            }
+
+            if (ImGui::BeginCombo("DFactor", factorValues[dfactorIdx], ImGuiComboFlags_PopupAlignLeft))
+            {
+                for (int n = 0; n < factorValues.size(); ++n)
+                {
+                    if (ImGui::Selectable(factorValues[n], dfactorIdx == n))
+                    {
+                        dfactorIdx = n;
+                        m_dfactor = m_blendFunctions.at(factorValues[dfactorIdx]);
+                        updateBlendStatus();
+                    }
+
+                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                    if (dfactorIdx == n)
+                        ImGui::SetItemDefaultFocus();
+                }
+
+                ImGui::EndCombo();
+            }
+        }
+
+        if (ImGui::Checkbox("Depth Test", &m_isDepthTest))
+            updateDepthTestStatus();
+
+        ImGui::NewLine();
+
+        static size_t levelIdx = 0;
+        std::vector< const char* > levelValues;
+        std::transform(m_levels.begin(), m_levels.end(), std::back_inserter(levelValues),
+            [](const std::map<std::string, std::shared_ptr<Interfaces::ILevel>>::value_type& val)
+            { return val.first.c_str(); });
+
+        if (ImGui::BeginCombo("Levels", levelValues[levelIdx], ImGuiComboFlags_PopupAlignLeft))
+        {
+            for (int n = 0; n < levelValues.size(); ++n)
+            {
+                if (ImGui::Selectable(levelValues[n], levelIdx == n))
+                    levelIdx = n;
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                if (levelIdx == n)
+                    ImGui::SetItemDefaultFocus();
+            }
+
+            ImGui::EndCombo();
+        }
+
+        m_currentLevel = m_levels.at(levelValues[levelIdx]);
     }
 
+    ImGui::NewLine();
+
+    m_currentLevel->update(dt);
+
     ImGui::End();
+    ImGui::Render();
 
     m_currentLevel->draw();
-    m_fpsCounter->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     glfwSwapBuffers(m_window);
@@ -259,4 +381,23 @@ void GLFWWindow::toggleCursor()
     m_isCursorDisable ?
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL) :
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+void GLFWWindow::updateBlendStatus()
+{
+    if (m_isBlend)
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(m_sfactor, m_dfactor);
+    }
+    else
+        glDisable(GL_BLEND);
+}
+
+void GLFWWindow::updateDepthTestStatus()
+{
+    if (m_isDepthTest)
+        glEnable(GL_DEPTH_TEST);
+    else
+        glDisable(GL_DEPTH_TEST);
 }
