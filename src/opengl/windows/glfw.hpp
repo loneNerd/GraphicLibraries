@@ -94,7 +94,7 @@ namespace Windows
         GLenum m_dfactor = GL_ONE_MINUS_SRC_ALPHA;
         std::map<std::string, GLenum> m_blendFunctions;
 
-        std::shared_ptr<Interfaces::ILevel> m_currentLevel = nullptr;
+        std::string m_currentLevel = "";
         std::map<std::string, std::shared_ptr<Interfaces::ILevel>> m_levels;
 
         std::unique_ptr<Widgets::FpsCounter> m_fpsCounter = nullptr;

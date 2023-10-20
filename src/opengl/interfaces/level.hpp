@@ -2,8 +2,9 @@
 #ifndef GRAPHIC_LIBRARIES_OPENGL_INTERFACES_LEVEL_HPP_
 #define GRAPHIC_LIBRARIES_OPENGL_INTERFACES_LEVEL_HPP_
 
-#include <list>
+#include <map>
 #include <memory>
+#include <string>
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -31,12 +32,13 @@ namespace Interfaces
 
         virtual void init(Windows::GLFWWindow* window) = 0;
         virtual void release()                         = 0;
+        virtual void updateUI()                        = 0;
         virtual void update(float dt)                  = 0;
         virtual void draw()                            = 0;
 
     protected:
-        std::shared_ptr<ICamera> m_currentCamera = nullptr;
-        std::list<std::shared_ptr<ICamera>> m_camerasList;
+        std::string m_currentCamera = "";
+        std::map<std::string, std::shared_ptr<ICamera>> m_cameras;
     };
 }
 }

@@ -28,10 +28,11 @@ namespace Levels
         Simple2D& operator=(const Simple2D& other) = delete;
         Simple2D& operator=(Simple2D&& other)      = delete;
 
-        void init(Windows::GLFWWindow* window) override;
-        void release() override;
-        void update(float dt) override;
-        void draw() override;
+        virtual void init(Windows::GLFWWindow* window) override;
+        virtual void release() override;
+        virtual void updateUI() override;
+        virtual void update(float dt) override;
+        virtual void draw() override;
 
     private:
         Windows::GLFWWindow* m_window = nullptr;

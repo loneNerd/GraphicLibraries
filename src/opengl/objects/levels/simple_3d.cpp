@@ -1,11 +1,11 @@
-#include "simple_2d.hpp"
+#include "simple_3d.hpp"
 
 #include <algorithm>
 
 #include <imgui/imgui.h>
 
 #include "interfaces/camera.hpp"
-#include "objects/2d_models/triangle.hpp"
+#include "objects/3d_models/cube.hpp"
 #include "objects/movable_camera.hpp"
 #include "resource_manager.hpp"
 #include "windows/glfw.hpp"
@@ -13,33 +13,33 @@
 using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;
 using namespace GraphicLibraries::OpenGL::Objects::Levels;
-using namespace GraphicLibraries::OpenGL::Objects::Models2D;
+using namespace GraphicLibraries::OpenGL::Objects::Models3D;
 using namespace GraphicLibraries::OpenGL::Windows;
 
-Simple2D::Simple2D()
+Simple3D::Simple3D()
 {
     m_isInit = false;
 }
 
-Simple2D::~Simple2D()
+Simple3D::~Simple3D()
 {
     if (m_isInit)
         release();
 }
 
-void Simple2D::init(Windows::GLFWWindow* window)
+void Simple3D::init(Windows::GLFWWindow* window)
 {
     if (!window)
-        throw std::runtime_error("SIMPLE 2D: Window is empty");
+        throw std::runtime_error("SIMPLE 3D: Window is empty");
 
     m_window = window;
 
-    m_triangle = std::make_unique<Triangle>();
+    m_cube = std::make_unique<Cube>();
 
-    if (!m_triangle)
-        throw std::runtime_error("SIMPLE 2D: Can't create triangle");
+    if (!m_cube)
+        throw std::runtime_error("SIMPLE 3D: Can't create cube");
 
-    m_triangle->init();
+    m_cube->init();
 
     std::shared_ptr<MovableCamera> camera = std::make_shared<MovableCamera>(m_window);
 
@@ -60,7 +60,7 @@ void Simple2D::init(Windows::GLFWWindow* window)
     m_isInit = true;
 }
 
-void Simple2D::release()
+void Simple3D::release()
 {
     for (auto& camera : m_cameras)
     {
@@ -70,10 +70,10 @@ void Simple2D::release()
 
     m_cameras.clear();
 
-    if (m_triangle)
+    if (m_cube)
     {
-        m_triangle->release();
-        m_triangle = nullptr;
+        m_cube->release();
+        m_cube = nullptr;
     }
 
     ResourceManager::clear();
@@ -81,7 +81,7 @@ void Simple2D::release()
     m_isInit = false;
 }
 
-void Simple2D::updateUI()
+void Simple3D::updateUI()
 {
     ImGui::NewLine();
 
@@ -120,17 +120,17 @@ void Simple2D::updateUI()
     if (ImGui::CollapsingHeader(m_currentCamera.c_str()))
         m_cameras[m_currentCamera]->updateUI();
 
-    if (ImGui::CollapsingHeader("Triangle"))
-        m_triangle->updateUI();
+    if (ImGui::CollapsingHeader("Cube"))
+        m_cube->updateUI();
 }
 
-void Simple2D::update(float dt)
+void Simple3D::update(float dt)
 {
     m_cameras[m_currentCamera]->update(dt);
-    m_triangle->update(dt);
+    m_cube->update(dt);
 }
 
-void Simple2D::draw()
+void Simple3D::draw()
 {
-    m_triangle->draw(m_cameras[m_currentCamera]);
+    m_cube->draw(m_cameras[m_currentCamera]);
 }

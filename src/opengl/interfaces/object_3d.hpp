@@ -23,15 +23,10 @@ namespace Interfaces
         IObject3D& operator=(const IObject3D& other) = delete;
         IObject3D& operator=(IObject3D&& other)      = delete;
 
-        //virtual const glm::vec3 getSize() const { return m_size * m_scale; }
-
         virtual glm::vec3 getPosition()       const { return m_position; }
         virtual glm::vec3 getScale()          const { return m_scale; }
         virtual glm::vec3 getRotationQuad()   const { return glm::radians(m_rotation); }
         virtual glm::vec3 getRotationDegree() const { return m_rotation; }
-        //virtual float getXAngle() const { return glm::degrees(m_rotation.x); }
-        //virtual float getYAngle() const { return glm::degrees(m_rotation.y); }
-        //virtual float getZAngle() const { return glm::degrees(m_rotation.z); }
 
         virtual void setPosition(glm::vec3 position) { m_position = position; }
         virtual void setScale(glm::vec3 scale)
@@ -88,7 +83,6 @@ namespace Interfaces
         virtual glm::mat4 getModelMatrix() const
         {
             glm::mat4 model = glm::mat4(1.0f);
-            //model = glm::translate(model, m_position + m_modelPosShift * m_scale);
             model = glm::translate(model, m_position);
             model *= glm::mat4_cast(glm::quat(glm::radians(m_rotation)));
             model = glm::scale(model, m_scale);
@@ -96,12 +90,9 @@ namespace Interfaces
         }
 
     protected:
-        //glm::vec3 m_size     = glm::vec3(0.0f);
         glm::vec3 m_position = glm::vec3(0.0f);
         glm::vec3 m_scale    = glm::vec3(1.0f);
         glm::vec3 m_rotation = glm::vec3(0.0f);
-
-        //glm::vec3 m_modelPosShift = glm::vec3(0.0f);
     };
 }
 }

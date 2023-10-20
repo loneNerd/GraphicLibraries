@@ -120,12 +120,28 @@ void Cube::release()
     m_isInit = false;
 }
 
-void Cube::update(float dt)
+void Cube::updateUI()
 {
+    ImGui::NewLine();
+
+    int meshCounter = 0;
     for (Mesh& mesh : m_meshes)
     {
+        ++meshCounter;
+        ImGui::Text("Mesh %d: ", meshCounter);
+        ImGui::Text("VAO: %d", mesh.VAO);
+        ImGui::Text("VBO: %d", mesh.VBO);
+        ImGui::Text("EBO: %d", mesh.EBO);
+        ImGui::Text("Vertices Count: %d", mesh.Vertices.size());
+        ImGui::Text("Textures Count: %d", mesh.Textures.size());
+        ImGui::Text("Triangles Count: %d", mesh.Triangles.size());
+
+        ImGui::NewLine();
+
         for (std::shared_ptr<Texture>& texture : mesh.Textures)
         {
+            ImGui::SeparatorText(texture->getPath());
+
             if (ImGui::Button("Open New Texture"))
             {
                 std::string newFile = openFile();
@@ -140,6 +156,8 @@ void Cube::update(float dt)
             }
 
             ImGui::Image((void*)(intptr_t)texture->getId(), ImVec2(128.0f, 128.0f));
+
+            ImGui::NewLine();
         }
     }
 
@@ -154,6 +172,13 @@ void Cube::update(float dt)
     float rotation[4] = { glm::degrees(m_rotation.x), glm::degrees(m_rotation.y), glm::degrees(m_rotation.z), 0.0f };
     if (ImGui::InputFloat3("Rotation", rotation))
         m_rotation = glm::vec3(glm::radians(rotation[0]), glm::radians(rotation[1]), glm::radians(rotation[2]));
+
+    ImGui::NewLine();
+}
+
+void Cube::update(float dt)
+{
+
 }
 
 void Cube::draw(const std::shared_ptr<ICamera> camera)

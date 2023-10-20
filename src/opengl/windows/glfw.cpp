@@ -10,6 +10,7 @@
 
 #include "interfaces/level.hpp"
 #include "objects/levels/simple_2d.hpp"
+#include "objects/levels/simple_3d.hpp"
 #include "resource_manager.hpp"
 #include "widgets/fps_counter.hpp"
 #include "widgets/settings.hpp"
@@ -102,12 +103,20 @@ void GLFWWindow::init()
     std::shared_ptr<ILevel> simple2D = std::make_shared<Simple2D>();
 
     if (!simple2D)
-        throw std::runtime_error("RENDERER: Can't create simple 2d level");
-
-    simple2D->init(this);
-    m_currentLevel = simple2D;
+        throw std::runtime_error("RENDERER: Can't create simple 2D level");
 
     m_levels["Simple 2D"] = simple2D;
+
+    std::shared_ptr<ILevel> simple3D = std::make_shared<Simple3D>();
+
+    if (!simple3D)
+        throw std::runtime_error("RENDERER: Can't create simple 3D level");
+
+    m_currentLevel = "Simple 3D";
+    m_levels["Simple 3D"] = simple3D;
+
+    m_currentLevel = "Simple 3D";
+    simple3D->init(this);
 
     m_isInit = true;
     m_isClosed = false;
@@ -172,9 +181,10 @@ void GLFWWindow::newFrame(float dt)
     ImGui::SetWindowSize(size);
     ImGui::SetWindowPos(pos);
 
-    if (ImGui::CollapsingHeader("Window", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Main Window"))
     {
         ImGui::NewLine();
+        ImGui::Text("Delta Time: %.3f", dt);
         ImGui::Text("Window Size: %d x %d", width, height);
 
         ImGui::NewLine();
@@ -185,7 +195,6 @@ void GLFWWindow::newFrame(float dt)
         if (m_isBlend)
         {
             int counter = 0;
-
             static size_t sfactorIdx = 0;
             static size_t dfactorIdx = 0;
             std::vector<const char*> factorValues;
@@ -243,41 +252,56 @@ void GLFWWindow::newFrame(float dt)
 
         if (ImGui::Checkbox("Depth Test", &m_isDepthTest))
             updateDepthTestStatus();
-
-        ImGui::NewLine();
-
-        static size_t levelIdx = 0;
-        std::vector< const char* > levelValues;
-        std::transform(m_levels.begin(), m_levels.end(), std::back_inserter(levelValues),
-            [](const std::map<std::string, std::shared_ptr<Interfaces::ILevel>>::value_type& val)
-            { return val.first.c_str(); });
-
-        if (ImGui::BeginCombo("Levels", levelValues[levelIdx], ImGuiComboFlags_PopupAlignLeft))
-        {
-            for (int n = 0; n < levelValues.size(); ++n)
-            {
-                if (ImGui::Selectable(levelValues[n], levelIdx == n))
-                    levelIdx = n;
-
-                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                if (levelIdx == n)
-                    ImGui::SetItemDefaultFocus();
-            }
-
-            ImGui::EndCombo();
-        }
-
-        m_currentLevel = m_levels.at(levelValues[levelIdx]);
     }
 
     ImGui::NewLine();
 
-    m_currentLevel->update(dt);
+    int counter = 0;
+    static size_t levelIdx = 0;
+    std::vector<const char*> levelValues;
+    std::transform(m_levels.begin(), m_levels.end(), std::back_inserter(levelValues),
+        [&](const std::map<std::string, std::shared_ptr<Interfaces::ILevel>>::value_type& val)
+        {
+            if (val.first == m_currentLevel)
+                levelIdx = counter;
+
+            ++counter;
+
+            return val.first.c_str();
+        });
+
+    if (ImGui::BeginCombo("Levels", levelValues[levelIdx], ImGuiComboFlags_PopupAlignLeft))
+    {
+        for (int n = 0; n < levelValues.size(); ++n)
+        {
+            if (ImGui::Selectable(levelValues[n], levelIdx == n))
+                levelIdx = n;
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (levelIdx == n)
+                ImGui::SetItemDefaultFocus();
+        }
+
+        ImGui::EndCombo();
+    }
+
+    if (m_currentLevel != levelValues[levelIdx])
+    {
+        m_levels[m_currentLevel]->release();
+        m_currentLevel = levelValues[levelIdx];
+        m_levels[m_currentLevel]->init(this);
+    }
+
+    ImGui::NewLine();
+
+    if (ImGui::CollapsingHeader(m_currentLevel.c_str()))
+        m_levels[m_currentLevel]->updateUI();
 
     ImGui::End();
     ImGui::Render();
 
-    m_currentLevel->draw();
+    m_levels[m_currentLevel]->update(dt);
+    m_levels[m_currentLevel]->draw();
 
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     glfwSwapBuffers(m_window);

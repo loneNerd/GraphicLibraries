@@ -21,6 +21,7 @@ namespace Interfaces
         ICamera& operator=(const ICamera& other) = delete;
         ICamera& operator=(ICamera&& other)      = delete;
 
+        virtual void updateUI()       = 0;
         virtual void update(float dt) = 0;
 
         virtual void setPosition(glm::vec3 pos)    { m_position = pos; }

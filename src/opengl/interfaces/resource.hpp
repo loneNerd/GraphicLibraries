@@ -2,6 +2,8 @@
 #ifndef GRAPHIC_LIBRARIES_OPENGL_INTERFACES_RESOURCE_HPP_
 #define GRAPHIC_LIBRARIES_OPENGL_INTERFACES_RESOURCE_HPP_
 
+#include <string>
+
 namespace GraphicLibraries
 {
 namespace OpenGL
@@ -21,6 +23,11 @@ namespace Interfaces
 
         virtual void load(const char* path) = 0;
         virtual void release() = 0;
+
+        virtual const char* getPath() const { return m_path.c_str(); }
+
+    protected:
+        std::string m_path;
     };
 }
 }

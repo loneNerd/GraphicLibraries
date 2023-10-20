@@ -27,10 +27,10 @@ namespace Interfaces
         IDrawable& operator=(const IDrawable& other) = delete;
         IDrawable& operator=(IDrawable&& other)      = delete;
 
-        virtual void init()               = 0;
-        virtual void release()            = 0;
-        virtual void update(float dt)     = 0;
-        //virtual void draw(Camera* camera) = 0;
+        virtual void init()           = 0;
+        virtual void release()        = 0;
+        virtual void updateUI()       = 0;
+        virtual void update(float dt) = 0;
         virtual void draw(const std::shared_ptr<Interfaces::ICamera> camera) = 0;
 
         const std::list<Types::Mesh>& getMeshes() const { return m_meshes; }

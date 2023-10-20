@@ -28,6 +28,8 @@ void Texture::load(const char* path)
     if (!data)
         throw std::runtime_error(std::string("Can't read texture file: ").append(path));
 
+    m_path = path;
+
     if (nrChannels == 1)
     {
         m_internalFormat = GL_RED;
