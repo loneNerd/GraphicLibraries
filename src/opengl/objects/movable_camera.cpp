@@ -30,6 +30,11 @@ void MovableCamera::updateUI()
 {
     ImGui::NewLine();
 
+    ImGui::Text("W, A, S, D, E, Q - movement");
+    ImGui::Text("Hold Right Mouse Button - rotation");
+
+    ImGui::NewLine();
+
     ImGui::InputFloat("Yaw", &m_yaw, 0.1f, m_yaw, "%.1f");
     ImGui::InputFloat("Pitch", &m_pitch, 0.1f, m_pitch, "%.1f");
 

@@ -9,6 +9,7 @@
 #include <imgui/backends/imgui_impl_opengl3.h>
 
 #include "interfaces/level.hpp"
+#include "objects/levels/external_model_showcase.hpp"
 #include "objects/levels/simple_2d.hpp"
 #include "objects/levels/simple_3d.hpp"
 #include "resource_manager.hpp"
@@ -60,22 +61,6 @@ void GLFWWindow::init()
     if (glewStatus != 0)
         throw std::runtime_error(std::string("OPENGL: ").append(reinterpret_cast<const char*>(glewGetErrorString(glewStatus))));
 
-    m_blendFunctions["GL_ZERO"]                     = GL_ZERO;
-    m_blendFunctions["GL_ONE"]                      = GL_ONE;
-    m_blendFunctions["GL_SRC_COLOR"]                = GL_SRC_COLOR;
-    m_blendFunctions["GL_ONE_MINUS_SRC_COLOR"]      = GL_ONE_MINUS_SRC_COLOR;
-    m_blendFunctions["GL_DST_COLOR"]                = GL_DST_COLOR;
-    m_blendFunctions["GL_ONE_MINUS_DST_COLOR"]      = GL_ONE_MINUS_DST_COLOR;
-    m_blendFunctions["GL_SRC_ALPHA"]                = GL_SRC_ALPHA;
-    m_blendFunctions["GL_ONE_MINUS_SRC_ALPHA"]      = GL_ONE_MINUS_SRC_ALPHA;
-    m_blendFunctions["GL_DST_ALPHA"]                = GL_DST_ALPHA;
-    m_blendFunctions["GL_ONE_MINUS_DST_ALPHA"]      = GL_ONE_MINUS_DST_ALPHA;
-    m_blendFunctions["GL_CONSTANT_COLOR"]           = GL_CONSTANT_COLOR;
-    m_blendFunctions["GL_ONE_MINUS_CONSTANT_COLOR"] = GL_ONE_MINUS_CONSTANT_COLOR;
-    m_blendFunctions["GL_CONSTANT_ALPHA"]           = GL_CONSTANT_ALPHA;
-    m_blendFunctions["GL_ONE_MINUS_CONSTANT_ALPHA"] = GL_ONE_MINUS_CONSTANT_ALPHA;
-
-    updateBlendStatus();
     updateDepthTestStatus();
 
     // Setup Dear ImGui context
@@ -112,11 +97,17 @@ void GLFWWindow::init()
     if (!simple3D)
         throw std::runtime_error("RENDERER: Can't create simple 3D level");
 
-    m_currentLevel = "Simple 3D";
     m_levels["Simple 3D"] = simple3D;
 
-    m_currentLevel = "Simple 3D";
-    simple3D->init(this);
+    std::shared_ptr<ILevel> externalModelShowcase = std::make_shared<ExternalModelShowcase>();
+
+    if (!externalModelShowcase)
+        throw std::runtime_error("RENDERER: Can't create ExternalModelShowcase level");
+
+    m_levels["External Model Showcase"] = externalModelShowcase;
+
+    m_currentLevel = "External Model Showcase";
+    externalModelShowcase->init(this);
 
     m_isInit = true;
     m_isClosed = false;
@@ -188,67 +179,6 @@ void GLFWWindow::newFrame(float dt)
         ImGui::Text("Window Size: %d x %d", width, height);
 
         ImGui::NewLine();
-
-        if (ImGui::Checkbox("Blend", &m_isBlend))
-            updateBlendStatus();
-
-        if (m_isBlend)
-        {
-            int counter = 0;
-            static size_t sfactorIdx = 0;
-            static size_t dfactorIdx = 0;
-            std::vector<const char*> factorValues;
-            std::transform(m_blendFunctions.begin(), m_blendFunctions.end(), std::back_inserter(factorValues),
-                [&](const std::map<std::string, GLenum>::value_type& val)
-                {
-                    if (val.second == m_sfactor)
-                        sfactorIdx = counter;
-
-                    if (val.second == m_dfactor)
-                        dfactorIdx = counter;
-
-                    ++counter;
-                    return val.first.c_str();
-                });
-
-            if (ImGui::BeginCombo("SFactor", factorValues[sfactorIdx], ImGuiComboFlags_PopupAlignLeft))
-            {
-                for (int n = 0; n < factorValues.size(); ++n)
-                {
-                    if (ImGui::Selectable(factorValues[n], sfactorIdx == n))
-                    {
-                        sfactorIdx = n;
-                        m_sfactor = m_blendFunctions.at(factorValues[sfactorIdx]);
-                        updateBlendStatus();
-                    }
-
-                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                    if (sfactorIdx == n)
-                        ImGui::SetItemDefaultFocus();
-                }
-
-                ImGui::EndCombo();
-            }
-
-            if (ImGui::BeginCombo("DFactor", factorValues[dfactorIdx], ImGuiComboFlags_PopupAlignLeft))
-            {
-                for (int n = 0; n < factorValues.size(); ++n)
-                {
-                    if (ImGui::Selectable(factorValues[n], dfactorIdx == n))
-                    {
-                        dfactorIdx = n;
-                        m_dfactor = m_blendFunctions.at(factorValues[dfactorIdx]);
-                        updateBlendStatus();
-                    }
-
-                    // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                    if (dfactorIdx == n)
-                        ImGui::SetItemDefaultFocus();
-                }
-
-                ImGui::EndCombo();
-            }
-        }
 
         if (ImGui::Checkbox("Depth Test", &m_isDepthTest))
             updateDepthTestStatus();
@@ -405,17 +335,6 @@ void GLFWWindow::toggleCursor()
     m_isCursorDisable ?
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL) :
         glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-}
-
-void GLFWWindow::updateBlendStatus()
-{
-    if (m_isBlend)
-    {
-        glEnable(GL_BLEND);
-        glBlendFunc(m_sfactor, m_dfactor);
-    }
-    else
-        glDisable(GL_BLEND);
 }
 
 void GLFWWindow::updateDepthTestStatus()

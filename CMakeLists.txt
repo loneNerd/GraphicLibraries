@@ -15,6 +15,25 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/opengl/${CMAKE_SYSTEM_NAME}/${CMAKE_GENERATOR_PLATFORM})
 set(EXTERNAL_INCLUDE_DIR ${CMAKE_BINARY_DIR}/external/include)
 set(EXTERNAL_SOURCE_DIR ${CMAKE_BINARY_DIR}/external/src)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(CMAKE_DEBUG_POSTFIX "" CACHE BOOL "" FORCE)
+set(LIBRARY_SUFFIX "" CACHE BOOL "" FORCE)
+
+#################################################################################################################################################
+###   ASSIMP   ##################################################################################################################################
+#################################################################################################################################################
+
+file(ARCHIVE_EXTRACT INPUT ${CMAKE_SOURCE_DIR}/thirdparty/external_libs/assimp-5.3.1.zip DESTINATION ${EXTERNAL_SOURCE_DIR}/)
+set(ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL OFF FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_FBX_IMPORTER ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_OBJ_IMPORTER ON CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ZLIB ON CACHE BOOL "" FORCE)
+set(ASSIMP_LIBRARY_SUFFIX "" CACHE BOOL "" FORCE)
+set(ASSIMP_INJECT_DEBUG_POSTFIX OFF CACHE BOOL "" FORCE)
+add_subdirectory(${EXTERNAL_SOURCE_DIR}/assimp-5.3.1)
 
 #################################################################################################################################################
 ###   GLFW   ####################################################################################################################################
@@ -167,7 +186,7 @@ add_executable(${OPENGL_PROJECT} ${CODE_LIST})
 
 target_compile_features(${OPENGL_PROJECT} PRIVATE cxx_std_17)
 
-target_link_libraries(${OPENGL_PROJECT} glfw glew_s)#assimp glfw3 freetype)
+target_link_libraries(${OPENGL_PROJECT} assimp glfw glew_s)#glfw3 freetype)
 
 if(UNIX)
     target_link_libraries(${OPENGL_PROJECT} X11)

@@ -7,7 +7,6 @@
 
 #include "interfaces/camera.hpp"
 #include "resource_manager.hpp"
-#include "types/vertex.hpp"
 
 using namespace GraphicLibraries::OpenGL::Interfaces;
 using namespace GraphicLibraries::OpenGL::Objects;

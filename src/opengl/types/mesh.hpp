@@ -6,13 +6,15 @@
 #include <memory>
 #include <vector>
 
-#include "objects/texture.hpp"
 #include "vertex.hpp"
 
 namespace GraphicLibraries
 {
 namespace OpenGL
 {
+ 
+namespace Objects { class Texture; }
+
 namespace Types
 {
     struct Mesh

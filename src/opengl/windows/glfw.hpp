@@ -80,19 +80,13 @@ namespace Windows
         static const int INITIAL_HEIGHT = 720;
 
     private:
-        void updateBlendStatus();
         void updateDepthTestStatus();
 
         GLFWwindow* m_window = nullptr;
 
         const char* m_glslVersion = "#version 460";
 
-        bool m_isBlend     = true;
         bool m_isDepthTest = true;
-
-        GLenum m_sfactor = GL_SRC_ALPHA;
-        GLenum m_dfactor = GL_ONE_MINUS_SRC_ALPHA;
-        std::map<std::string, GLenum> m_blendFunctions;
 
         std::string m_currentLevel = "";
         std::map<std::string, std::shared_ptr<Interfaces::ILevel>> m_levels;
