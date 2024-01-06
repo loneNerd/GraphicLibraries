@@ -4,11 +4,7 @@
 
 #include <chrono>
 
-namespace Engine
-{
-namespace Tools
-{
-namespace Time
+namespace Engine::Tools::Time
 {
     class Clock
     {
@@ -60,8 +56,6 @@ namespace Time
         float m_deltaTime      = 0.0f;
         float m_timeSinceStart = 0.0f;
     };
-}
-}
 }
 
 #endif // ENGINE_TOOLS_TIME_CLOCK_HPP_

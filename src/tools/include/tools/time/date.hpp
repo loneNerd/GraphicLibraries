@@ -1,20 +1,17 @@
 #pragma once
-#ifndef ENGINE_TOOLS_DATE_HPP_
-#define ENGINE_TOOLS_DATE_HPP_
+#ifndef ENGINE_TOOLS_TIME_DATE_HPP_
+#define ENGINE_TOOLS_TIME_DATE_HPP_
 
 #include <ctime>
 #include <string>
 
-namespace Engine
-{
-namespace Tools
-{
-namespace Time
+namespace Engine::Tools::Time
 {
     class Date
     {
     public:
         Date() = delete;
+
         static inline std::string GetDateAsString()
         {
             std::string date;
@@ -50,7 +47,5 @@ namespace Time
         }
     };
 }
-}
-}
 
-#endif // ENGINE_TOOLS_DATE_HPP_
+#endif // ENGINE_TOOLS_TIME_DATE_HPP_

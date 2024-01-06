@@ -17,7 +17,8 @@ if(MSVC)
 endif()
 
 set(ENGINE_EXTERNAL_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/thirdparty/include)
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 set(CMAKE_DEBUG_POSTFIX "" CACHE BOOL "" FORCE)
 set(LIBRARY_SUFFIX "" CACHE BOOL "" FORCE)
 
@@ -41,6 +42,7 @@ file(
 )
 
 include_directories(
+    ${CMAKE_SOURCE_DIR}/src/tools/include
     ${ENGINE_EXTERNAL_INCLUDE_DIR}
     ${ENGINE_EXTERNAL_INCLUDE_DIR}/imgui
     ${ENGINE_EXTERNAL_INCLUDE_DIR}/stb
@@ -65,3 +67,4 @@ if(WIN32)
     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx11)
     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx12)
 endif()
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/tools)

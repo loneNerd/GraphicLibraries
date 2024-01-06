@@ -5,11 +5,7 @@
 #include <filesystem>
 #include <string>
 
-namespace Engine
-{
-namespace Tools
-{
-namespace Utils
+namespace Engine::Tools:: Utils
 {
     class PathParser
     {
@@ -18,8 +14,6 @@ namespace Utils
 
         static std::string GetFileName(const std::filesystem::path& path);
     };
-}
-}
 }
 
 #endif // ENGINE_TOOLS_UTILS_PATH_PARSER_HPP_
