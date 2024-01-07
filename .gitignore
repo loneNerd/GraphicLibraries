@@ -354,5 +354,5 @@ MigrationBackup/
 thirdparty/bins/
 thirdparty/include/
 thirdparty/libs/
-!src/opengl/debug/
+!src/**
 build/

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ENGINE_DEBUG_LOGGER_HPP_
-#define ENGINE_DEBUG_LOGGER_HPP_
+#ifndef ENGINE_LOGS_LOGGER_HPP_
+#define ENGINE_LOGS_LOGGER_HPP_
 
 #include <string>
 #include <map>
@@ -8,14 +8,14 @@
 #include "console_handler.hpp"
 #include "log_handler.hpp"
 
-#define LOG(message)         Engine::Debug::Logger::Log(message, Engine::Debug::ELogLevel::Default, Engine::Debug::ELogMode::Console)
-#define LOG_INFO(message)    Engine::Debug::Logger::Log(message, Engine::Debug::ELogLevel::Info,    Engine::Debug::ELogMode::Console)
-#define LOG_WARNING(message) Engine::Debug::Logger::Log(message, Engine::Debug::ELogLevel::Warning, Engine::Debug::ELogMode::Console)
-#define LOG_ERROR(message)   Engine::Debug::Logger::Log(message, Engine::Debug::ELogLevel::Error,   Engine::Debug::ELogMode::Console)
+#define LOG(message)         Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Default, Engine::Logs::ELogMode::Console)
+#define LOG_INFO(message)    Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Info,    Engine::Logs::ELogMode::Console)
+#define LOG_WARNING(message) Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Warning, Engine::Logs::ELogMode::Console)
+#define LOG_ERROR(message)   Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Error,   Engine::Logs::ELogMode::Console)
 
 namespace Engine
 {
-namespace Debug
+namespace Logs
 {
     class Logger
     {
@@ -42,4 +42,4 @@ namespace Debug
 
 #include "logger.inl"
 
-#endif // ENGINE_DEBUG_LOGGER_HPP_
+#endif // ENGINE_LOGS_LOGGER_HPP_

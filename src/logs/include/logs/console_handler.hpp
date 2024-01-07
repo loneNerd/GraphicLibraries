@@ -1,12 +1,12 @@
 #pragma once
-#ifndef ENGINE_DEBUG_CONSOLE_HANDLER_HPP_
-#define ENGINE_DEBUG_CONSOLE_HANDLER_HPP_
+#ifndef ENGINE_LOGS_CONSOLE_HANDLER_HPP_
+#define ENGINE_LOGS_CONSOLE_HANDLER_HPP_
 
 #include "log_handler.hpp"
 
 namespace Engine
 {
-namespace Debug
+namespace Logs
 {
     class ConsoleHandler : public ILogHandler
     {
@@ -24,4 +24,4 @@ namespace Debug
 }
 }
 
-#endif // ENGINE_DEBUG_CONSOLE_HANDLER_HPP_
+#endif // ENGINE_LOGS_CONSOLE_HANDLER_HPP_

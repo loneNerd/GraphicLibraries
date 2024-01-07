@@ -2,14 +2,14 @@
 
 #include "console_color.hpp"
 
-namespace Debug = Engine::Debug;
+namespace Logs = Engine::Logs;
 
-std::string const Debug::ConsoleHandler::DEFAULT_HEADER = "";
-std::string const Debug::ConsoleHandler::INFO_HEADER    = "[INFO] ";
-std::string const Debug::ConsoleHandler::WARNING_HEADER = "[WARNING] ";
-std::string const Debug::ConsoleHandler::ERROR_HEADER   = "[ERROR] ";
+std::string const Logs::ConsoleHandler::DEFAULT_HEADER = "";
+std::string const Logs::ConsoleHandler::INFO_HEADER    = "[INFO] ";
+std::string const Logs::ConsoleHandler::WARNING_HEADER = "[WARNING] ";
+std::string const Logs::ConsoleHandler::ERROR_HEADER   = "[ERROR] ";
 
-void Debug::ConsoleHandler::Log(const LogData& logData)
+void Logs::ConsoleHandler::Log(const LogData& logData)
 {
     switch (logData.LogLevel)
     {
@@ -42,7 +42,7 @@ void Debug::ConsoleHandler::Log(const LogData& logData)
     std::cout << COLOR_DEFAULT;
 }
 
-std::string Debug::ConsoleHandler::getLogHeader(ELogLevel logLevel)
+std::string Logs::ConsoleHandler::getLogHeader(ELogLevel logLevel)
 {
     switch (logLevel)
     {

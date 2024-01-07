@@ -27,7 +27,7 @@ add_executable(${ENGINE_OPENGL_PROJECT} ${ENGINE_OPENGL_CODE_LIST})
 
 target_compile_features(${ENGINE_OPENGL_PROJECT} PRIVATE cxx_std_17)
 target_include_directories(${ENGINE_OPENGL_PROJECT} PRIVATE ${CMAKE_SOURCE_DIR}/src/opengl)
-target_link_libraries(${ENGINE_OPENGL_PROJECT} ${ENGINE_LIBS_LIST} OpenGL::GL Tools)
+target_link_libraries(${ENGINE_OPENGL_PROJECT} ${ENGINE_LIBS_LIST} OpenGL::GL Logs Tools)
 
 foreach(CODE_FILE IN ITEMS ${ENGINE_OPENGL_CODE_LIST})
     get_filename_component(CODE_FILE_PATH "${CODE_FILE}" PATH)

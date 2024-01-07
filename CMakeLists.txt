@@ -42,6 +42,7 @@ file(
 )
 
 include_directories(
+    ${CMAKE_SOURCE_DIR}/src/logs/include
     ${CMAKE_SOURCE_DIR}/src/tools/include
     ${ENGINE_EXTERNAL_INCLUDE_DIR}
     ${ENGINE_EXTERNAL_INCLUDE_DIR}/imgui
@@ -67,4 +68,5 @@ if(WIN32)
     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx11)
     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx12)
 endif()
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/logs)
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/tools)

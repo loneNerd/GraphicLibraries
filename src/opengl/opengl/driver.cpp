@@ -5,7 +5,7 @@
 
 #include <GL/glew.h>
 
-#include "debug/logger.hpp"
+#include "logs/logger.hpp"
 
 namespace OpenGL = Engine::OpenGL;
 

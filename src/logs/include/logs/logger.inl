@@ -1,9 +1,9 @@
 #include "logger.hpp"
 
-namespace Debug = Engine::Debug;
+namespace Logs = Engine::Logs;
 
 template<typename T>
-static inline void Debug::Logger::logToHandlerMap(std::map<std::string, T>& map, const LogData& data, std::string id)
+static inline void Logs::Logger::logToHandlerMap(std::map<std::string, T>& map, const LogData& data, std::string id)
 {
     if (id != "default")
         map[id].Log(data);

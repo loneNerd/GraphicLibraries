@@ -2,12 +2,12 @@
 
 #include "tools/time/date.hpp"
 
-namespace Debug = Engine::Debug;
+namespace Logs = Engine::Logs;
 namespace Time = Engine::Tools::Time;
 
-std::map<std::string, Debug::ConsoleHandler> Debug::Logger::ConsoleHandlerMap;
+std::map<std::string, Logs::ConsoleHandler> Logs::Logger::ConsoleHandlerMap;
 
-void Debug::Logger::Log(const std::string& message, ELogLevel logLevel, ELogMode logMode, std::string handlerId)
+void Logs::Logger::Log(const std::string& message, ELogLevel logLevel, ELogMode logMode, std::string handlerId)
 {
     LogData logData { message, logLevel, Time::Date::GetDateAsString() };
 
@@ -18,13 +18,13 @@ void Debug::Logger::Log(const std::string& message, ELogLevel logLevel, ELogMode
     }
 }
 
-Debug::ConsoleHandler& Debug::Logger::CreateConsoleHandler(std::string id)
+Logs::ConsoleHandler& Logs::Logger::CreateConsoleHandler(std::string id)
 {
     ConsoleHandlerMap.emplace(id, ConsoleHandler());
     return ConsoleHandlerMap[id];
 }
 
-Debug::ConsoleHandler& Debug::Logger::GetConsoleHandler(std::string id)
+Logs::ConsoleHandler& Logs::Logger::GetConsoleHandler(std::string id)
 {
     return ConsoleHandlerMap[id];
 }

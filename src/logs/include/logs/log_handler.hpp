@@ -1,12 +1,12 @@
 #pragma once
-#ifndef ENGINE_DEBUG_LOG_HANDLER_HPP_
-#define ENGINE_DEBUG_LOG_HANDLER_HPP_
+#ifndef ENGINE_LOGS_LOG_HANDLER_HPP_
+#define ENGINE_LOGS_LOG_HANDLER_HPP_
 
 #include <string>
 
 namespace Engine
 {
-namespace Debug
+namespace Logs
 {
     enum class ELogLevel
     {
@@ -39,4 +39,4 @@ namespace Debug
 }
 }
 
-#endif // ENGINE_DEBUG_LOG_HANDLER_HPP_
+#endif // ENGINE_LOGS_LOG_HANDLER_HPP_

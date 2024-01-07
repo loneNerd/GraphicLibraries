@@ -1,20 +1,20 @@
 #pragma once
-#ifndef ENGINE_DEBUG_CONSOLE_COLOR_HPP_
-#define ENGINE_DEBUG_CONSOLE_COLOR_HPP_
+#ifndef ENGINE_LOGS_CONSOLE_COLOR_HPP_
+#define ENGINE_LOGS_CONSOLE_COLOR_HPP_
 
 #include <iostream>
 #include <windows.h>
 
-#define COLOR_BLUE    Engine::Debug::Blue
-#define COLOR_RED     Engine::Debug::Red
-#define COLOR_GREEN   Engine::Debug::Green
-#define COLOR_YELLOW  Engine::Debug::Yellow
-#define COLOR_WHITE   Engine::Debug::White
-#define COLOR_DEFAULT Engine::Debug::Grey
+#define COLOR_BLUE    Engine::Logs::Blue
+#define COLOR_RED     Engine::Logs::Red
+#define COLOR_GREEN   Engine::Logs::Green
+#define COLOR_YELLOW  Engine::Logs::Yellow
+#define COLOR_WHITE   Engine::Logs::White
+#define COLOR_DEFAULT Engine::Logs::Grey
 
 namespace Engine
 {
-namespace Debug
+namespace Logs
 {
     inline std::ostream& Blue(std::ostream& s)
     {
@@ -86,4 +86,4 @@ namespace Debug
 }
 }
 
-#endif // ENGINE_DEBUG_CONSOLE_COLOR_HPP_
+#endif // ENGINE_LOGS_CONSOLE_COLOR_HPP_
