@@ -64,30 +64,30 @@ try {
     Write-Output "Finish Building SDL2"
     Write-Output "============================================================================`n"
 
-    Write-Output "`n============================================================================"
-    Write-Output "Start Building GLFW"
-    Write-Output "============================================================================`n"
+    # Write-Output "`n============================================================================"
+    # Write-Output "Start Building GLFW"
+    # Write-Output "============================================================================`n"
 
-    Expand-Archive "$PSScriptRoot/glfw-3.3.8.zip" -Force -DestinationPath "$PSScriptRoot/temp"
+    # Expand-Archive "$PSScriptRoot/glfw-3.3.8.zip" -Force -DestinationPath "$PSScriptRoot/temp"
 
-    cmake $PSScriptRoot/temp/glfw-3.3.8 -B"$PSScriptRoot/temp/glfw-3.3.8/build" `
-        -DGLFW_BUILD_EXAMPLES=OFF `
-        -DGLFW_BUILD_TESTS=OFF `
-        -DGLFW_BUILD_DOCS=OFF `
-        -DGLFW_INSTALL=OFF `
-        -DGLFW_VULKAN_STATIC=OFF `
-        -DBUILD_SHARED_LIBS=OFF `
-        -DCMAKE_DEBUG_POSTFIX=""
+    # cmake $PSScriptRoot/temp/glfw-3.3.8 -B"$PSScriptRoot/temp/glfw-3.3.8/build" `
+    #     -DGLFW_BUILD_EXAMPLES=OFF `
+    #     -DGLFW_BUILD_TESTS=OFF `
+    #     -DGLFW_BUILD_DOCS=OFF `
+    #     -DGLFW_INSTALL=OFF `
+    #     -DGLFW_VULKAN_STATIC=OFF `
+    #     -DBUILD_SHARED_LIBS=OFF `
+    #     -DCMAKE_DEBUG_POSTFIX=""
 
-    cmake --build "$PSScriptRoot/temp/glfw-3.3.8/build" --config Release
+    # cmake --build "$PSScriptRoot/temp/glfw-3.3.8/build" --config Release
 
-    Copy-Item -Path "$PSScriptRoot/temp/glfw-3.3.8/include/*" -Recurse -Destination "$PSScriptRoot/../include" -Container -Force
-    Get-ChildItem -Path "$PSScriptRoot/temp/glfw-3.3.8/build/*" -Include *.lib -Recurse | Copy-Item -Destination "$PSScriptRoot/../libs/" -Force
-    Get-ChildItem -Path "$PSScriptRoot/temp/glfw-3.3.8/build/*" -Include *.pdb,*.dll -Recurse | Copy-Item -Destination "$PSScriptRoot/../bins/" -Force
+    # Copy-Item -Path "$PSScriptRoot/temp/glfw-3.3.8/include/*" -Recurse -Destination "$PSScriptRoot/../include" -Container -Force
+    # Get-ChildItem -Path "$PSScriptRoot/temp/glfw-3.3.8/build/*" -Include *.lib -Recurse | Copy-Item -Destination "$PSScriptRoot/../libs/" -Force
+    # Get-ChildItem -Path "$PSScriptRoot/temp/glfw-3.3.8/build/*" -Include *.pdb,*.dll -Recurse | Copy-Item -Destination "$PSScriptRoot/../bins/" -Force
 
-    Write-Output "`n============================================================================"
-    Write-Output "Finish Building GLFW"
-    Write-Output "============================================================================`n"
+    # Write-Output "`n============================================================================"
+    # Write-Output "Finish Building GLFW"
+    # Write-Output "============================================================================`n"
 
     Write-Output "`n============================================================================"
     Write-Output "Start Building GLEW"

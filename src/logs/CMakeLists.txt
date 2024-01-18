@@ -11,7 +11,10 @@ file(
 add_library(${ENGINE_LOGS_PROJECT} SHARED ${ENGINE_LOGS_CODE_LIST})
 
 target_compile_features(${ENGINE_LOGS_PROJECT} PRIVATE cxx_std_17)
-target_include_directories(${ENGINE_LOGS_PROJECT} PRIVATE ${CMAKE_SOURCE_DIR}/src/logs/include/logs)
+target_include_directories(${ENGINE_LOGS_PROJECT} PRIVATE 
+    ${CMAKE_SOURCE_DIR}/src/logs/include
+    ${CMAKE_SOURCE_DIR}/src/tools/include
+)
 
 foreach(CODE_FILE IN ITEMS ${ENGINE_LOGS_CODE_LIST})
     get_filename_component(CODE_FILE_PATH "${CODE_FILE}" PATH)

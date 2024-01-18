@@ -17,6 +17,7 @@ if(MSVC)
 endif()
 
 set(ENGINE_EXTERNAL_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/thirdparty/include)
+set(ENGINE_EXTERNAL_LIBS_DIR ${CMAKE_SOURCE_DIR}/thirdparty/libs)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 set(CMAKE_DEBUG_POSTFIX "" CACHE BOOL "" FORCE)
@@ -32,23 +33,22 @@ file(
 )
 
 file(
-    GLOB_RECURSE ENGINE_LIBS_LIST
-    "${CMAKE_SOURCE_DIR}/thirdparty/libs/*.*"
-)
-
-file(
     GLOB ENGINE_ASSETS_LIST
     "${CMAKE_SOURCE_DIR}/thirdparty/assets/*"
 )
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}/src/logs/include
-    ${CMAKE_SOURCE_DIR}/src/tools/include
-    ${ENGINE_EXTERNAL_INCLUDE_DIR}
-    ${ENGINE_EXTERNAL_INCLUDE_DIR}/imgui
-    ${ENGINE_EXTERNAL_INCLUDE_DIR}/stb
-    ${ENGINE_EXTERNAL_INCLUDE_DIR}/SDL2
-)
+# include_directories(
+#     ${CMAKE_SOURCE_DIR}/src/core/include
+#     ${CMAKE_SOURCE_DIR}/src/engine/include
+#     ${CMAKE_SOURCE_DIR}/src/logs/include
+#     ${CMAKE_SOURCE_DIR}/src/math/include
+#     ${CMAKE_SOURCE_DIR}/src/opengl/include
+#     ${CMAKE_SOURCE_DIR}/src/tools/include
+#     ${CMAKE_SOURCE_DIR}/src/windows/include
+#     ${ENGINE_EXTERNAL_INCLUDE_DIR}
+#     ${ENGINE_EXTERNAL_INCLUDE_DIR}/imgui
+#     ${ENGINE_EXTERNAL_INCLUDE_DIR}/stb
+# )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/${CMAKE_GENERATOR_PLATFORM})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin/${CMAKE_SYSTEM_NAME}/${CMAKE_GENERATOR_PLATFORM})
@@ -62,11 +62,15 @@ foreach (ASSET_FILE ${ENGINE_ASSETS_LIST})
     file(COPY ${ASSET_FILE} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets)
 endforeach ()
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/src/opengl)
-add_subdirectory(${CMAKE_SOURCE_DIR}/src/vulkan)
-if(WIN32)
-    add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx11)
-    add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx12)
-endif()
+# add_subdirectory(${CMAKE_SOURCE_DIR}/src/vulkan)
+# if(WIN32)
+#     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx11)
+#     add_subdirectory(${CMAKE_SOURCE_DIR}/src/directx12)
+# endif()
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/core)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/engine)
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/logs)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/math)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/opengl)
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/tools)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/windows)

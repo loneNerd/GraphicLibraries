@@ -2,6 +2,7 @@
 #ifndef GRAPHICLIBRARIES_WINDOWS_SDL2_H_
 #define GRAPHICLIBRARIES_WINDOWS_SDL2_H_
 
+#define SDL_MAIN_HANDLED
 #include <sdl2/SDL.h>
 
 #include "windows_interface.hpp"

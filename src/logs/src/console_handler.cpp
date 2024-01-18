@@ -1,6 +1,6 @@
-#include "console_handler.hpp"
+#include "logs/console_handler.hpp"
 
-#include "console_color.hpp"
+#include "logs/console_color.hpp"
 
 namespace Logs = Engine::Logs;
 
