@@ -4,8 +4,6 @@
 
 namespace ResManagement = Engine::Core::ResourceManagement;
 
-Resources::Material::Material(std::string name) : Name(name) { }
-
 Resources::Material::~Material()
 {
     if (m_diffuse.has_value())

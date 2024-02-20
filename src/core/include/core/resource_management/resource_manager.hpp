@@ -7,11 +7,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace Engine
-{
-namespace Core
-{
-namespace ResourceManagement
+namespace Engine::Core::ResourceManagement
 {
     template<typename T>
     class ResourceManager
@@ -92,8 +88,6 @@ namespace ResourceManagement
         inline static std::filesystem::path AssetPath = "";
         std::unordered_map<std::string, T> m_resources;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCE_MANAGEMENT_RESOURCE_MANAGER_HPP_

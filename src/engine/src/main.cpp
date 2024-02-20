@@ -6,11 +6,11 @@
 
 int main(int argc, char* argv[])
 {
-    std::unique_ptr<Engine::Editor::Application> app = nullptr;
+    std::unique_ptr<Engine::Application> app = nullptr;
 
     try
     {
-        app = std::make_unique<Engine::Editor::Application>(std::filesystem::path(argv[0]).parent_path());
+        app = std::make_unique<Engine::Application>(std::filesystem::path(argv[0]).parent_path());
     }
     catch (std::exception e)
     {

@@ -7,9 +7,7 @@
 #include "transform_notifier.hpp"
 #include "vector3.hpp"
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     class FTransform
     {
@@ -75,7 +73,6 @@ namespace Math
 
         FTransform* m_parent;
     };
-}
 }
 
 #endif // ENGINE_MATH_TRANSFORM_HPP_

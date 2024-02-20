@@ -10,16 +10,9 @@
 #include "math/vector2.hpp"
 #include "uniform_info.hpp"
 
-//#include <glm/glm.hpp>
-//#include <glm/gtc/type_ptr.hpp>
-
 namespace Engine::Core::ResourceManagement { class ShaderManager; }
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     namespace Loaders { class ShaderLoader; }
 
@@ -41,7 +34,6 @@ namespace Resources
         void SetUniformVec3(const std::string& name, const Math::FVector3& vec3);
         void SetUniformVec4(const std::string& name, const Math::FVector4& vec4);
         void SetUniformMat4(const std::string& name, const Math::FMatrix4& mat4);
-        //void SetUniformMat4(const std::string& name, const glm::mat4& mat4);
         int GetUniformInt(const std::string& name);
         float GetUniformFloat(const std::string& name);
         Math::FVector2 GetUniformVec2(const std::string& name);
@@ -69,8 +61,6 @@ namespace Resources
 
         std::unordered_map<std::string, int> m_uniformLocationCache;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_SHADER_HPP_

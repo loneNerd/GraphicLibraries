@@ -4,9 +4,7 @@
 
 #include <stdint.h>
 
-namespace Engine
-{
-namespace OpenGL
+namespace Engine::OpenGL
 {
     class Driver
     {
@@ -28,7 +26,6 @@ namespace OpenGL
         bool m_isActive = false;
 
     };
-}
 }
 
 #endif // ENGINE_OPENGL_DRIVER_HPP_

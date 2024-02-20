@@ -4,11 +4,7 @@
 
 #include <vector>
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Buffers
+namespace Engine::OpenGL::Buffers
 {
     class IndexBuffer
     {
@@ -29,8 +25,6 @@ namespace Buffers
     private:
         uint32_t m_bufferID = 0;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_BUFFERS_INDEX_BUFFER_HPP_

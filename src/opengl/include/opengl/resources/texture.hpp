@@ -9,13 +9,8 @@
 
 namespace Engine::Core::ResourceManagement { class TextureManager; }
 
-namespace Engine
+namespace Engine::OpenGL::Resources
 {
-namespace OpenGL
-{
-namespace Resources
-{
-
     class Texture
     {
     public:
@@ -46,8 +41,6 @@ namespace Resources
         static std::shared_ptr<Texture> createSharedPtr(const std::string name, uint32_t id, uint32_t width, uint32_t height, uint32_t bpp, Settings::ETextureFilteringMode firstFilter, Settings::ETextureFilteringMode secondFilter, bool generateMipmap);
         static std::unique_ptr<Texture> createUniquePtr(const std::string name, uint32_t id, uint32_t width, uint32_t height, uint32_t bpp, Settings::ETextureFilteringMode firstFilter, Settings::ETextureFilteringMode secondFilter, bool generateMipmap);
     };
-}
-}
 }
 
 #endif // ENGINE_OPEN_GL_RESOURCES_TEXTURE_HPP_

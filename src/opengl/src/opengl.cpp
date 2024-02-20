@@ -17,15 +17,6 @@ void OGL::OpenGL::Clear(bool colorBuffer, bool depthBuffer, bool stencilBuffer)
     );
 }
 
-void OGL::OpenGL::Clear(Camera& camera, bool colorBuffer, bool depthBuffer, bool stencilBuffer)
-{
-    /* Backup the previous OpenGL clear color */
-    GLfloat previousClearColor[4];
-    glGetFloatv(GL_COLOR_CLEAR_VALUE, previousClearColor);
-
-    SetClearColor(previousClearColor[0], previousClearColor[1], previousClearColor[2], previousClearColor[3]);
-}
-
 void OGL::OpenGL::SetRasterizationLinesWidth(float width)
 {
     glLineWidth(width);

@@ -13,10 +13,6 @@ SceneSystem::SceneManager::~SceneManager()
     UnloadCurrentScene();
 }
 
-void SceneSystem::SceneManager::Update()
-{
-}
-
 void SceneSystem::SceneManager::LoadEmptyScene()
 {
     UnloadCurrentScene();

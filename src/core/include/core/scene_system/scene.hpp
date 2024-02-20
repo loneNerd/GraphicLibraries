@@ -5,11 +5,7 @@
 #include "core/actor.hpp"
 #include "core/components/model_renderer.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace SceneSystem
+namespace Engine::Core::SceneSystem
 {
     class Scene
     {
@@ -39,8 +35,6 @@ namespace SceneSystem
         std::vector<std::shared_ptr<Actor>> m_actors;
         std::vector<std::shared_ptr<Components::ModelRenderer>> ModelRenderers;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_COMPONENTS_SCENE_SYSTEM_SCENE_HPP_

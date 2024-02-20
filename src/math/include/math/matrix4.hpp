@@ -8,16 +8,13 @@
 #include "vector3.hpp"
 #include "vector4.hpp"
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FQuaternion;
 
     struct FMatrix4
     {
         std::array<float, 16> Data;
-        //static const FMatrix4 Identity;
 
         FMatrix4();
 
@@ -86,8 +83,12 @@ namespace Math
         static FMatrix4 CreateFrustum(const float left, const float right, const float bottom, const float top, const float zNear, const float zFar);
         static FVector4 GetRow(const FMatrix4& matrix, uint8_t row);
         static FVector4 GetColumn(const FMatrix4& matrix, uint8_t column);
+
+        static FMatrix4 GetIdentity() { return FMatrix4(1.f, 0.f, 0.f, 0.f,
+                                                        0.f, 1.f, 0.f, 0.f,
+                                                        0.f, 0.f, 1.f, 0.f,
+                                                        0.f, 0.f, 0.f, 1.f); }
     };
-}
 }
 
 #endif // ENGINE_MATH_MATRIX4_HPP_

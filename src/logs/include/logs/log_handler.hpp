@@ -4,9 +4,7 @@
 
 #include <string>
 
-namespace Engine
-{
-namespace Logs
+namespace Engine::Logs
 {
     enum class ELogLevel
     {
@@ -36,7 +34,6 @@ namespace Logs
     private:
         virtual void Log(const LogData& logData) = 0;
     };
-}
 }
 
 #endif // ENGINE_LOGS_LOG_HANDLER_HPP_

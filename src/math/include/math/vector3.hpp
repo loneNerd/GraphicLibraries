@@ -2,18 +2,10 @@
 #ifndef ENGINE_MATH_VECTOR3_HPP_
 #define ENGINE_MATH_VECTOR3_HPP_
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FVector3
     {
-        //static const FVector3 One;
-        //static const FVector3 Zero;
-        //static const FVector3 Forward;
-        //static const FVector3 Right;
-        //static const FVector3 Up;
-
         float X;
         float Y;
         float Z;
@@ -46,8 +38,13 @@ namespace Math
         static FVector3 Normalize(const FVector3& target);
         static FVector3 Lerp(const FVector3& start, const FVector3& end, float alpha);
         static float AngleBetween(const FVector3& from, const FVector3& to);
+
+        static Math::FVector3 Math::FVector3::GetOne()     { return FVector3(1.0f, 1.0f, 1.0f); }
+        static Math::FVector3 Math::FVector3::GetZero()    { return FVector3(0.0f, 0.0f, 0.0f); }
+        static Math::FVector3 Math::FVector3::GetForward() { return FVector3(0.0f, 0.0f, 1.0f); }
+        static Math::FVector3 Math::FVector3::GetRight()   { return FVector3(1.0f, 0.0f, 0.0f); }
+        static Math::FVector3 Math::FVector3::GetUp()      { return FVector3(0.0f, 1.0f, 0.0f); }
     };
-}
 }
 
 #endif // ENGINE_MATH_VECTOR3_HPP_

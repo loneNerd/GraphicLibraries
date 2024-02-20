@@ -4,9 +4,7 @@
 
 #include "log_handler.hpp"
 
-namespace Engine
-{
-namespace Logs
+namespace Engine::Logs
 {
     class ConsoleHandler : public ILogHandler
     {
@@ -21,7 +19,6 @@ namespace Logs
         static const std::string WARNING_HEADER;
         static const std::string ERROR_HEADER;
     };
-}
 }
 
 #endif // ENGINE_LOGS_CONSOLE_HANDLER_HPP_

@@ -3,6 +3,8 @@
 #define ENGINE_CORE_RESOURCES_PARSERS_ASSIMP_PARSER_HPP_
 
 #include <filesystem>
+#include <list>
+#include <memory>
 #include <optional>
 
 #include <assimp/Importer.hpp>
@@ -12,16 +14,9 @@
 #include "core/resources/parsers/model_parser_interface.hpp"
 #include "opengl/geometry/vertex.hpp"
 
-namespace Engine
-{
+namespace Engine::OpenGL::Resources { class Mesh;  class Model; }
 
-namespace OpenGL::Resources { class Mesh;  class Model; }
-
-namespace Core
-{
-namespace Resources
-{
-namespace Parsers
+namespace Engine::Core::Resources::Parsers
 {
     class AssimpParser : public IModelParser
     {
@@ -35,9 +30,6 @@ namespace Parsers
 
         std::filesystem::path m_filePath = "";
     };
-}
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCES_PARSERS_ASSIMP_PARSER_HPP_

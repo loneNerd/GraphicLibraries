@@ -12,11 +12,7 @@
 #include "opengl/buffers/vertex_buffer.hpp"
 #include "opengl/geometry/vertex.hpp"
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     class Mesh : public IMesh
     {
@@ -47,8 +43,6 @@ namespace Resources
         std::shared_ptr<Buffers::VertexBuffer<float>> m_vertexBuffer = nullptr;
         std::unique_ptr<Buffers::IndexBuffer>         m_indexBuffer = nullptr;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_MESH_HPP_

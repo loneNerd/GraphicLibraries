@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_COMPARISON_ALGORITHM_HPP_
 #define ENGINE_OPENGL_SETTINGS_COMPARISON_ALGORITHM_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class EComparaisonAlgorithm
     {
@@ -19,8 +15,6 @@ namespace Settings
         GreaterEqual = 0x0206,
         Always       = 0x0207
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_COMPARISON_ALGORITHM_HPP_

@@ -8,9 +8,7 @@
 #include "matrix4.hpp"
 #include "vector3.hpp"
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FQuaternion
     {
@@ -20,7 +18,7 @@ namespace Math
         float Z;
         float W;
 
-        //static const FQuaternion Identity;
+        static const FQuaternion Identity;
 
         FQuaternion() : X(0.0f), Y(0.0f), Z(0.0f), W(1.0f) { }
         FQuaternion(float real) : X(0.0f), Y(0.0f), Z(0.0f), W(real) { }
@@ -70,7 +68,6 @@ namespace Math
         static FMatrix3 ToMatrix3(const FQuaternion& target);
         static FMatrix4 ToMatrix4(const FQuaternion& target);
     };
-}
 }
 
 #endif // ENGINE_MATH_QUATERNION_HPP_

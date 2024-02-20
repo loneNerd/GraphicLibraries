@@ -9,11 +9,7 @@
 
 #include "core/resources/material.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace ResourceManagement
+namespace Engine::Core::ResourceManagement
 {
     class MaterialManager : public ResourceManager<std::shared_ptr<Core::Resources::Material>>
     {
@@ -40,8 +36,6 @@ namespace ResourceManagement
     private:
         MaterialManager() = default;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCE_MANAGEMENT_MATERIAL_MANAGER_HPP_

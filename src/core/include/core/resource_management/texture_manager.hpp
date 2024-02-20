@@ -7,11 +7,7 @@
 #include "opengl/resources/texture.hpp"
 #include "resource_manager.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace ResourceManagement
+namespace Engine::Core::ResourceManagement
 {
     class TextureManager : public ResourceManager<std::shared_ptr<OpenGL::Resources::Texture>>
     {
@@ -41,8 +37,6 @@ namespace ResourceManagement
     private:
         TextureManager() = default;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCE_MANAGEMENT_TEXTURE_MANAGER_HPP_

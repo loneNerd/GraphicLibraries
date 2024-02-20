@@ -193,32 +193,32 @@ const Math::FMatrix4& Math::FTransform::GetWorldMatrix() const
 
 Math::FVector3 Math::FTransform::GetWorldForward() const
 {
-    return m_worldRotation * FVector3(0.0f, 0.0f, 1.0f);
+    return m_worldRotation * FVector3::GetForward();
 }
 
 Math::FVector3 Math::FTransform::GetWorldUp() const
 {
-    return m_worldRotation * FVector3(0.0f, 1.0f, 0.0f);
+    return m_worldRotation * FVector3::GetUp();
 }
 
 Math::FVector3 Math::FTransform::GetWorldRight() const
 {
-    return m_worldRotation * FVector3(1.0f, 0.0f, 0.0f);
+    return m_worldRotation * FVector3::GetRight();
 }
 
 Math::FVector3 Math::FTransform::GetLocalForward() const
 {
-    return m_localRotation * FVector3(0.0f, 0.0f, 1.0f);
+    return m_localRotation * FVector3::GetForward();
 }
 
 Math::FVector3 Math::FTransform::GetLocalUp() const
 {
-    return m_localRotation * FVector3(0.0f, 1.0f, 0.0f);
+    return m_localRotation * FVector3::GetUp();
 }
 
 Math::FVector3 Math::FTransform::GetLocalRight() const
 {
-    return m_localRotation * FVector3(1.0f, 0.0f, 0.0f);
+    return m_localRotation * FVector3::GetRight();
 }
 
 void Math::FTransform::preDecomposeWorldMatrix()

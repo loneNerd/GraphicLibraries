@@ -12,9 +12,7 @@
 #define COLOR_WHITE   Engine::Logs::White
 #define COLOR_DEFAULT Engine::Logs::Grey
 
-namespace Engine
-{
-namespace Logs
+namespace Engine::Logs
 {
     inline std::ostream& Blue(std::ostream& s)
     {
@@ -83,7 +81,6 @@ namespace Logs
         SetConsoleTextAttribute(hStdout, c.m_color);
         return i;
     }
-}
 }
 
 #endif // ENGINE_LOGS_CONSOLE_COLOR_HPP_

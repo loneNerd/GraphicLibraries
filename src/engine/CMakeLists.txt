@@ -17,10 +17,12 @@ target_include_directories(${ENGINE_ENGINE_PROJECT} PRIVATE
     ${CMAKE_SOURCE_DIR}/src/math/include
     ${CMAKE_SOURCE_DIR}/src/opengl/include
     ${CMAKE_SOURCE_DIR}/src/tools/include
+    ${CMAKE_SOURCE_DIR}/src/ui/include
     ${CMAKE_SOURCE_DIR}/src/windows/include
     ${ENGINE_EXTERNAL_INCLUDE_DIR}
+    ${ENGINE_EXTERNAL_INCLUDE_DIR}/imgui
 )
-target_link_libraries(${ENGINE_ENGINE_PROJECT} Core Tools Windows)
+target_link_libraries(${ENGINE_ENGINE_PROJECT} Core Math Tools UI Windows)
 
 foreach(CODE_FILE IN ITEMS ${ENGINE_ENGINE_CODE_LIST})
     get_filename_component(CODE_FILE_PATH "${CODE_FILE}" PATH)

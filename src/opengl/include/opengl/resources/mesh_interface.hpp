@@ -4,11 +4,7 @@
 
 #include <stdint.h>
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     class IMesh
     {
@@ -18,8 +14,6 @@ namespace Resources
         virtual uint32_t GetVertexCount() = 0;
         virtual uint32_t GetIndexCount()  = 0;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_MESH_INTERFACE_HPP_

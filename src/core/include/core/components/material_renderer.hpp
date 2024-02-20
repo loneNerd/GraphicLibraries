@@ -9,14 +9,7 @@
 
 #define MAX_MATERIAL_COUNT 255
 
-namespace Engine
-{
-namespace Core
-{
-
-class Actor;
-
-namespace Components
+namespace Engine::Core::Components
 {
     class MaterialRenderer : public Component
     {
@@ -46,8 +39,6 @@ namespace Components
         MaterialList m_materials;
         Math::FMatrix4 m_userMatrix;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_COMPONENTS_MATERIAL_RENDERER_HPP_

@@ -7,11 +7,7 @@
 
 #include "uniform_type.hpp"
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     struct UniformInfo
     {
@@ -20,8 +16,6 @@ namespace Resources
         uint32_t    Location;
         std::any    DefaultValue;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_UNIFORM_INFO_HPP_

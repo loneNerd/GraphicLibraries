@@ -1,12 +1,7 @@
 #include "core/components/model_renderer.hpp"
-#include "core/components/material_renderer.hpp"
 
 namespace OGLResources = Engine::OpenGL::Resources;
 namespace Components = Engine::Core::Components;
-
-Components::ModelRenderer::ModelRenderer()
-{
-}
 
 std::string Components::ModelRenderer::GetName()
 {

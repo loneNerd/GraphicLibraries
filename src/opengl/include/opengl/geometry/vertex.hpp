@@ -4,11 +4,7 @@
 
 #include <array>
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Geometry
+namespace Engine::OpenGL::Geometry
 {
     struct Vertex
     {
@@ -18,8 +14,6 @@ namespace Geometry
         std::array<float, 3> Tangent;
         std::array<float, 3> Bitangent;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_GEOMETRY_VERTEX_HPP_

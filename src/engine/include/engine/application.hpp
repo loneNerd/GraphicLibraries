@@ -1,13 +1,11 @@
 #pragma once
-#ifndef ENGINE_EDITOR_APPLICATION_HPP_
-#define ENGINE_EDITOR_APPLICATION_HPP_
+#ifndef ENGINE_APPLICATION_HPP_
+#define ENGINE_APPLICATION_HPP_
 
 #include "editor.hpp"
 #include "context.hpp"
 
 namespace Engine
-{
-namespace Editor
 {
     class Application
     {
@@ -28,6 +26,5 @@ namespace Editor
         Editor m_editor;
     };
 }
-}
 
-#endif // ENGINE_EDITOR_APPLICATION_HPP_
+#endif // ENGINE_APPLICATION_HPP_

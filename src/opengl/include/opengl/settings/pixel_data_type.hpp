@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_PIXEL_DATA_TYPE_HPP_
 #define ENGINE_OPENGL_SETTINGS_PIXEL_DATA_TYPE_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class EPixelDataType
     {
@@ -31,8 +27,6 @@ namespace Settings
         UnsignedInt_10_10_10_2     = 0x8036,
         UnsignedInt_2_10_10_10_Rev = 0x8368
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_PIXEL_DATA_TYPE_HPP_

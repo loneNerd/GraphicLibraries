@@ -8,14 +8,7 @@
 
 #include "component.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-
-class Actor;
-
-namespace Components
+namespace Engine::Core::Components
 {
     class ComponentTransform : public Component
     {
@@ -51,8 +44,6 @@ namespace Components
     private:
         Math::FTransform m_transform;
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_COMPONENTS_COMPONENT_TRANSFORM_HPP_

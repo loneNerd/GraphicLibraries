@@ -7,11 +7,7 @@
 #include "opengl/resources/shader.hpp"
 #include "resource_manager.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace ResourceManagement
+namespace Engine::Core::ResourceManagement
 {
     class ShaderManager : public ResourceManager<std::shared_ptr<OpenGL::Resources::Shader>>
     {
@@ -37,8 +33,6 @@ namespace ResourceManagement
         uint32_t createProgram(std::filesystem::path vertexShader, std::filesystem::path fragmentShader, std::optional<std::filesystem::path> geometryShader);
         uint32_t compileShader(uint32_t type, const std::filesystem::path& path);
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCE_MANAGEMENT_SHADER_MANAGER_HPP_

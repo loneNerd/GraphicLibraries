@@ -2,9 +2,7 @@
 #ifndef ENGINE_MATH_VECTOR2_HPP_
 #define ENGINE_MATH_VECTOR2_HPP_
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FVector2
     {
@@ -42,7 +40,6 @@ namespace Math
         static FVector2 Lerp(const FVector2& start, const FVector2& end, float alpha);
         static float AngleBetween(const FVector2& from, const FVector2& to);
     };
-}
 }
 
 #endif // ENGINE_MATH_VECTOR2_HPP_

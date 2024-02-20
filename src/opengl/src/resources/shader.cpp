@@ -74,11 +74,6 @@ void Resources::Shader::SetUniformMat4(const std::string& name, const Math::FMat
     glUniformMatrix4fv(getUniformLocation(name), 1, GL_TRUE, &mat4.Data[0]);
 }
 
-//void Resources::Shader::SetUniformMat4(const std::string& name, const glm::mat4& mat4)
-//{
-//    glUniformMatrix4fv(getUniformLocation(name), 1, false, glm::value_ptr(mat4));
-//}
-
 int Resources::Shader::GetUniformInt(const std::string& name)
 {
     int value;

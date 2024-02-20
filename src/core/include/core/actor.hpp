@@ -5,15 +5,13 @@
 #include "components/component.hpp"
 #include "components/component_transform.hpp"
 
-namespace Engine
-{
-namespace Core
+namespace Engine::Core
 {
     class Actor
     {
     public:
         Actor(int64_t actorID, const std::string& name, const std::string& tag);
-        virtual ~Actor();
+        virtual ~Actor() { }
 
         Actor(const Actor& other)             = delete;
         Actor(Actor&& other)                  = delete;
@@ -52,7 +50,6 @@ namespace Core
         std::list<std::shared_ptr<Components::Component>> m_components;
         std::shared_ptr<Components::ComponentTransform> m_transform;
     };
-}
 }
 
 #include "actor.inl"

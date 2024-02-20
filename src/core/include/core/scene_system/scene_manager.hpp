@@ -6,11 +6,7 @@
 
 #include "scene.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace SceneSystem
+namespace Engine::Core::SceneSystem
 {
     class SceneManager
     {
@@ -23,7 +19,6 @@ namespace SceneSystem
         SceneManager& operator=(const SceneManager& other)  = delete;
         SceneManager& operator=(const SceneManager&& other) = delete;
 
-        void Update();
         void LoadEmptyScene();
         void UnloadCurrentScene();
         bool HasCurrentScene() const;
@@ -40,8 +35,6 @@ namespace SceneSystem
         bool m_currentSceneLoadedFromPath = false;
         std::filesystem::path m_currentSceneSourcePath = "";
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_COMPONENTS_SCENE_SYSTEM_SCENE_MANAGER_HPP_

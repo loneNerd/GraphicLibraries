@@ -12,7 +12,7 @@ namespace Math = Engine::Math;
 #define TO_RADIANS(value) value * PI / 180.f
 #define TO_DEGREES(value) value * 180.f / PI
 
-//const Math::FQuaternion Math::FQuaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
+const Math::FQuaternion Math::FQuaternion::Identity(0.0f, 0.0f, 0.0f, 1.0f);
 
 Math::FQuaternion::FQuaternion(const FMatrix3& rotationMatrix)
 {
@@ -404,7 +404,7 @@ Math::FVector3 Math::FQuaternion::GetRotationAxis(const Math::FQuaternion& targe
         return FVector3(target.X / S, target.Y / S, target.Z / S);
     }
 
-    return FVector3(1.f, 0.f, 0.f);
+    return FVector3::GetRight();
 }
 
 Math::FQuaternion Math::FQuaternion::Inverse(const Math::FQuaternion& target)

@@ -13,9 +13,7 @@
 #define LOG_WARNING(message) Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Warning, Engine::Logs::ELogMode::Console)
 #define LOG_ERROR(message)   Engine::Logs::Logger::Log(message, Engine::Logs::ELogLevel::Error,   Engine::Logs::ELogMode::Console)
 
-namespace Engine
-{
-namespace Logs
+namespace Engine::Logs
 {
     class Logger
     {
@@ -37,7 +35,6 @@ namespace Logs
 
         static std::map<std::string, ConsoleHandler> ConsoleHandlerMap;
     };
-}
 }
 
 #include "logger.inl"

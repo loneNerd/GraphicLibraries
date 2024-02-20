@@ -7,8 +7,8 @@
 namespace Math = Engine::Math;
 
 const Math::FMatrix3 Math::FMatrix3::Identity = FMatrix3(1.0f, 0.0f, 0.0f,
-                                             0.0f, 1.0f, 0.0f,
-                                             0.0f, 0.0f, 1.0f);
+                                                         0.0f, 1.0f, 0.0f,
+                                                         0.0f, 0.0f, 1.0f);
 
 Math::FMatrix3::FMatrix3()
 {

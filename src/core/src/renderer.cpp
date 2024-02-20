@@ -45,10 +45,7 @@ void Core::Renderer::DrawMesh(std::shared_ptr<OGLResources::Mesh> mesh, std::sha
     material->Bind(shader);
     mesh->Bind();
 
-    shader->SetUniformMat4("model", Math::FMatrix4(1.f, 0.f, 0.f, 0.f,
-                                                   0.f, 1.f, 0.f, 0.f,
-                                                   0.f, 0.f, 1.f, 0.f,
-                                                   0.f, 0.f, 0.f, 1.f));
+    shader->SetUniformMat4("model", Math::FMatrix4::GetIdentity());
     shader->SetUniformMat4("view", camera->GetViewMatrix());
     shader->SetUniformMat4("projection", camera->GetProjectionMatrix());
 

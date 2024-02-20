@@ -5,9 +5,7 @@
 #include "math/quaternion.hpp"
 #include "settings/projection_mode.hpp"
 
-namespace Engine
-{
-namespace OpenGL
+namespace Engine::OpenGL
 {
     class Camera
     {
@@ -53,7 +51,6 @@ namespace OpenGL
         float m_near = 0.1f;
         float m_far  = 100.0f;
     };
-}
 }
 
 #endif // ENGINE_OPENGL_CAMERA_HPP_

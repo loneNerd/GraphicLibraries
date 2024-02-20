@@ -1,15 +1,13 @@
 #pragma once
-#ifndef ENGINE_EDITOR_EDITOR_HPP_
-#define ENGINE_EDITOR_EDITOR_HPP_
+#ifndef ENGINE_EDITOR_HPP_
+#define ENGINE_EDITOR_HPP_
 
 #include "context.hpp"
 
-namespace Engine::OpenGL { class Camera; }
-
 namespace Engine
 {
-namespace Editor
-{
+    namespace Panels { class SceneView; }
+
     class Editor
     {
     public:
@@ -26,14 +24,12 @@ namespace Editor
         void PostUpdate();
 
     private:
+        void setupUI();
+
         uint64_t m_elapsedFrames = 0;
         Context& m_context;
-        std::shared_ptr<Engine::OpenGL::Resources::Shader> m_shader = nullptr;
-        std::shared_ptr<Engine::OpenGL::Camera> m_camera = nullptr;
-        Engine::Math::FVector3 m_cameraPosition = { 0.0f, 0.0f, 5.0f };
-        Engine::Math::FQuaternion m_cameraRotation = Engine::Math::FQuaternion({ 0.0f, 180.0f, 0.0f });
+        std::shared_ptr<Panels::SceneView> m_sceneView = nullptr;
     };
 }
-}
 
-#endif // ENGINE_EDITOR_EDITOR_HPP_
+#endif // ENGINE_EDITOR_HPP_

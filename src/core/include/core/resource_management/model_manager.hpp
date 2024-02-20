@@ -9,11 +9,7 @@
 #include "opengl/resources/model.hpp"
 #include "core/resources/parsers/assimp_parser.hpp"
 
-namespace Engine
-{
-namespace Core
-{
-namespace ResourceManagement
+namespace Engine::Core::ResourceManagement
 {
     class ModelManager : public ResourceManager<std::shared_ptr<OpenGL::Resources::Model>>
     {
@@ -40,8 +36,6 @@ namespace ResourceManagement
         virtual void Reload(std::shared_ptr<OpenGL::Resources::Model> model, std::filesystem::path filePath, Core::Resources::Parsers::EAssimpParserFlags parserFlags = Core::Resources::Parsers::EAssimpParserFlags::None);
         virtual void Destroy(const std::string& name);
     };
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCE_MANAGEMENT_MODEL_MANAGER_HPP_

@@ -6,12 +6,6 @@
 
 namespace Math = Engine::Math;
 
-//const Math::FVector3 Math::FVector3::One(1.0f, 1.0f, 1.0f);
-//const Math::FVector3 Math::FVector3::Zero(0.0f, 0.0f, 0.0f);
-//const Math::FVector3 Math::FVector3::Forward(0.0f, 0.0f, 1.0f);
-//const Math::FVector3 Math::FVector3::Right(1.0f, 0.0f, 0.0f);
-//const Math::FVector3 Math::FVector3::Up(0.0f, 1.0f, 0.0f);
-
 Math::FVector3 Math::FVector3::operator-() const
 {
     return operator*(-1);
@@ -174,7 +168,7 @@ Math::FVector3 Math::FVector3::Normalize(const Math::FVector3& target)
     }
     else
     {
-        return Math::FVector3(0.0f, 0.0f, 0.0f);
+        return Math::FVector3::GetZero();
     }
 }
 

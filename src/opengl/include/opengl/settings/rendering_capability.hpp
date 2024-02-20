@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_RENDERING_CAPABILITY_HPP_
 #define ENGINE_OPENGL_SETTINGS_RENDERING_CAPABILITY_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class ERenderingCapability
     {
@@ -21,8 +17,6 @@ namespace Settings
         StencilTest           = 0x0B90,
         Multisample           = 0x809D 
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_RENDERING_CAPABILITY_HPP_

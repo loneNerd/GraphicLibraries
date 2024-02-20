@@ -1,12 +1,9 @@
 #include "opengl/resources/mesh.hpp"
 
-//#include "core/resource_management/material_manager.hpp"
-
 #include <algorithm>
 
 namespace FS = std::filesystem;
 namespace OGLResources = Engine::OpenGL::Resources;
-//namespace ResManagement = Engine::Core::ResourceManagement;
 
 OGLResources::Mesh::Mesh(const std::vector<Geometry::Vertex>& vertices, const std::vector<uint32_t>& indices, std::string materialName)
     : m_vertexCount(static_cast<uint32_t>(vertices.size())),
@@ -18,8 +15,6 @@ OGLResources::Mesh::Mesh(const std::vector<Geometry::Vertex>& vertices, const st
 
 OGLResources::Mesh::~Mesh()
 {
-    //ResManagement::MaterialManager::Instance().Destroy(m_materialName);
-
     if (m_vertexBuffer)
         m_vertexBuffer = nullptr;
 

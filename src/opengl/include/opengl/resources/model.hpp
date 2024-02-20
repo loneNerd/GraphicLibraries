@@ -12,11 +12,7 @@
 namespace Engine::Core::ResourceManagement { class ModelManager; }
 namespace Engine::Core::Resources::Parsers { class AssimpParser; }
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     class Model
     {
@@ -42,8 +38,6 @@ namespace Resources
 
         std::list<std::shared_ptr<Mesh>> m_meshes;
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_MODEL_HPP_

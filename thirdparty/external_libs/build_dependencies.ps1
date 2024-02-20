@@ -127,9 +127,9 @@ try {
     Write-Output "Unpacking ImGui"
     Write-Output "============================================================================`n"
 
-    Expand-Archive "$PSScriptRoot/imgui-1.89.9.zip" -Force -DestinationPath "$PSScriptRoot/temp"
-    Get-ChildItem -Path "$PSScriptRoot/temp/imgui-1.89.9/*" -Include *.c*,*.h* | Copy-Item -Destination "$PSScriptRoot/../include/imgui/" -Force
-    Copy-Item -Path "$PSScriptRoot/temp/imgui-1.89.9/backends/" -Recurse -Destination "$PSScriptRoot/../include/imgui/" -Force
+    Expand-Archive "$PSScriptRoot/imgui-1.90.1.zip" -Force -DestinationPath "$PSScriptRoot/temp"
+    Get-ChildItem -Path "$PSScriptRoot/temp/imgui-1.90.1/*" -Include *.c*,*.h* | Copy-Item -Destination "$PSScriptRoot/../include/imgui/" -Force
+    Copy-Item -Path "$PSScriptRoot/temp/imgui-1.90.1/backends/" -Recurse -Destination "$PSScriptRoot/../include/imgui/" -Force
 
 } catch {
     $_

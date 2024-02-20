@@ -4,9 +4,7 @@
 
 #include <functional>
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     enum class ETransformNotification
     {
@@ -36,7 +34,6 @@ namespace Math
         std::unordered_map<NotificationHandlerID, NotificationHandler> m_notificationHandlers;
         NotificationHandlerID m_availableHandlerID = 0;
     };
-}
 }
 
 #endif // ENGINE_MATH_TRANSFORM_NOTIFIER_HPP_

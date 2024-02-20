@@ -93,17 +93,14 @@ Math::FMatrix4 OpenGL::Camera::calculateProjectionMatrix(uint16_t windowWidth, u
         return Math::FMatrix4::CreatePerspective(m_fov, ratio, m_near, m_far);
 
     default:
-        return Math::FMatrix4(1.f, 0.f, 0.f, 0.f,
-            0.f, 1.f, 0.f, 0.f,
-            0.f, 0.f, 1.f, 0.f,
-            0.f, 0.f, 0.f, 1.f);
+        return Math::FMatrix4::GetIdentity();
     }
 }
 
 Math::FMatrix4 OpenGL::Camera::calculateViewMatrix(const Math::FVector3& position, const Math::FQuaternion& rotation) const
 {
-    const Math::FVector3& up = rotation * Math::FVector3(0.0f, 1.0f, 0.0f);
-    const Math::FVector3& forward = rotation * Math::FVector3(0.0f, 0.0f, 1.0f);
+    const Math::FVector3& up = rotation * Math::FVector3::GetUp();
+    const Math::FVector3& forward = rotation * Math::FVector3::GetForward();
 
     return Math::FMatrix4::CreateView
     (

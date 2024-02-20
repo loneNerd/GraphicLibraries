@@ -4,11 +4,7 @@
 
 #include <vector>
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Buffers
+namespace Engine::OpenGL::Buffers
 {
     template <class T>
     class VertexBuffer
@@ -30,8 +26,6 @@ namespace Buffers
     private:
         uint32_t m_bufferID = 0;
     };
-}
-}
 }
 
 #include "vertex_buffer.inl"

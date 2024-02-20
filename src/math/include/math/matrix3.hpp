@@ -8,9 +8,7 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FMatrix3
     {
@@ -70,7 +68,6 @@ namespace Math
         static FVector3 GetRow(const FMatrix3& matrix, uint8_t row);
         static FVector3 GetColumn(const FMatrix3& matrix, uint8_t column);
     };
-}
 }
 
 #endif // ENGINE_MATH_MATRIX3_HPP_

@@ -11,17 +11,9 @@ namespace Math = Engine::Math;
 #define PI 3.14159265359f
 #define EPSILON 0.00001f
 
-//const Math::FMatrix4 Math::FMatrix4::Identity = FMatrix4(1.f, 0.f, 0.f, 0.f,
-//                                                         0.f, 1.f, 0.f, 0.f,
-//                                                         0.f, 0.f, 1.f, 0.f,
-//                                                         0.f, 0.f, 0.f, 1.f);
-
 Math::FMatrix4::FMatrix4()
 {
-    memcpy(Data.data(), Math::FMatrix4(1.f, 0.f, 0.f, 0.f,
-        0.f, 1.f, 0.f, 0.f,
-        0.f, 0.f, 1.f, 0.f,
-        0.f, 0.f, 0.f, 1.f).Data.data(), Data.size() * sizeof(float));
+    memcpy(Data.data(), Math::FMatrix4::GetIdentity().Data.data(), Data.size() * sizeof(float));
 }
 
 Math::FMatrix4::FMatrix4(float element1, float element2, float element3, float element4, float element5, float element6, float element7, float element8, float element9, float element10, float element11, float element12, float element13, float element14, float element15, float element16)
@@ -261,13 +253,7 @@ Math::FMatrix4 Math::FMatrix4::Divide(const Math::FMatrix4& left, const Math::FM
 
 bool Math::FMatrix4::IsIdentity(const Math::FMatrix4& matrix)
 {
-    return memcmp(FMatrix4(1.f, 0.f, 0.f, 0.f,
-        0.f, 1.f, 0.f, 0.f,
-        0.f, 0.f, 1.f, 0.f,
-        0.f, 0.f, 0.f, 1.f).Data.data(), matrix.Data.data(), FMatrix4(1.f, 0.f, 0.f, 0.f,
-            0.f, 1.f, 0.f, 0.f,
-            0.f, 0.f, 1.f, 0.f,
-            0.f, 0.f, 0.f, 1.f).Data.size() * sizeof(float)) == 0;
+    return memcmp(FMatrix4::GetIdentity().Data.data(), matrix.Data.data(), FMatrix4::GetIdentity().Data.size() * sizeof(float)) == 0;
 }
 
 float Math::FMatrix4::GetMinor(float minor0, float minor1, float minor2, float minor3, float minor4, float minor5, float minor6, float minor7, float minor8)
@@ -328,10 +314,7 @@ Math::FMatrix4 Math::FMatrix4::Inverse(const Math::FMatrix4& matrix)
     const float det = matrix.Data[0] * cof0 - matrix.Data[4] * cof1 + matrix.Data[8] * cof2 - matrix.Data[12] * cof3;
 
     if (fabs(det) <= EPSILON)
-        return FMatrix4(1.f, 0.f, 0.f, 0.f,
-            0.f, 1.f, 0.f, 0.f,
-            0.f, 0.f, 1.f, 0.f,
-            0.f, 0.f, 0.f, 1.f);
+        return FMatrix4::GetIdentity();
 
     const float cof4 = GetMinor(matrix.Data[4], matrix.Data[8],  matrix.Data[12],
                                 matrix.Data[6], matrix.Data[10], matrix.Data[14],
@@ -504,10 +487,7 @@ Math::FMatrix4 Math::FMatrix4::CreatePerspective(const float fov, const float as
 
 Math::FMatrix4 Math::FMatrix4::CreateOrthographic(const float size, const float aspectRatio, const float zNear, const float zFar)
 {
-    auto ortho = Math::FMatrix4(1.f, 0.f, 0.f, 0.f,
-        0.f, 1.f, 0.f, 0.f,
-        0.f, 0.f, 1.f, 0.f,
-        0.f, 0.f, 0.f, 1.f);
+    auto ortho = Math::FMatrix4::GetIdentity();
 
     const auto right = size * aspectRatio;
     const auto left = -right;

@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_OPERATION_HPP_
 #define ENGINE_OPENGL_SETTINGS_OPERATION_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class EOperation
     {
@@ -19,8 +15,6 @@ namespace Settings
         DecrementWrap = 0x8508,
         Invert        = 0x150A
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_OPERATION_HPP_

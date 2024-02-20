@@ -9,9 +9,7 @@
 #include "opengl/opengl.hpp"
 #include "opengl/resources/texture.hpp"
 
-namespace Engine
-{
-namespace Core
+namespace Engine::Core
 {
     class Renderer : public OpenGL::OpenGL
     {
@@ -36,7 +34,6 @@ namespace Core
 
         void DrawMesh(std::shared_ptr<Engine::OpenGL::Resources::Mesh> mesh, std::shared_ptr<Engine::OpenGL::Resources::Shader> shader, std::shared_ptr<Engine::OpenGL::Camera> camera);
     };
-}
 }
 
 #endif // ENGINE_CORE_RENDERER_HPP_

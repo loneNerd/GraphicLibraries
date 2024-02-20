@@ -1,16 +1,20 @@
 #include "engine/context.hpp"
 
 #include "core/renderer.hpp"
+#include "core/resource_management/material_manager.hpp"
+#include "core/resource_management/model_manager.hpp"
+#include "core/resource_management/shader_manager.hpp"
+#include "core/resource_management/texture_manager.hpp"
+#include "core/scene_system/scene_manager.hpp"
 #include "opengl/driver.hpp"
+#include "tools/utils/service_locator.hpp"
+#include "ui/ui_manager.hpp"
 #include "windows/sdl2.hpp"
 
-namespace Editor = Engine::Editor;
-
-Editor::Context::Context(const std::filesystem::path& projectPath)
+Engine::Context::Context(const std::filesystem::path& projectPath)
     : ProjectPath(projectPath),
       ProjectAssetsPath(projectPath / "assets\\"),
-      ProjectShadersPath(projectPath / "opengl\\shaders\\"),
-      SceneManager(ProjectAssetsPath / "scenes\\")
+      ProjectShadersPath(projectPath / "opengl\\shaders\\")
 {
     Core::ResourceManagement::ModelManager::SetAssetPaths(ProjectAssetsPath);
     Core::ResourceManagement::TextureManager::SetAssetPaths(ProjectAssetsPath);
@@ -25,15 +29,23 @@ Editor::Context::Context(const std::filesystem::path& projectPath)
                            Windows::Settings::ESDL2WindowFlags::InputFocus |
                            Windows::Settings::ESDL2WindowFlags::Shown;
 
-    Window = std::make_shared<Windows::SDL2>(windowSettings);
-    Window->SetTitle("Engine");
+    std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Provide<Windows::SDL2>(windowSettings);
+    window->SetTitle("Engine");
 
-    Driver = std::make_shared<Engine::OpenGL::Driver>(true);
-    Renderer = std::make_unique<Core::Renderer>(Driver);
-    Renderer->SetCapability(OpenGL::Settings::ERenderingCapability::Multisample, true);
+    Tools::Utils::ServiceLocator::Provide<Engine::OpenGL::Driver>(true);
+    Tools::Utils::ServiceLocator::Provide<Core::Renderer>(Tools::Utils::ServiceLocator::Get<Engine::OpenGL::Driver>());
+    Tools::Utils::ServiceLocator::Get<Core::Renderer>()->SetCapability(OpenGL::Settings::ERenderingCapability::Multisample, true);
+
+    std::filesystem::create_directories(projectPath / "engine");
+
+    std::shared_ptr<UI::UIManager> uiManager = Tools::Utils::ServiceLocator::Provide<UI::UIManager>(window, UI::Styling::EStyle::AlternativeDark);
+    uiManager->SetEditorLayoutAutosaveFrequency(60.0f);
+    uiManager->EnableDocking(true);
+
+    Tools::Utils::ServiceLocator::Provide<Core::SceneSystem::SceneManager>(ProjectAssetsPath / "scenes\\");
 }
 
-Editor::Context::~Context()
+Engine::Context::~Context()
 {
     Core::ResourceManagement::ModelManager::Instance().RemoveResources();
     Core::ResourceManagement::TextureManager::Instance().RemoveResources();

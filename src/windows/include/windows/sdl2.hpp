@@ -31,7 +31,6 @@ namespace Windows
         void SetMaximumSize(int16_t maximumWidth, int16_t maximumHeight);
         void SetFullscreen(bool value);
         void SetTitle(const std::string& title);
-        //void SetVsync(bool value);
 
         void Minimize() const { SDL_MinimizeWindow(m_window); }
         void Maximize() const { SDL_MaximizeWindow(m_window); }
@@ -56,7 +55,6 @@ namespace Windows
         void SwapBuffers() const { SDL_GL_SwapWindow(m_window); }
 
         std::string GetTitle() const { return m_title; }
-        //bool HasVsync() const { return m_vsync; }
 
         std::pair<int16_t, int16_t> GetMonitorSize() const;
         std::pair<uint16_t, uint16_t> GetSize() const;
@@ -64,22 +62,14 @@ namespace Windows
         std::pair<int16_t, int16_t> GetMaximumSize() const { return m_maximumSize; }
         std::pair<int16_t, int16_t> GetPosition() const;
 
-        SDL_Window* GetGlfwWindow() const { return m_window; }
+        SDL_Window* GetWindow() const { return m_window; }
+        SDL_GLContext GetContext() const { return m_context; }
 
         void PollEvents();
 
     private:
         void createGlfwWindow(const Settings::WindowSettings& windowSettings);
         void destroyWindow();
-
-        // void bindKeyCallback() const;
-        // void bindMouseCallback() const;
-        // void bindResizeCallback() const;
-        // void bindFramebufferResizeCallback() const;
-        // void bindCursorMoveCallback() const;
-        // void bindMoveCallback() const;
-        // void bindFocusCallback() const;
-        // void bindCloseCallback() const;
 
         void onResize(uint16_t width, uint16_t height);
         void onMove(int16_t x, int16_t y);

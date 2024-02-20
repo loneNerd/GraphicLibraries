@@ -4,13 +4,7 @@
 
 #include <stdint.h>
 
-namespace Engine
-{
-namespace Core
-{
-namespace Resources
-{
-namespace Parsers
+namespace Engine::Core::Resources::Parsers
 {
     enum class EAssimpParserFlags : uint32_t
     {
@@ -55,9 +49,6 @@ namespace Parsers
     inline EAssimpParserFlags& operator|= (EAssimpParserFlags& a, EAssimpParserFlags b) { return (EAssimpParserFlags&)((int&)a |= (int)b); }
     inline EAssimpParserFlags& operator&= (EAssimpParserFlags& a, EAssimpParserFlags b) { return (EAssimpParserFlags&)((int&)a &= (int)b); }
     inline EAssimpParserFlags& operator^= (EAssimpParserFlags& a, EAssimpParserFlags b) { return (EAssimpParserFlags&)((int&)a ^= (int)b); }
-}
-}
-}
 }
 
 #endif // ENGINE_CORE_RESOURCES_PARSERS_MODEL_PARSER_FLAGS_HPP_

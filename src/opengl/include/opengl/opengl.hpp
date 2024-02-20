@@ -14,9 +14,7 @@
 #include "settings/rasterization_mode.hpp"
 #include "settings/rendering_capability.hpp"
 
-namespace Engine
-{
-namespace OpenGL
+namespace Engine::OpenGL
 {
     struct FrameInfo
     {
@@ -38,7 +36,6 @@ namespace OpenGL
 
         void SetClearColor(float red, float green, float blue, float alpha = 1.0f);
         void Clear(bool colorBuffer = true, bool depthBuffer = true, bool stencilBuffer = true);
-        void Clear(Camera& camera, bool colorBuffer = true, bool depthBuffer = true, bool stencilBuffer = true);
         void SetRasterizationLinesWidth(float width);
         void SetRasterizationMode(Settings::ERasterizationMode rasterizationMode);
         void SetCapability(Settings::ERenderingCapability capability, bool value);
@@ -79,7 +76,6 @@ namespace OpenGL
         FrameInfo m_frameInfo;
         uint8_t   m_state = 0;
     };
-}
 }
 
 #endif // ENGINE_OPENGL_OPENGL_HPP_

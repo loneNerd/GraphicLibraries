@@ -12,10 +12,6 @@ Core::Actor::Actor(int64_t actorID, const std::string& name, const std::string& 
     m_transform = AddComponent<Components::ComponentTransform>();
 }
 
-Core::Actor::~Actor()
-{
-}
-
 const std::string& Core::Actor::GetName() const
 {
     return m_name;

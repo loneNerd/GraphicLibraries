@@ -4,11 +4,7 @@
 
 #include <stdint.h>
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Resources
+namespace Engine::OpenGL::Resources
 {
     enum class UniformType : uint32_t
     {
@@ -23,8 +19,6 @@ namespace Resources
         UniformSampler2D   = 0x8B5E,
         UniformSamplerCube = 0x8B60
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_RESOURCES_UNIFORM_TYPE_HPP_

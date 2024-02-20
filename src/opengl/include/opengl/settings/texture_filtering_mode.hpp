@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_TEXTURE_FILTERIG_MODE_HPP_
 #define ENGINE_OPENGL_SETTINGS_TEXTURE_FILTERIG_MODE_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class ETextureFilteringMode
     {
@@ -17,8 +13,6 @@ namespace Settings
         LinearMipmapNearest   = 0x2701,
         NearestMipmapLinear   = 0x2702
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_TEXTURE_FILTERIG_MODE_HPP_

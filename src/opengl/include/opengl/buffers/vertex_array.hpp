@@ -6,11 +6,7 @@
 
 #include "vertex_buffer.hpp"
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Buffers
+namespace Engine::OpenGL::Buffers
 {
     enum class EType
     {
@@ -44,8 +40,6 @@ namespace Buffers
     private:
         GLuint m_bufferID = 0;
     };
-}
-}
 }
 
 #include "vertex_array.inl"

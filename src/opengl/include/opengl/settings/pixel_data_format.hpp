@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_PIXEL_DATA_FORMAT_HPP_
 #define ENGINE_OPENGL_SETTINGS_PIXEL_DATA_FORMAT_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class EPixelDataFormat
     {
@@ -24,8 +20,6 @@ namespace Settings
         Luminance       = 0x1909,
         Luminance_Alpha = 0x190A,
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_PIXEL_DATA_FORMAT_HPP_

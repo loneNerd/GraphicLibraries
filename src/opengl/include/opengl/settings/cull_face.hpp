@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_CULL_FACE_HPP_
 #define ENGINE_OPENGL_SETTINGS_CULL_FACE_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class ECullFace
     {
@@ -14,8 +10,6 @@ namespace Settings
         Back         = 0x0405,
         FrontAndBack = 0x0408
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_CULL_FACE_HPP_

@@ -2,11 +2,7 @@
 #ifndef ENGINE_OPENGL_SETTINGS_PRIMITIVE_MODE_HPP_
 #define ENGINE_OPENGL_SETTINGS_PRIMITIVE_MODE_HPP_
 
-namespace Engine
-{
-namespace OpenGL
-{
-namespace Settings
+namespace Engine::OpenGL::Settings
 {
     enum class EPrimitiveMode
     {
@@ -23,8 +19,6 @@ namespace Settings
         TriangleStripAdjacency = 0x000D,
         Patches                = 0xE,
     };
-}
-}
 }
 
 #endif // ENGINE_OPENGL_SETTINGS_PRIMITIVE_MODE_HPP_

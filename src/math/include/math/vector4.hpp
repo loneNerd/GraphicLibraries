@@ -2,9 +2,7 @@
 #ifndef ENGINE_MATH_VECTOR4_HPP_
 #define ENGINE_MATH_VECTOR4_HPP_
 
-namespace Engine
-{
-namespace Math
+namespace Engine::Math
 {
     struct FVector4
     {
@@ -42,7 +40,6 @@ namespace Math
         static FVector4 Normalize(const FVector4& target);
         static FVector4 Lerp(const FVector4& start, const FVector4& end, float alpha);
     };
-}
 }
 
 #endif // ENGINE_MATH_VECTOR4_HPP_

@@ -12,11 +12,7 @@
 
 namespace Engine::Core::ResourceManagement { class MaterialManager; }
 
-namespace Engine
-{
-namespace Core
-{
-namespace Resources
+namespace Engine::Core::Resources
 {
     class Material
     {
@@ -40,7 +36,7 @@ namespace Resources
     private:
         friend class Engine::Core::ResourceManagement::MaterialManager;
 
-        Material(std::string name);
+        Material(std::string name) : Name(name) { }
 
         static std::shared_ptr<Material> createSharedPtr(std::string name);
         static std::unique_ptr<Material> createUniquePtr(std::string name);
@@ -49,8 +45,6 @@ namespace Resources
 
         std::optional<std::string> m_diffuse = std::nullopt;
     };
-}
-}
 }
 
 #include "material.inl"

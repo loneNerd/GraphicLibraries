@@ -1,11 +1,10 @@
 #include "engine/application.hpp"
 
 #include "tools/time/clock.hpp"
+#include "tools/utils/service_locator.hpp"
 #include "windows/sdl2.hpp"
 
-namespace Editor = Engine::Editor;
-
-void Editor::Application::Run()
+void Engine::Application::Run()
 {
     Tools::Time::Clock clock;
 
@@ -19,7 +18,7 @@ void Editor::Application::Run()
     }
 }
 
-bool Editor::Application::IsRunning() const
+bool Engine::Application::IsRunning() const
 {
-    return !m_context.Window->ShouldClose();
+    return !Tools::Utils::ServiceLocator::Get<Windows::SDL2>()->ShouldClose();
 }
