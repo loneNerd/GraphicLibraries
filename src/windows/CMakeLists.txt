@@ -15,10 +15,11 @@ add_library(${ENGINE_WINDOWS_PROJECT} SHARED ${ENGINE_WINDOWS_CODE_LIST})
 target_compile_features(${ENGINE_WINDOWS_PROJECT} PRIVATE cxx_std_17)
 target_include_directories(${ENGINE_WINDOWS_PROJECT} PRIVATE 
     ${CMAKE_SOURCE_DIR}/src/logs/include
+    ${CMAKE_SOURCE_DIR}/src/tools/include
     ${CMAKE_SOURCE_DIR}/src/windows/include
     ${ENGINE_EXTERNAL_INCLUDE_DIR}
 )
-target_link_libraries(${ENGINE_WINDOWS_PROJECT} ${ENGINE_EXTERNAL_LIBS_DIR}/SDL2.lib Logs)
+target_link_libraries(${ENGINE_WINDOWS_PROJECT} ${ENGINE_EXTERNAL_LIBS_DIR}/SDL2.lib Logs Tools)
 
 foreach(CODE_FILE IN ITEMS ${ENGINE_WINDOWS_CODE_LIST})
     get_filename_component(CODE_FILE_PATH "${CODE_FILE}" PATH)

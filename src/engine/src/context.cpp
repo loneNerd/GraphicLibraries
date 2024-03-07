@@ -9,7 +9,10 @@
 #include "opengl/driver.hpp"
 #include "tools/utils/service_locator.hpp"
 #include "ui/ui_manager.hpp"
+#include "windows/inputs/input_manager.hpp"
 #include "windows/sdl2.hpp"
+
+#include <iostream>
 
 Engine::Context::Context(const std::filesystem::path& projectPath)
     : ProjectPath(projectPath),
@@ -25,12 +28,15 @@ Engine::Context::Context(const std::filesystem::path& projectPath)
     windowSettings.Title = "Editor";
     windowSettings.Width = 1280;
     windowSettings.Height = 720;
-    windowSettings.Flags = Windows::Settings::ESDL2WindowFlags::OpenGL     |
-                           Windows::Settings::ESDL2WindowFlags::InputFocus |
+    windowSettings.Flags = Windows::Settings::ESDL2WindowFlags::OpenGL       |
+                           Windows::Settings::ESDL2WindowFlags::AllowHighdpi |
+                           Windows::Settings::ESDL2WindowFlags::InputFocus   |
                            Windows::Settings::ESDL2WindowFlags::Shown;
 
     std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Provide<Windows::SDL2>(windowSettings);
     window->SetTitle("Engine");
+
+    Tools::Utils::ServiceLocator::Provide<Windows::Inputs::InputManager>(window);
 
     Tools::Utils::ServiceLocator::Provide<Engine::OpenGL::Driver>(true);
     Tools::Utils::ServiceLocator::Provide<Core::Renderer>(Tools::Utils::ServiceLocator::Get<Engine::OpenGL::Driver>());

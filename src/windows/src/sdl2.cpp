@@ -10,8 +10,7 @@ Windows::SDL2::SDL2(const Settings::WindowSettings& windowSettings)
     : m_title(windowSettings.Title),
       m_size { windowSettings.Width, windowSettings.Height },
       m_minimumSize { windowSettings.MinimumWidth, windowSettings.MinimumHeight },
-      m_maximumSize { windowSettings.MaximumWidth, windowSettings.MaximumHeight }//,
-      //m_fullscreen(windowSettings.Fullscreen)
+      m_maximumSize { windowSettings.MaximumWidth, windowSettings.MaximumHeight }
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER))
     {
@@ -19,51 +18,114 @@ Windows::SDL2::SDL2(const Settings::WindowSettings& windowSettings)
         SDL_Quit();
     }
 
-    createGlfwWindow(windowSettings);
+    createSDL2Window(windowSettings);
 
-    // bindKeyCallback();
-    // bindMouseCallback();
-    // bindCloseCallback();
-    // bindResizeCallback();
-    // bindCursorMoveCallback();
-    // bindFramebufferResizeCallback();
-    // bindMoveCallback();
-    // bindFocusCallback();
+    ResizeEvent += std::bind(&SDL2::onResize, this, std::placeholders::_1, std::placeholders::_2);
+    MoveEvent += std::bind(&SDL2::onMove, this, std::placeholders::_1, std::placeholders::_2);
 }
 
 Windows::SDL2::~SDL2()
 {
-    destroyWindow();
+    ResizeEvent.RemoveAllListeners();
+
     SDL_Quit();
+}
+
+void Windows::SDL2::CloseWindow()
+{
+    destroyWindow();
 }
 
 void Windows::SDL2::PollEvents()
 {
     SDL_Event event;
-    SDL_PollEvent(&event);
 
-    switch (event.type)
+    while (SDL_PollEvent(&event))
     {
-        case SDL_KEYDOWN:
+        switch (event.type)
         {
-            if (event.key.keysym.sym == SDLK_ESCAPE)
+            case SDL_KEYDOWN:
+            {
+                KeyPressedEvent.Invoke(event.key.keysym.sym);
+                break;
+            }
+            case SDL_KEYUP:
+            {
+                KeyReleasedEvent.Invoke(event.key.keysym.sym);
+                break;
+            }
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                MouseButtonPressedEvent.Invoke(event.button.button);
+                break;
+            }
+            case SDL_MOUSEBUTTONUP:
+            {
+                MouseButtonReleasedEvent.Invoke(event.button.button);
+                break;
+            }
+            case SDL_MOUSEMOTION:
+            {
+                CursorMoveEvent.Invoke(event.motion.x, event.motion.y);
+                break;
+            }
+            case SDL_WINDOWEVENT:
+            {
+                switch (event.window.event)
+                {
+                    case SDL_WINDOWEVENT_SIZE_CHANGED:
+                    {
+                        ResizeEvent.Invoke(event.window.data1, event.window.data2);
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_MOVED:
+                    {
+                        MoveEvent.Invoke(event.window.data1, event.window.data2);
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_MINIMIZED:
+                    {
+                        MinimizeEvent.Invoke();
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_RESTORED:
+                    {
+                        RestoredEvent.Invoke();
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_MAXIMIZED:
+                    {
+                        MaximizeEvent.Invoke();
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_FOCUS_GAINED:
+                    {
+                        GainFocusEvent.Invoke();
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_FOCUS_LOST:
+                    {
+                        LostFocusEvent.Invoke();
+                        break;
+                    }
+                    case SDL_WINDOWEVENT_CLOSE:
+                    {
+                        CloseEvent.Invoke();
+                        destroyWindow();
+                        break;
+                    }
+                }
+                break;
+            }
+            case SDL_QUIT:
+            {
                 destroyWindow();
-            break;
-        }
-        case SDL_WINDOWEVENT:
-        {
-            if (event.window.event == SDL_WINDOWEVENT_CLOSE)
-                destroyWindow();
-            break;
-        }
-        case SDL_QUIT:
-        {
-            destroyWindow();
-            break;
-        }
-        default:
-        {
-            break;
+                break;
+            }
+            default:
+            {
+                break;
+            }
         }
     }
 }
@@ -126,7 +188,7 @@ std::pair<int16_t, int16_t> Windows::SDL2::GetPosition() const
     return std::make_pair(static_cast<int16_t>(x), static_cast<int16_t>(y));
 }
 
-void Windows::SDL2::createGlfwWindow(const Settings::WindowSettings& windowSettings)
+void Windows::SDL2::createSDL2Window(const Settings::WindowSettings& windowSettings)
 {
     m_window = SDL_CreateWindow("",
         SDL_WINDOWPOS_CENTERED,

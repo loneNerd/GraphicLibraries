@@ -9,6 +9,7 @@
 #include "engine/panels/scene_view.hpp"
 #include "core/scene_system/scene_manager.hpp"
 #include "tools/utils/service_locator.hpp"
+#include "windows/inputs/input_manager.hpp"
 
 namespace Core = Engine::Core;
 
@@ -42,6 +43,11 @@ void Engine::Editor::PreUpdate()
 
 void Engine::Editor::Update(float dt)
 {
+    std::shared_ptr<Windows::Inputs::InputManager> input = Tools::Utils::ServiceLocator::Get<Windows::Inputs::InputManager>();
+
+    if (input->IsKeyPressed(Engine::Windows::Inputs::EKey::Escape))
+        Tools::Utils::ServiceLocator::Get<Windows::SDL2>()->CloseWindow();
+
     m_sceneView->Render();
 }
 

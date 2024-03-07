@@ -9,10 +9,9 @@
 #include <sdl2/SDL.h>
 
 #include "settings/window_settings.hpp"
+#include "tools/eventing/event.hpp"
 
-namespace Engine
-{
-namespace Windows
+namespace Engine::Windows
 {
     class SDL2
     {
@@ -27,6 +26,7 @@ namespace Windows
 
         void SetSize(uint16_t width, uint16_t height) { SDL_SetWindowSize(m_window, static_cast<int>(width), static_cast<int>(height)); }
         void SetPosition(int16_t x, int16_t y) { SDL_SetWindowPosition(m_window, static_cast<int>(x), static_cast<int>(y)); }
+        void SetMousePosition(int16_t x, int16_t y) { SDL_WarpMouseInWindow(m_window, static_cast<int>(x), static_cast<int>(y)); }
         void SetMinimumSize(int16_t minimumWidth, int16_t minimumHeight);
         void SetMaximumSize(int16_t maximumWidth, int16_t maximumHeight);
         void SetFullscreen(bool value);
@@ -66,9 +66,25 @@ namespace Windows
         SDL_GLContext GetContext() const { return m_context; }
 
         void PollEvents();
+        void CloseWindow();
+
+        Tools::Eventing::Event<int> KeyPressedEvent;
+        Tools::Eventing::Event<int> KeyReleasedEvent;
+        Tools::Eventing::Event<int> MouseButtonPressedEvent;
+        Tools::Eventing::Event<int> MouseButtonReleasedEvent;
+
+        Tools::Eventing::Event<uint16_t, uint16_t> ResizeEvent;
+        Tools::Eventing::Event<int16_t, int16_t> MoveEvent;
+        Tools::Eventing::Event<int16_t, int16_t> CursorMoveEvent;
+        Tools::Eventing::Event<> MinimizeEvent;
+        Tools::Eventing::Event<> RestoredEvent;
+        Tools::Eventing::Event<> MaximizeEvent;
+        Tools::Eventing::Event<> GainFocusEvent;
+        Tools::Eventing::Event<> LostFocusEvent;
+        Tools::Eventing::Event<> CloseEvent;
 
     private:
-        void createGlfwWindow(const Settings::WindowSettings& windowSettings);
+        void createSDL2Window(const Settings::WindowSettings& windowSettings);
         void destroyWindow();
 
         void onResize(uint16_t width, uint16_t height);
@@ -85,7 +101,6 @@ namespace Windows
         std::pair<int16_t, int16_t> m_maximumSize = { -1, -1 };
         std::pair<int16_t, int16_t> m_position    = { -1, -1 };
     };
-}
 }
 
 #endif // ENGINE_WINDOWS_SDL2_HPP_
