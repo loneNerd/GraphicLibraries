@@ -10,6 +10,7 @@
 
 #include "settings/window_settings.hpp"
 #include "tools/eventing/event.hpp"
+#include "cursor/cursor_shape.hpp"
 
 namespace Engine::Windows
 {
@@ -51,6 +52,10 @@ namespace Engine::Windows
         bool IsFocused() const    { return SDL_GetWindowFlags(m_window) & SDL_WINDOW_INPUT_FOCUS; }
         bool IsResizable() const  { return SDL_GetWindowFlags(m_window) & SDL_WINDOW_RESIZABLE; }
         bool IsDecorated() const  { return SDL_GetWindowFlags(m_window) & SDL_WINDOW_BORDERLESS; }
+
+        void ShowCursor(bool state)          { SDL_ShowCursor(state ? SDL_ENABLE : SDL_DISABLE); }
+        void SetRelativeMouseMode(bool lock) { SDL_SetRelativeMouseMode(lock ? SDL_TRUE : SDL_FALSE); }
+        void SetCursorShape(Cursor::ECursorShape cursor);
 
         void SwapBuffers() const { SDL_GL_SwapWindow(m_window); }
 

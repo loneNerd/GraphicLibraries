@@ -4,11 +4,7 @@
 
 #include <stdint.h>
 
-namespace Engine
-{
-namespace Windows
-{
-namespace Settings
+namespace Engine::Windows::Settings
 {
     enum class ESDL2WindowFlags : uint32_t
     {
@@ -46,8 +42,6 @@ namespace Settings
     inline ESDL2WindowFlags& operator|= (ESDL2WindowFlags& a, ESDL2WindowFlags b) { return (ESDL2WindowFlags&)((int&)a |= (int)b); }
     inline ESDL2WindowFlags& operator&= (ESDL2WindowFlags& a, ESDL2WindowFlags b) { return (ESDL2WindowFlags&)((int&)a &= (int)b); }
     inline ESDL2WindowFlags& operator^= (ESDL2WindowFlags& a, ESDL2WindowFlags b) { return (ESDL2WindowFlags&)((int&)a ^= (int)b); }
-}
-}
 }
 
 #endif // ENGINE_WINDOWS_SETTINGS_SDL2_WINDOW_FLAGS_HPP_

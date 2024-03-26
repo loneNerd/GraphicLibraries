@@ -7,8 +7,8 @@ namespace Engine::Windows::Inputs
     enum class EMouseButton
     {
         Left   = 1,
-        Right  = 2,
-        Middle = 3
+        Middle = 2,
+        Right   = 3
         //MB1    = 1,
         //MB2    = 2,
         //MB3    = 3,

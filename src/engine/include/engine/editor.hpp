@@ -3,6 +3,9 @@
 #define ENGINE_EDITOR_HPP_
 
 #include "context.hpp"
+//#include "ui/modules/canvas.hpp"
+
+namespace Engine::UI::Modules { class Canvas; }
 
 namespace Engine
 {
@@ -28,6 +31,7 @@ namespace Engine
 
         uint64_t m_elapsedFrames = 0;
         Context& m_context;
+        std::shared_ptr<UI::Modules::Canvas> m_canvas = nullptr;
         std::shared_ptr<Panels::SceneView> m_sceneView = nullptr;
     };
 }

@@ -9,6 +9,7 @@
 
 #include <imgui/imgui.h>
 
+//#include "ui/modules/canvas.hpp"
 #include "styling/style.hpp"
 
 namespace Engine::Windows { class SDL2; }
@@ -33,10 +34,13 @@ namespace Engine::UI
         float GetEditorLayoutAutosaveFrequency();
         void EnableDocking(bool value);
         bool IsDockingEnabled() const;
+        void SetCanvas(std::shared_ptr<Modules::Canvas> canvas);
+        void RemoveCanvas();
         void Render();
 
     private:
         bool m_dockingState = false;
+        std::shared_ptr<Modules::Canvas> m_currentCanvas = nullptr;
     };
 }
 

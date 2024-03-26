@@ -45,10 +45,10 @@ namespace Engine::UI::Panels
         void Update();
         virtual void DrawImpl() = 0;
 
-        Math::FVector2 m_defaultPosition;
-        Math::FVector2 m_defaultSize;
-        Settings::EHorizontalAlignment m_defaultHorizontalAlignment;
-        Settings::EVerticalAlignment m_defaultVerticalAlignment;
+        Math::FVector2 m_defaultPosition = Math::FVector2(-1.0f, -1.0f);
+        Math::FVector2 m_defaultSize = Math::FVector2(-1.0f, -1.0f);
+        Settings::EHorizontalAlignment m_defaultHorizontalAlignment = Settings::EHorizontalAlignment::Left;
+        Settings::EVerticalAlignment m_defaultVerticalAlignment = Settings::EVerticalAlignment::Top;
         bool m_ignoreConfigFile = true;
 
         Math::FVector2 m_position = Math::FVector2(0.0f, 0.0f);

@@ -28,16 +28,21 @@ namespace Engine::Panels
         BaseView& operator=(const BaseView& other)  = delete;
         BaseView& operator=(const BaseView&& other) = delete;
 
+        virtual void Update(float dt) { }
         void DrawImpl() override;
         virtual void RenderImpl() = 0;
         void Render();
-        void SetCameraPosition(const Math::FVector3& position);
-        void SetCameraRotation(const Math::FQuaternion& rotation);
+        void SetCameraPosition(const Math::FVector3 position);
+        void SetCameraRotation(const Math::FQuaternion rotation);
         const Math::FVector3& GetCameraPosition() const;
         const Math::FQuaternion& GetCameraRotation() const;
         const std::shared_ptr<Engine::OpenGL::Camera> GetCamera() const;
 
+        std::pair<uint16_t, uint16_t> GetSafeSize() const;
+
     protected:
+        void prepareCamera();
+
         std::shared_ptr<Engine::OpenGL::Camera> m_camera = nullptr;
         Engine::Math::FVector3 m_cameraPosition = { 0.0f, 0.0f, 5.0f };
         Engine::Math::FQuaternion m_cameraRotation = Engine::Math::FQuaternion({ 0.0f, 180.0f, 0.0f });

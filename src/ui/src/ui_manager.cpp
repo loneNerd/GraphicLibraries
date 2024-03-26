@@ -1,4 +1,5 @@
 #include "ui/ui_manager.hpp"
+#include "ui/modules/canvas.hpp"
 #include "windows/sdl2.hpp"
 
 #include <imgui/backends/imgui_impl_opengl3.h>
@@ -193,6 +194,22 @@ bool UI::UIManager::IsDockingEnabled() const
     return m_dockingState;
 }
 
+void UI::UIManager::SetCanvas(std::shared_ptr<Modules::Canvas> canvas)
+{
+    RemoveCanvas();
+    m_currentCanvas = canvas;
+}
+
+void UI::UIManager::RemoveCanvas()
+{
+    m_currentCanvas = nullptr;
+}
+
 void UI::UIManager::Render()
 {
+    if (m_currentCanvas)
+    {
+        m_currentCanvas->Draw();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    }
 }

@@ -25,7 +25,7 @@ Panels::SceneView::SceneView
     const std::string& title,
     bool opened,
     const UI::Settings::PanelWindowSettings& windowSettings
-) : BaseView(title, opened, windowSettings)
+) : ControllableView(title, opened, windowSettings, true)
 {
     m_camera->SetFar(5000.0f);
     m_camera->SetProjectionMode(OpenGL::Settings::EProjectionMode::Perspective);
@@ -88,6 +88,7 @@ Panels::SceneView::~SceneView()
 
 void Panels::SceneView::RenderImpl()
 {
+    prepareCamera();
     std::shared_ptr<Core::Renderer> renderer = Tools::Utils::ServiceLocator::Get<Core::Renderer>();
     renderer->RenderScene(Tools::Utils::ServiceLocator::Get<Core::SceneSystem::SceneManager>()->GetCurrentScene(), m_camera, m_cameraPosition, m_cameraRotation, m_shader);
 }

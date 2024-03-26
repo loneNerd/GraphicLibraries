@@ -2,13 +2,13 @@
 #ifndef ENGINE_PANELS_SCENE_VIEW_HPP_
 #define ENGINE_PANELS_SCENE_VIEW_HPP_
 
-#include "base_view.hpp"
+#include "controllable_view.hpp"
 
 namespace Engine::OpenGL::Resources { class Shader; }
 
 namespace Engine::Panels
 {
-    class SceneView : public BaseView
+    class SceneView : public ControllableView
     {
     public:
         SceneView

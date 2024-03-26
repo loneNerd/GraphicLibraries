@@ -3,6 +3,8 @@
 #include "core/renderer.hpp"
 #include "ui/ui_manager.hpp"
 #include "opengl/camera.hpp"
+#include "tools/utils/service_locator.hpp"
+#include "windows/sdl2.hpp"
 
 namespace Math = Engine::Math;
 namespace OpenGL = Engine::OpenGL;
@@ -44,12 +46,12 @@ void Engine::Panels::BaseView::Render()
     RenderImpl();
 }
 
-void Engine::Panels::BaseView::SetCameraPosition(const Math::FVector3& position)
+void Engine::Panels::BaseView::SetCameraPosition(const Math::FVector3 position)
 {
     m_cameraPosition = position;
 }
 
-void Engine::Panels::BaseView::SetCameraRotation(const Math::FQuaternion& rotation)
+void Engine::Panels::BaseView::SetCameraRotation(const Math::FQuaternion rotation)
 {
     m_cameraRotation = rotation;
 }
@@ -67,4 +69,18 @@ const Math::FQuaternion& Engine::Panels::BaseView::GetCameraRotation() const
 const std::shared_ptr<Engine::OpenGL::Camera> Engine::Panels::BaseView::GetCamera() const
 {
     return m_camera;
+}
+
+std::pair<uint16_t, uint16_t> Engine::Panels::BaseView::GetSafeSize() const
+{
+    std::pair<uint16_t, uint16_t> size = Tools::Utils::ServiceLocator::Get<Windows::SDL2>()->GetSize();
+    //auto result = GetSize() - Math::FVector2 { 0.f, 25.f }; // 25 == title bar height
+    auto result = Math::FVector2(size.first, size.second) - Math::FVector2 { 0.f, 25.f }; // 25 == title bar height
+    return { static_cast<uint16_t>(result.X), static_cast<uint16_t>(result.Y) };
+}
+
+void Engine::Panels::BaseView::prepareCamera()
+{
+    auto [winWidth, winHeight] = GetSafeSize();
+    m_camera->CacheMatrices(winWidth, winHeight, m_cameraPosition, m_cameraRotation);
 }

@@ -20,14 +20,16 @@ Inputs::InputManager::~InputManager()
     m_window->MouseButtonReleasedEvent.RemoveListener(m_mouseButtonReleasedListener);
 }
 
-Inputs::EKeyState Inputs::InputManager::GetKeyState(EKey key) const
-{
-    const Uint8* keys = SDL_GetKeyboardState(nullptr);
-    if (keys[static_cast<int>(key)])
-        return EKeyState::Pressed;
-
-    return EKeyState::Released;
-}
+//Inputs::EKeyState Inputs::InputManager::GetKeyState(EKey key) const
+//{
+//    //const Uint8* states = SDL_GetKeyboardState(NULL);
+//    ////SDL_PumpEvents();
+//    //if (states[static_cast<int>(key)])
+//    if (IsKeyPressed(key))
+//        return EKeyState::Pressed;
+//
+//    return EKeyState::Released;
+//}
 
 Inputs::EMouseButtonState Inputs::InputManager::GetMouseButtonState(EMouseButton button) const
 {

@@ -6,11 +6,7 @@
 
 #include "windows/settings/sdl2_window_flags.hpp"
 
-namespace Engine
-{
-namespace Windows
-{
-namespace Settings
+namespace Engine::Windows::Settings
 {
     struct WindowSettings
     {
@@ -29,8 +25,6 @@ namespace Settings
         ESDL2WindowFlags Flags = ESDL2WindowFlags::None;
         uint32_t Samples = 4;
     };
-}
-}
 }
 
 #endif // ENGINE_WINDOWS_SETTINGS_WINDOW_SETTINGS_HPP_

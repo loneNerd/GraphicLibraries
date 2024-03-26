@@ -157,6 +157,12 @@ void Windows::SDL2::SetTitle(const std::string& title)
     SDL_SetWindowTitle(m_window, title.c_str());
 }
 
+void Windows::SDL2::SetCursorShape(Cursor::ECursorShape cursorShape)
+{
+    SDL_Cursor* cursor = SDL_CreateSystemCursor(static_cast<SDL_SystemCursor>(cursorShape));
+    SDL_SetCursor(cursor);
+}
+
 std::pair<int16_t, int16_t> Windows::SDL2::GetMonitorSize() const
 {
     SDL_DisplayMode displayMode;
