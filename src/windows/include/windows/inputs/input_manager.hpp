@@ -24,7 +24,6 @@ namespace Engine::Windows::Inputs
         InputManager& operator=(const InputManager& other)  = delete;
         InputManager& operator=(const InputManager&& other) = delete;
 
-        //EKeyState GetKeyState(EKey key) const;
         EMouseButtonState GetMouseButtonState(EMouseButton button) const;
 
         bool IsKeyPressed(EKey key) const;

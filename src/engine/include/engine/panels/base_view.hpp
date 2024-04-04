@@ -45,7 +45,7 @@ namespace Engine::Panels
 
         std::shared_ptr<Engine::OpenGL::Camera> m_camera = nullptr;
         Engine::Math::FVector3 m_cameraPosition = { 0.0f, 0.0f, 5.0f };
-        Engine::Math::FQuaternion m_cameraRotation = Engine::Math::FQuaternion({ 0.0f, 180.0f, 0.0f });
+        Engine::Math::FQuaternion m_cameraRotation = Engine::Math::FQuaternion({ 0.0f, 0.0f, 0.0f });
     };
 }
 

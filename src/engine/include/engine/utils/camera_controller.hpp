@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "math/quaternion.hpp"
+#include "tools/eventing/event.hpp"
 
 namespace Engine::OpenGL { class Camera; }
 namespace Engine::Panels { class BaseView; }
@@ -41,27 +42,25 @@ namespace Engine::Utils
 
     private:
         void handleCameraFPSKeyboard(float dt);
+        void handleCameraFPSMouse(float dt);
+
+        void onMouseButtonPressed(int button);
+        void onMouseButtonReleased(int button);
 
         Panels::BaseView* m_view = nullptr;
         std::shared_ptr<OpenGL::Camera> m_camera = nullptr;
         Math::FVector3& m_cameraPosition;
         Math::FQuaternion& m_cameraRotation;
 
-        //bool m_leftMousePressed = false;
-        //bool m_middleMousePressed = false;
-        //bool m_rightMousePressed = false;
-
-        //Math::FVector3 m_targetSpeed = Math::FVector3(0.0f, 0.0f, 0.0f);
         Math::FVector3 m_currentMovementSpeed = Math::FVector3(0.0f, 0.0f, 0.0f);
+        Math::FVector3 m_cameraAngle = Math::FVector3(0.0f, 0.0f, 0.0f);
 
-        //bool m_firstMouse = true;
-        //double m_lastMousePosX = 0.0;
-        //double m_lastMousePosY = 0.0;
-        //Math::FVector3 m_ypr = Math::FVector3(0.0f, 0.0f, 0.0f);
-        //float m_mouseSensitivity = 0.12f;
-        //float m_cameraDragSpeed = 0.03f;
-        //float m_cameraOrbitSpeed = 0.5f;
+        //bool m_firstStep = true;
+        Tools::Eventing::ListenerID m_mouseButtonPressedListener;
+        Tools::Eventing::ListenerID m_mouseButtonReleasedListener;
+
         float m_cameraMoveSpeed = 15.0f;
+        float m_mouseSensitivity = 5.0f;
     };
 }
 

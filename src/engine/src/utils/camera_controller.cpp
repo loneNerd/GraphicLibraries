@@ -24,6 +24,11 @@ Utils::CameraController::CameraController
     m_cameraRotation(rotation)
 {
     m_camera->SetFov(60.0f);
+
+    std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Get<Windows::SDL2>();
+    //window->MouseButtonPressedEvent += 
+    m_mouseButtonPressedListener = window->MouseButtonPressedEvent.AddListener(std::bind(&CameraController::onMouseButtonPressed, this, std::placeholders::_1));
+    m_mouseButtonReleasedListener = window->MouseButtonReleasedEvent.AddListener(std::bind(&CameraController::onMouseButtonReleased, this, std::placeholders::_1));
 }
 
 void Utils::CameraController::HandleInputs(float dt)
@@ -31,6 +36,7 @@ void Utils::CameraController::HandleInputs(float dt)
     if (m_view->IsHovered())
     {
         handleCameraFPSKeyboard(dt);
+        handleCameraFPSMouse(dt);
     }
 }
 
@@ -87,4 +93,49 @@ void Utils::CameraController::handleCameraFPSKeyboard(float dt)
 
     m_currentMovementSpeed = Math::FVector3::Lerp(m_currentMovementSpeed, targetSpeed, 10.0f * dt);
     m_cameraPosition += m_currentMovementSpeed;
+}
+
+void Utils::CameraController::handleCameraFPSMouse(float dt)
+{
+    std::shared_ptr<Inputs::InputManager> inputManager = Tools::Utils::ServiceLocator::Get<Inputs::InputManager>();
+    std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Get<Windows::SDL2>();
+    std::pair<uint16_t, uint16_t> size = window->GetSize();
+    std::pair<uint16_t, uint16_t> middle = { size.first / 2, size.second / 2 };
+
+    if (inputManager->IsMouseButtonPressed(Windows::Inputs::EMouseButton::Right))
+    {
+        std::pair<int, int> position = inputManager->GetMousePosition();
+
+        Math::FVector2 mouseOffset(position.first - middle.first, position.second - middle.second);
+        mouseOffset *= m_mouseSensitivity * dt;
+        m_cameraAngle.Y -= mouseOffset.X;
+        m_cameraAngle.X += mouseOffset.Y;
+        m_cameraAngle.X = std::max(std::min(m_cameraAngle.X, 90.0f), -90.0f);
+
+        m_cameraRotation = Math::FQuaternion(m_cameraAngle);
+
+        window->SetMousePosition(middle.first, middle.second);
+    }
+}
+
+void Utils::CameraController::onMouseButtonPressed(int button)
+{
+    std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Get<Windows::SDL2>();
+    if (static_cast<Inputs::EMouseButton>(button) == Inputs::EMouseButton::Right)
+    {
+        window->ShowCursor(false);
+        window->SetRelativeMouseMode(true);
+        std::pair<uint16_t, uint16_t> size = window->GetSize();
+        window->SetMousePosition(size.first / 2, size.second / 2);
+    }
+}
+
+void Utils::CameraController::onMouseButtonReleased(int button)
+{
+    std::shared_ptr<Windows::SDL2> window = Tools::Utils::ServiceLocator::Get<Windows::SDL2>();
+    if (static_cast<Inputs::EMouseButton>(button) == Inputs::EMouseButton::Right)
+    {
+        window->ShowCursor(true);
+        window->SetRelativeMouseMode(false);
+    }
 }

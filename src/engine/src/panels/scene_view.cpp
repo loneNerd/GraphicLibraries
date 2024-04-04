@@ -44,18 +44,18 @@ Panels::SceneView::SceneView
 
     std::shared_ptr<Core::Components::ModelRenderer> modelRenderer = instance->AddComponent<Core::Components::ModelRenderer>();
 
-    Parsers::EAssimpParserFlags parsers = Parsers::EAssimpParserFlags::CalcTangentSpace |
+    Parsers::EAssimpParserFlags parsers = Parsers::EAssimpParserFlags::CalcTangentSpace      |
                                           Parsers::EAssimpParserFlags::JoinIdenticalVertices |
-                                          Parsers::EAssimpParserFlags::Triangulate |
-                                          Parsers::EAssimpParserFlags::GenSmoothNormals |
-                                          Parsers::EAssimpParserFlags::FlipUVs |
-                                          Parsers::EAssimpParserFlags::ImproveCacheLocality |
-                                          Parsers::EAssimpParserFlags::FindInvalidData |
-                                          Parsers::EAssimpParserFlags::GenUVCoords |
-                                          Parsers::EAssimpParserFlags::FindInstances |
-                                          Parsers::EAssimpParserFlags::OptimizeMeshes |
-                                          Parsers::EAssimpParserFlags::OptimizeGraph |
-                                          Parsers::EAssimpParserFlags::Debone |
+                                          Parsers::EAssimpParserFlags::Triangulate           |
+                                          Parsers::EAssimpParserFlags::GenSmoothNormals      |
+                                          Parsers::EAssimpParserFlags::FlipUVs               |
+                                          Parsers::EAssimpParserFlags::ImproveCacheLocality  |
+                                          Parsers::EAssimpParserFlags::FindInvalidData       |
+                                          Parsers::EAssimpParserFlags::GenUVCoords           |
+                                          Parsers::EAssimpParserFlags::FindInstances         |
+                                          Parsers::EAssimpParserFlags::OptimizeMeshes        |
+                                          Parsers::EAssimpParserFlags::OptimizeGraph         |
+                                          Parsers::EAssimpParserFlags::Debone                |
                                           Parsers::EAssimpParserFlags::GlobalScale;
 
     const std::shared_ptr<OpenGL::Resources::Model> model = ModelManagerRef.Create(ModelManagerRef.GetRealPath("models\\cube\\cube.fbx"), parsers);
