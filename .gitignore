@@ -349,10 +349,5 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# Custom ignore rules
+# Exclude thirparty folder from ignore list
 !thirdparty/**
-thirdparty/bins/
-thirdparty/include/
-thirdparty/libs/
-!src/**
-build/
